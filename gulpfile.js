@@ -1,17 +1,19 @@
 const   { watch, src, dest, parallel, series }      = require('gulp'),
-        stylus                              = require('gulp-stylus'),
-        autoprefixer                        = require('autoprefixer-stylus'),
-        jsImport                            = require('gulp-js-import'),
-        minify                              = require('gulp-minify'),
-        rename                              = require("gulp-rename"),
-        concat                              = require('gulp-concat'),
-        cleanCSS                            = require('gulp-clean-css');
+        stylus                                      = require('gulp-stylus'),
+        autoprefixer                                = require('autoprefixer-stylus'),
+        jsImport                                    = require('gulp-js-import'),
+        minify                                      = require('gulp-minify'),
+        rename                                      = require("gulp-rename"),
+        concat                                      = require('gulp-concat'),
+        clean                                       = require('gulp-clean'),
+        cleanCSS                                    = require('gulp-clean-css');
 
 
         
-function clean(cb) {
+function clean() {
     // body omitted
-    cb();
+    return src([ 'build' ], {read: false})
+        .pipe(clean({force: true}));
 }
 
 function css() {
@@ -26,7 +28,7 @@ function css() {
         .pipe(dest('build/css'))
 }
 
-function cssMin() {
+function cssMinify () {
     return src('build/**/*.css')
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(rename( "style.min.css"))
@@ -47,12 +49,13 @@ function js() {
 }
 
 
-exports.js = js;
-exports.css = css;
-exports.cssMin = cssMin;
+exports.js          = js;
+exports.css         = css;
+exports.cssMinify   = cssMinify;
 
-exports.init = series( css, js, cssMin );
+exports.clean = series(clean);
+exports.init = series(clean, css, js, cssMinify );
 exports.default = function() {
-    watch('src/**/*.styl', series(css, cssMin));
-    watch('src/**/*.js', series( clean, js ));
+    watch('src/**/*.styl', series( css, cssMin ));
+    watch('src/**/*.js', series( js ));
 };

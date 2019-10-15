@@ -14,6 +14,7 @@
     "gulp-rename": "^1.4.0"
   },
   "devDependencies": {
+    "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-js-import": "^1.0.6",
     "gulp-uglify": "^3.0.2",
@@ -23,8 +24,9 @@
   "main": "index.js",
   "scripts": {
     "opencode": "cd opencode && opencode o && opencode w",
-    "gulp": "gulp gulp init",
-    "start": "npm-run-all --parallel opencode gulp",
+    "gulp": "gulp",
+    "init": "gulp init",
+    "start": "npm-run-all --parallel opencode gulp init",
     "gulp.deploy": "gulp deploy",
     "opencode.upload": "cd opencode && opencode u"
   },
