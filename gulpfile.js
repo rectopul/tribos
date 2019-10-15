@@ -1,4 +1,4 @@
-const   { watch, src, dest, parallel }      = require('gulp'),
+const   { watch, src, dest, parallel, series }      = require('gulp'),
         stylus                              = require('gulp-stylus'),
         autoprefixer                        = require('autoprefixer-stylus'),
         jsImport                            = require('gulp-js-import'),
@@ -50,12 +50,9 @@ function js() {
 exports.js = js;
 exports.css = css;
 exports.cssMin = cssMin;
-exports.default = function() {
-    // You can use a single task
-    watch('src/**/*.styl', parallel(css, cssMin));
-    // Or a composed task
-    watch('src/**/*.js', parallel(clean, js));
 
-    // watch('build/**/*.css', cssMin);
-   
+exports.init = series( css, js, cssMin );
+exports.default = function() {
+    watch('src/**/*.styl', series(css, cssMin));
+    watch('src/**/*.js', series( clean, js ));
 };
