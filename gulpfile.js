@@ -5,15 +5,14 @@ const   { watch, src, dest, parallel, series }      = require('gulp'),
         minify                                      = require('gulp-minify'),
         rename                                      = require("gulp-rename"),
         concat                                      = require('gulp-concat'),
-        clean                                       = require('gulp-clean'),
+        del                                         = require('del'),
         cleanCSS                                    = require('gulp-clean-css');
 
 
         
 function clean() {
     // body omitted
-    return src([ 'build' ], {read: false})
-        .pipe(clean({force: true}));
+    return del('build/**', {force:true});
 }
 
 function css() {
@@ -53,9 +52,9 @@ exports.js          = js;
 exports.css         = css;
 exports.cssMinify   = cssMinify;
 
-exports.clean = series(clean);
+
 exports.init = series(clean, css, js, cssMinify );
 exports.default = function() {
-    watch('src/**/*.styl', series( css, cssMin ));
+    watch('src/**/*.styl', series( css, cssMinify ));
     watch('src/**/*.js', series( js ));
 };

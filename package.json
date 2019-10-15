@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "gulp": "^4.0.2",
     "gulp-stylus": "^2.7.0",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
@@ -14,6 +13,8 @@
     "gulp-rename": "^1.4.0"
   },
   "devDependencies": {
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-js-import": "^1.0.6",
