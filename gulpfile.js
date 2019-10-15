@@ -5,56 +5,43 @@ const   { watch, src, dest, parallel, series }      = require('gulp'),
         minify                                      = require('gulp-minify'),
         rename                                      = require("gulp-rename"),
         concat                                      = require('gulp-concat'),
-        del                                         = require('del'),
         cleanCSS                                    = require('gulp-clean-css');
 
-
-        
-function clean() {
-    // body omitted
-    return del('build/**', {force:true});
-}
 
 function css() {
     return src('src/*.styl')
         .pipe( stylus({
             'include css': true,
             use: [autoprefixer('iOS >= 7', 'last 1 Chrome version')],
-            compress: false,
-            linenos: true
+            compress: true,
+            linenos: false
         }) )
-        .pipe(rename( "style.css"))
-        .pipe(dest('build/css'))
-}
-
-function cssMinify () {
-    return src('build/**/*.css')
-        .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(rename( "style.min.css"))
-        .pipe(dest('build/css'))
+        .pipe(rename( "app.min.css"))
+        .pipe(dest('opencode/css'))
 }
 
 function js() {
     return src('src/*.js', { sourcemaps: true })
         .pipe(jsImport({ hideConsole: true }))
-        .pipe(rename( "script.js"  ))
+        .pipe(rename( "app.js"  ))
         .pipe(minify({
             ext:{
                 src:'.js',
                 min:'.min.js'
-            }
+            },
+            exclude: ['tasks'],
+            ignoreFiles: ['.combo.js', '-min.js']
         }))
-        .pipe(dest('build/js', { sourcemaps: true }))
+        .pipe(dest('opencode/js', { sourcemaps: true }))
 }
-
 
 exports.js          = js;
 exports.css         = css;
-exports.cssMinify   = cssMinify;
+// exports.cssMinify   = cssMinify;
 
 
-exports.init = series(clean, css, js, cssMinify );
+exports.init = series(css, js);
 exports.default = function() {
-    watch('src/**/*.styl', series( css, cssMinify ));
+    watch('src/**/*.styl', series( css ));
     watch('src/**/*.js', series( js ));
 };
