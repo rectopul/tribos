@@ -7,7 +7,8 @@ const   { watch, src, dest, parallel, series }      = require('gulp'),
         concat                                      = require('gulp-concat'),
         cleanCSS                                    = require('gulp-clean-css');
 
-
+const gulp = require('gulp');  
+        
 function css() {
     return src('src/*.styl')
         .pipe( stylus({
@@ -37,11 +38,11 @@ function js() {
 
 exports.js          = js;
 exports.css         = css;
-// exports.cssMinify   = cssMinify;
-
 
 exports.init = series(css, js);
 exports.default = function() {
     watch('src/**/*.styl', series( css ));
     watch('src/**/*.js', series( js ));
 };
+
+ 

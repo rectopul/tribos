@@ -24,8 +24,7 @@
   "scripts": {
     "opencode": "cd opencode && opencode o && opencode w",
     "gulp": "gulp",
-    "init": "gulp init",
-    "start": "npm-run-all --parallel opencode gulp init",
+    "start": "npm-run-all --parallel opencode gulp",
     "gulp.deploy": "gulp deploy",
     "opencode.upload": "cd opencode && opencode u"
   },
