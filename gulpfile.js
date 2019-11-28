@@ -8,7 +8,8 @@ const   { watch, src, dest, parallel, series }      = require('gulp'),
         cleanCSS                                    = require('gulp-clean-css');
 
 const gulp = require('gulp');  
-        
+const shell = require('gulp-shell')
+
 function css() {
     return src('src/*.styl')
         .pipe( stylus({
@@ -19,6 +20,7 @@ function css() {
         }) )
         .pipe(rename( "app.min.css"))
         .pipe(dest('opencode/css'))
+        .pipe(shell(['cd opencode && opencode upload css/app.min.css']))
 }
 
 function js() {
@@ -36,12 +38,14 @@ function js() {
         .pipe(dest('opencode/js', { sourcemaps: true }))
 }
 
+ 
+
 exports.js          = js;
 exports.css         = css;
 
 exports.init = series(css, js);
 exports.default = function() {
-    watch('src/**/*.styl', series( css ));
+    watch('src/**/*.styl', series( css));
     watch('src/**/*.js', series( js ));
 };
 
