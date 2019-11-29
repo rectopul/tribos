@@ -6,25 +6,28 @@ const   { watch, src, dest, parallel, series }      = require('gulp'),
         rename                                      = require("gulp-rename"),
         concat                                      = require('gulp-concat'),
         cleanCSS                                    = require('gulp-clean-css');
-
-const gulp = require('gulp');  
-const shell = require('gulp-shell')
+        babel                                       = require('gulp-babel');
+ 
 
 function css() {
-    return src('src/*.styl')
+    return src('src/**/*.styl')
         .pipe( stylus({
             'include css': true,
             use: [autoprefixer('iOS >= 7', 'last 1 Chrome version')],
             compress: true,
             linenos: false
-        }) )
+        }))
         .pipe(rename( "app.min.css"))
-        .pipe(dest('opencode/css'))
-        .pipe(shell(['cd opencode && opencode upload css/app.min.css']))
+        .pipe(concat('app.min.css'))
+        .pipe(dest('opencode/css')) 
 }
 
+
 function js() {
-    return src('src/*.js', { sourcemaps: true })
+    return src('src/**/*.js', { sourcemaps: true })
+        .pipe(babel({
+            presets: ['@babel/env']
+        })) 
         .pipe(jsImport({ hideConsole: true }))
         .pipe(rename( "app.js"  ))
         .pipe(minify({
@@ -34,11 +37,11 @@ function js() {
             },
             exclude: ['tasks'],
             ignoreFiles: ['.combo.js', '-min.js']
-        }))
+        })) 
+
+        .pipe(concat('app.js'))
         .pipe(dest('opencode/js', { sourcemaps: true }))
 }
-
- 
 
 exports.js          = js;
 exports.css         = css;

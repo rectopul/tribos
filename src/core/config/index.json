@@ -1,0 +1,10 @@
+{
+    "1300px": "1300px",
+    "30px": "30px",
+    "mobile": "@media (max-width: 991px)",
+    "desktop": "@media (min-width: 992px)",
+    "light": 300,
+    "regular": 400,
+    "medium": 500,
+    "bold": 700
+}

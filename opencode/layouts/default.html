@@ -1,126 +1,175 @@
 {% spaceless %}
-<!doctype html>
-<html data-theme="{{ settings.extension_id }}" data-store="{{ store.id }}" class="page-{{ pages.current }}" lang="en">
-<head>
+<!DOCTYPE html>
+<html
+    data-theme="{{ settings.extension_id }}"
+    data-store="{{ store.id }}"
+    class="page-{{ pages.current }}"
+>
+    <head>
+        <!-- tray charset -->
+        {{
+            html.charset()
+        }}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="1300px" content="width=device-width, initial-scale=1" />
 
-    <!-- tray charset -->
-    {{ html.charset() }}
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- tray meta tags -->
+        {{
+            tray.meta
+        }}
 
-    <!-- tray meta tags -->
-    {{ tray.meta }}
+        <!-- tray styles -->
+        {{
+            tray.styles
+        }}
 
-    <!-- tray styles -->
-    {{ tray.styles }}
+        <!-- theme styles -->
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ asset('css/bootstrap/bootstrap.min.css') }}"
+            type="text/css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+            type="text/css"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ asset('css/app.min.css') }}"
+            type="text/css"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ asset('css/custom.css', { dynamic: true }) }}"
+            type="text/css"
+        />
 
-    <!-- theme styles -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/theme.min.css') }}" type="text/css">
-    {% if settings.extension_id == '222' %}
-        <link rel="stylesheet" href="{{ asset('css/saude-e-beleza.css') }}" type="text/css">
-    {% endif %}
-    <link rel="stylesheet" href="{{ asset('css/custom.css', {dynamic: true}) }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/app.min.css')}}" type="text/css">
+        <style>
+            {{ settings.custom_css }}
+        </style>
 
-    <!-- tray analytics -->
-    {{ tray.analytics }}
+        <!-- tray analytics -->
+        {{
+            tray.analytics
+        }}
 
-    <!-- google tag manager -->
-    {{ googleTagManager.header(pages.current, tagManagerData) }}
-</head>
-<body>
-    {{ googleTagManager.top(pages.current, tagManagerData) }}
+        <!-- google tag manager -->
+        {{
+            googleTagManager.header(pages.current, tagManagerData)
+        }}
+    </head>
+    <body class="preload">
+        {{ googleTagManager.top(pages.current, tagManagerData) }}
+        {% element 'sprite' %} {% element 'snippets/messages' %}
 
-    {% element 'snippets/messages' %}
+        <div class="wrapper">
+            <div class="wrapper__container">
+                {% element 'header' %} {% if pages.current == 'home' %} {%
+                element 'snippets/banner' {'name': 'home'} %} {% endif %}
 
-    {% element 'snippets/menu-mobile' %}
+                <main class="main">
+                    <div class="main__container">
+                        {{ content_for_layout }}
 
-    <div class="application">
-
-        {% element 'header' %}
-
-        <main class="site-main container">
-            <div class="row">
-
-                {% if "central" in pages.current %}
-                    {%  element 'sidebar-central' %}
-                {% else %}
-                    {%  element 'sidebar-left' %}
-                {% endif %}
-
-                <section class="page-content col-sm-9">
-                    {{ content_for_layout }}
-                </section>
-
-                {% if pages.current in ['catalog', 'search'] %}
-                    {% if settings.history_position == 1 %}
-                        <section class="products-visited col-sm-12">
+                        {% if pages.current in ['catalog', 'search'] %} {% if
+                        settings.history_position == 1 %}
+                        <section class="products-visited">
                             <h4>{{ Translation('confira_tambem') }}</h4>
-                            <h3 class="related-title">{{ Translation('produtos_visitados') }}</h3>
-                            {% element 'snippets/history' {
-                                'store.id': store.id,
-                                'pages.current': pages.current,
-                                'category.id': category.id
-                            } %}
+                            <h3 class="related-title">
+                                {{ Translation('produtos_visitados') }}
+                            </h3>
+                            {% element 'snippets/history' { 'store.id':
+                            store.id, 'pages.current': pages.current,
+                            'category.id': category.id } %}
                         </section>
-                    {% endif %}
-                {% endif %}
-            </div>
-        </main>
+                        {% endif %} {% endif %}
+                    </div>
+                </main>
 
-        {% element 'footer' %}
-
-        {% if settings.hottags_position == 2 %}
-            <div class="tagcloud">
-                <h4>As palavras</h4>
-                <h3>{{ Translation('tags_mais_buscadas') }}</h3>
-                {% for tag in tags %}
-                  <a href="{{ tag.url }}" style="font-size: {{ tag.font_size }}%">{{ tag.word }}</a>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        {% if pages.current in ['catalog', 'search', 'product'] %}
-            {% if settings.history_position == 2 %}
+                {% if settings.hottags_position == 2 %}
+                <div class="tagcloud">
+                    <h4>As palavras</h4>
+                    <h3>{{ Translation('tags_mais_buscadas') }}</h3>
+                    {% for tag in tags %}
+                    <a
+                        href="{{ tag.url }}"
+                        style="font-size: {{ tag.font_size }}%"
+                        >{{ tag.word }}</a
+                    >
+                    {% endfor %}
+                </div>
+                {% endif %} {% if pages.current in ['catalog', 'search',
+                'product'] %} {% if settings.history_position == 2 %}
                 <section class="products-visited col-sm-12">
                     <h4>{{ Translation('confira_tambem') }}</h4>
-                    <h3 class="related-title">{{ Translation('produtos_visitados') }}</h3>
-                    {% element 'snippets/history' {
-                        'store.id': store.id,
-                        'pages.current': pages.current,
-                        'category.id': category.id
-                    } %}
+                    <h3 class="related-title">
+                        {{ Translation('produtos_visitados') }}
+                    </h3>
+                    {% element 'snippets/history' { 'store.id': store.id,
+                    'pages.current': pages.current, 'category.id': category.id }
+                    %}
                 </section>
-            {% endif %}
-        {% endif %}
+                {% endif %} {% endif %} {% element 'snippets/newsletter' %} {%
+                element 'footer' %} {% element 'copyright' %} {% element
+                'partners' %}
+            </div>
+        </div>
 
-    </div>
+        <!-- tray -->
+        {% element 'snippets/modal' %}
+        {{ googleTagManager.bottom(pages.current, tagManagerData) }}
+        {{ tray.scripts }}
+        <script>
+            var $tray = jQuery
+        </script>
+        {{
+        html.script({
+            '0' : tray.paths.js ~ 'dist/application.min.js?' ~ utils.assets_version,
+            '1' : tray.paths.js ~ 'init.js?' ~ utils.assets_version
+        })
+        }}
+        {% element 'snippets/pageview' %}
+        {{ store.chat }}
+        {% if pages.current != 'login' %} {% element 'snippets/tray_login' %} {%
+        endif %}
+ 
 
-    <!-- tray -->
-    {% element 'snippets/modal' %}
-    {{ googleTagManager.bottom(pages.current, tagManagerData) }}
-    {{ tray.scripts }}
-    {{
-            html.script({
-                '0' : tray.paths.js ~ 'dist/application.min.js?' ~ utils.assets_version,
-                '1' : tray.paths.js ~ 'init.js?' ~ utils.assets_version
-            })
-    }}
-    {% element 'snippets/pageview' %}
-    {{ store.chat }}
+        <!-- theme scripts-->
+        <script type="text/javascript">
+            var tray = {}
+            tray['settings'] = "{{ (asset()|split('?'))[0] }}"
+        </script>
+        <script
+            src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+            data-auto-replace-svg="nest"
+        ></script>
+ 
+        <script
+        type="text/javascript"
+        charset="ISO-8859-1"
+        src="{{ asset('js/app.js') }}"
+        ></script>
 
-    <!-- theme scripts-->
-    <script type="text/javascript" src="{{ asset('js/slick.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/theme.min.js') }}"></script>
-
-    {% if settings.background_image %}
-    <style>
-        .application{ background-image: url('{{ themePath }}{{ settings.background_image }}'); }
-    </style>
-    {% endif %}
-
-</body>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org/",
+                "@type": "WebSite",
+                "name": "{{ store.name }}",
+                "url": "{{ store.secure_url }}",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "{{ store.secure_url }}/loja/busca.php?loja={{ store.id }}&palavra_busca={palavra_busca}",
+                    "query-input": "required name=palavra_busca"
+                }
+            }
+        </script>
+    </body>
 </html>
 {% endspaceless %}
