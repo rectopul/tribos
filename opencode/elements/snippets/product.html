@@ -32,20 +32,7 @@
     </div>
 
     <div class="product__actions">
-        <div class="product__compare">
-            {% set compareCSS = 'compare-hidden' %}
-
-            <a data-compare="remove" href="{{ links.compare_delete ~ product.id }}" class="{{ not product.compare ? compareCSS }}">
-                <span class="filter-checkbox checked"></span>
-                {{ Translation("remover_comparar") }}
-            </a>
-        
-            <a data-compare="add" href="{{ links.compare_add  ~ product.id }}" class="{{ product.compare ? compareCSS }}">
-                <span class="filter-checkbox"></span>
-                {{ Translation("comparar_produto") }}
-            </a>
-        </div>
-        {% element 'snippets/cp-button-quickview' { id: product.id } %}
+        <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" >Comprar</a>
     </div>
     
 </article>
