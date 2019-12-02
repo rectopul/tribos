@@ -1,10 +1,10 @@
 
 
 
-const button = $('#bt-submit-comments');
+var button = $('#bt-submit-comments');
 
 if(button) {
-    const buttonAction = $(`<button class="comments__button" type="button">Avaliar</button>`);
+    var buttonAction = $(`<button class="comments__button" type="button">Avaliar</button>`);
     button.after(buttonAction);
 
     buttonAction.click(() => {

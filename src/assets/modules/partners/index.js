@@ -1,1 +1,0 @@
-import './svg/auaha.svg';

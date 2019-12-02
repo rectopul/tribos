@@ -1,28 +1,16 @@
-export default () => {
-    const body       = document.querySelector('body');
-    let currentTop = 0;
-    let oldTop     = 0;
-    let headerTop  = document.querySelector('#header').offsetHeight;
+var lastScrollTop = 0;
+jQuery(window).scroll(function (event) {
+    var st = jQuery(this).scrollTop();
 
-    body.setAttribute('data-scrolling', false);
-    body.setAttribute('data-scrolling-mode', 'none');
-
-    window.addEventListener('scroll', () => { 
-        currentTop = window.pageYOffset;
-        
-        if(currentTop == 0)     body.setAttribute('data-scrolling', false);
-        else                    body.setAttribute('data-scrolling', true);
-
-        if(currentTop > headerTop) {
-            if(oldTop > currentTop) {
-                body.setAttribute('data-scrolling-mode', 'up');
-            } else if (oldTop < currentTop) {   
-                body.setAttribute('data-scrolling-mode', 'down');
-            } else {
-                body.setAttribute('data-scrolling-mode', 'none'); 
-            }
-            oldTop = currentTop;
-        } else body.setAttribute('data-scrolling-mode', 'none');
-    });
-
-}
+    if (st > 150) {
+        jQuery('body').addClass('moving');
+        if (st > lastScrollTop) {
+            jQuery('body').addClass('moving--down');
+        } else {
+            jQuery('body').removeClass('moving--down');
+        }
+        lastScrollTop = st;
+    } else {
+        jQuery('body').removeClass('moving');
+    }
+});

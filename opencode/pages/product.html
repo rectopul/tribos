@@ -126,8 +126,7 @@
 
 {% if product.related_products %}
 <div id="prognoos_lsi"></div>
-<section class="products-related">
-    <h4>{{ Translation('confira_tambem') }}</h4>
+<section class="products-related"> 
     <h3 class="related-title">{{ Translation('produtos_relacionados') }}</h3>
     <div class="row">
         {% for related in product.related_products %}
@@ -140,17 +139,7 @@
 {% endif %}
 
 <div id="prognoos_ib"></div>
-{% if settings.history_position == 1 %}
-    <section class="products-visited col-sm-12">
-        <h4>{{ Translation('confira_tambem') }}</h4>
-        <h3 class="related-title">{{ Translation('produtos_visitados') }}</h3>
-        {% element 'snippets/history' {
-            'store.id': store.id,
-            'pages.current': pages.current,
-            'category.id': category.id
-        } %}
-    </section>
-{% endif %}
+ 
 
 {% if banner.bottom %}
     <div class="banner banner-bottom {% if not settings.enable_banner_default %}mobile-off{% endif %}">

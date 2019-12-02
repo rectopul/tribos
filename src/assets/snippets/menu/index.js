@@ -10,8 +10,8 @@ function debounce(func){
 }
 
 function navigationHiddenResize() {
-    const widthNavigation = $('.menu--navigation .menu__ul--nv1').outerWidth();
-    let widthCurrent = 0;
+    var widthNavigation = $('.menu--navigation .menu__ul--nv1').outerWidth();
+    var widthCurrent = 0;
     $('.menu--navigation .menu__item--nv1').removeClass('menu__item--hidden');
     $('.menu--navigation .menu__item--nv1').each(function(){
         widthCurrent += $(this).outerWidth();
@@ -25,8 +25,8 @@ function navigationAlign() {
     $('.menu--navigation').each(function(){
         $(this).find('.menu--nv2').removeClass('menu--rtl');
         $(this).find('.menu--nv2').each(function(){
-            const nav = $(this).closest('.menu--nv1').outerWidth();
-            const left = $(this).offset().left + $(this).outerWidth();
+            var nav = $(this).closest('.menu--nv1').outerWidth();
+            var left = $(this).offset().left + $(this).outerWidth();
 
             if(left > nav) {
                 
@@ -36,13 +36,13 @@ function navigationAlign() {
     })
 }
 
-const childs = Array.from(document.querySelectorAll('.menu__item--has-child'));
+var childs = Array.from(document.querySelectorAll('.menu__item--has-child'));
 
 childs.forEach((child) => {
     child.addEventListener('click', (evt) => {
-        const target = evt.target;
+        var target = evt.target;
         if(target.classList.contains('menu__item--has-child')) {
-            let expanded = target.getAttribute('aria-expanded');
+            var expanded = target.getAttribute('aria-expanded');
             if(expanded !== 'true' && expanded !== 'false') expanded = 'false';
             target.setAttribute('aria-expanded', expanded === 'true' ? false : true);
             $(target).find('> .menu--sub').slideToggle();
@@ -58,3 +58,11 @@ window.addEventListener('resize', debounce(function(e){
 navigationHiddenResize();
 navigationAlign();
 
+
+$('.button--menu').on('click',function(){
+    $('body').addClass('menu__open')
+});
+
+$('.button__close--navigation').on('click',function(){
+    $('body').removeClass('menu__open')
+});

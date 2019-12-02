@@ -1,4 +1,4 @@
-const   { watch, src, dest, parallel, series }      = require('gulp'),
+var   { watch, src, dest, parallel, series }      = require('gulp'),
         stylus                                      = require('gulp-stylus'),
         autoprefixer                                = require('autoprefixer-stylus'),
         jsImport                                    = require('gulp-js-import'),

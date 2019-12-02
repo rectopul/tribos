@@ -1,13 +1,32 @@
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel';
-
-$('.banner--javascript .banner__list').slick({
+if($('.banner--javascript .banner__list')) {
+$('.banner--javascript .banner__list').not('.slick-initialized').slick({
+    mobileFirst: false,
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
     prevArrow: `<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>`,
-    nextArrow: `<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>`
+    nextArrow: `<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>`,
+    responsive: [
+        {
+            breakpoint: 424,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }
+    ]   
 });
-
-$('.banner--grid .banner__list').slick({
+}
+if($('.banner--grid .banner__list')) {
+$('.banner--grid .banner__list').not('.slick-initialized').slick({
     mobileFirst: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -30,3 +49,4 @@ $('.banner--grid .banner__list').slick({
         }
     ]   
 });
+}

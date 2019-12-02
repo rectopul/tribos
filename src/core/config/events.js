@@ -1,1 +1,1 @@
-export const CART_UPDATE = 'TRAY:CART_UPDATE';
+// export var CART_UPDATE = 'TRAY:CART_UPDATE';

@@ -1,7 +1,6 @@
 
-import 'slick-carousel';
-
-$('.rulers__list').slick({
+ 
+$('.rulers__list').not('.slick-initialized').slick({
     mobileFirst: true,
     slidesToShow: 1,
     slidesToScroll: 1,

@@ -11,7 +11,7 @@
             html.charset()
         }}
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="1300px" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <!-- tray meta tags -->
         {{
@@ -54,6 +54,8 @@
         <style>
             {{ settings.custom_css }}
         </style>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
 
         <!-- tray analytics -->
         {{
@@ -77,19 +79,6 @@
                 <main class="main">
                     <div class="main__container">
                         {{ content_for_layout }}
-
-                        {% if pages.current in ['catalog', 'search'] %} {% if
-                        settings.history_position == 1 %}
-                        <section class="products-visited">
-                            <h4>{{ Translation('confira_tambem') }}</h4>
-                            <h3 class="related-title">
-                                {{ Translation('produtos_visitados') }}
-                            </h3>
-                            {% element 'snippets/history' { 'store.id':
-                            store.id, 'pages.current': pages.current,
-                            'category.id': category.id } %}
-                        </section>
-                        {% endif %} {% endif %}
                     </div>
                 </main>
 
@@ -150,12 +139,14 @@
             src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
             data-auto-replace-svg="nest"
         ></script>
- 
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
         <script
         type="text/javascript"
         charset="ISO-8859-1"
         src="{{ asset('js/app.js') }}"
         ></script>
+
 
         <script type="application/ld+json">
             {

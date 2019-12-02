@@ -1,6 +1,6 @@
 
 
-const $ = $tray;
+var $ = $tray;
 if( typeof $ == 'function') {
     $(document).ready(function(){
         $(window).ajaxComplete(function( event, xhr, settings ){
@@ -14,12 +14,12 @@ if( typeof $ == 'function') {
     });
 
     function  loadThumb() {
-        const  thumbs  =  $('.produto-imagem-miniaturas');
+        var  thumbs  =  $('.produto-imagem-miniaturas');
 
         if(thumbs.length) {
             thumbs.hide();
 
-            const   images  =  thumbs.find('img, .icon-video');
+            var   images  =  thumbs.find('img, .icon-video');
             let     html;
             
             if($('.thumbs').length) $('.thumbs').remove();
