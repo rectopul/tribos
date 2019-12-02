@@ -12,7 +12,7 @@
                     {% set label = slide.label %}
 
                     <div class="banner__item">
-                        <a class="banner__link" href="{{ link }}" target="{{ target }}">
+                        <a class="banner__link" href="{{ link }}" alt="Banner" title="Banner" target="{{ target }}">
                             <img class="banner__img" src="{{ image }}" alt="{{ label }}">
                         </a>
                     </div>
@@ -28,7 +28,7 @@
             {% set label = banners[name].label %}
 
             <div class="banner__item">
-                <a class="banner__link" href="{{ link }}" target="{{ target }}">
+                <a class="banner__link" alt="Banner" title="Banner" href="{{ link }}" target="{{ target }}">
                     <img class="banner__img" src="{{ image }}" alt="{{ label }}">
                 </a>
             </div>

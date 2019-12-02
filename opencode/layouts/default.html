@@ -4,6 +4,7 @@
     data-theme="{{ settings.extension_id }}"
     data-store="{{ store.id }}"
     class="page-{{ pages.current }}"
+    lang="en"
 >
     <head>
         <!-- tray charset -->
@@ -24,12 +25,7 @@
         }}
 
         <!-- theme styles -->
-        <link
-            rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-            crossorigin="anonymous"
-        />
+ 
         <link
             rel="stylesheet"
             href="{{ asset('css/bootstrap/bootstrap.min.css') }}"
@@ -73,8 +69,14 @@
 
         <div class="wrapper">
             <div class="wrapper__container">
-                {% element 'header' %} {% if pages.current == 'home' %} {%
-                element 'snippets/banner' {'name': 'home'} %} {% endif %}
+                {% element 'header' %} 
+                {% if pages.current == 'home' %} 
+                    {% if not utils.is_mobile %}
+                        {% element 'snippets/banner' {'name': 'home'} %}
+                    {% else %} 
+                    {% element 'snippets/banner' {'name': 'extra12'} %}
+                    {% endif %}
+                {% endif %}
 
                 <main class="main">
                     <div class="main__container">
@@ -96,15 +98,7 @@
                 </div>
                 {% endif %} {% if pages.current in ['catalog', 'search',
                 'product'] %} {% if settings.history_position == 2 %}
-                <section class="products-visited col-sm-12">
-                    <h4>{{ Translation('confira_tambem') }}</h4>
-                    <h3 class="related-title">
-                        {{ Translation('produtos_visitados') }}
-                    </h3>
-                    {% element 'snippets/history' { 'store.id': store.id,
-                    'pages.current': pages.current, 'category.id': category.id }
-                    %}
-                </section>
+
                 {% endif %} {% endif %} {% element 'snippets/newsletter' %} {%
                 element 'footer' %} {% element 'copyright' %} {% element
                 'partners' %}
@@ -135,16 +129,13 @@
             var tray = {}
             tray['settings'] = "{{ (asset()|split('?'))[0] }}"
         </script>
-        <script
-            src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
-            data-auto-replace-svg="nest"
-        ></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+        <script type="text/javascript"  src="{{ asset('js/slick.min.js') }}"></script>
 
         <script
         type="text/javascript"
         charset="ISO-8859-1"
-        src="{{ asset('js/app.js') }}"
+        src="{{ asset('js/app.min.js') }}"
         ></script>
 
 

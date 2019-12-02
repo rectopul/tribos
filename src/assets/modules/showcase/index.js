@@ -2,12 +2,12 @@
  if($('.showcase__list[data-carousel=true]')) {
     $('.showcase__list[data-carousel=true]').each(function(){
         $(this).find('.showcase__item--empty').remove();
-        $(this).not('.slick-initialized').not('.slick-initialized').slick({
+        $(this).not('.slick-initialized').slick({
             mobileFirst: false,
             slidesToShow: 4,
             slidesToScroll: 4,
-            prevArrow: `<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>`,
-            nextArrow: `<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>`,
+            prevArrow: `<button aria-label="prev" type="button" class="slick-prev"><</button>`,
+            nextArrow: `<button aria-label="prev" type="button" class="slick-next">></button>`,
             responsive: [
                 {
                     breakpoint: 424,

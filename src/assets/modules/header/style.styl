@@ -3,9 +3,7 @@
     top: 0
     z-index: 200
     margin-bottom: 45px
-
     background: #fff
-
     transition: all .2s ease-in-out
 
     [data-scrolling-mode=down] &
@@ -48,6 +46,7 @@
 
                 svg
                     color: #47c4c0
+                    
             &:before
                 display: none
 
@@ -65,15 +64,14 @@
                     justify-content: center
                     color: #fff
                     font-weight: 700
-
-
-            
-
     &__logo 
         flex: 1 
 
     &__customer 
         padding: 0 (30px/2)
+
+        @media(max-width: 991px)
+            display: none
 
     &__search 
         position: absolute 
@@ -115,7 +113,6 @@
 
             [data-scrolling-mode=down] &
                 transform: none 
-
 
 .infobox.danger
     display: none

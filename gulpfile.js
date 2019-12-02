@@ -5,8 +5,7 @@ var   { watch, src, dest, parallel, series }      = require('gulp'),
         minify                                      = require('gulp-minify'),
         rename                                      = require("gulp-rename"),
         concat                                      = require('gulp-concat'),
-        cleanCSS                                    = require('gulp-clean-css');
-        babel                                       = require('gulp-babel');
+        cleanCSS                                    = require('gulp-clean-css'); 
  
 
 function css() {
@@ -25,11 +24,8 @@ function css() {
 
 function js() {
     return src('src/**/*.js', { sourcemaps: true })
-        .pipe(babel({
-            presets: ['@babel/env']
-        })) 
         .pipe(jsImport({ hideConsole: true }))
-        .pipe(rename( "app.js"  ))
+        .pipe(concat('app.js'))
         .pipe(minify({
             ext:{
                 src:'.js',
@@ -38,8 +34,6 @@ function js() {
             exclude: ['tasks'],
             ignoreFiles: ['.combo.js', '-min.js']
         })) 
-
-        .pipe(concat('app.js'))
         .pipe(dest('opencode/js', { sourcemaps: true }))
 }
 

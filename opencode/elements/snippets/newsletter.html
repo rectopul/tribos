@@ -7,10 +7,12 @@
         <div class="newsletter__main">
             <form class="newsletter__form" action="{{ links.newsletter }}" method="post" name="newsletter" data-tray-tst="newsletter_form">
                 <div class="newsletter__box">
-                    <input class="newsletter__input" name="name" type="text" placeholder="{{ Translation('digitar_nome') }}" required>
+                    <label for="name" style="font-size: 0">name</label>
+                    <input class="newsletter__input" id="name" name="name" type="text" placeholder="{{ Translation('digitar_nome') }}" required>
                 </div>
                 <div class="newsletter__box">
-                    <input class="newsletter__input" name="email" type="email" placeholder="{{ Translation('digitar_email') }}" data-tray-tst="newsletter_email" required>
+                    <label for="email" style="font-size: 0">email</label>
+                    <input class="newsletter__input" name="email" type="email"id="email" placeholder="{{ Translation('digitar_email') }}" data-tray-tst="newsletter_email" required>
                 </div>
                 <div class="newsletter__actions">
                     <button class="newsletter__button" data-tray-tst="newsletter_cadastrar">Quero me cadastrar</button>
