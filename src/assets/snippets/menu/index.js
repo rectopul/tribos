@@ -1,6 +1,7 @@
 
 
 
+
 function debounce(func){
     var timer;
     return function(event){
@@ -59,10 +60,10 @@ childs.forEach((child) => {
 // navigationAlign();
 
 
-$('.button--menu').on('click',function(){
-    $('body').addClass('menu__open')
+jQuery('.button--menu').click(function() {
+    jQuery('body').addClass('menu__open')
 });
 
-$('.button__close--navigation').on('click',function(){
-    $('body').removeClass('menu__open')
+jQuery('.button__close--navigation').click(function() {
+    jQuery('body').removeClass('menu__open')
 });

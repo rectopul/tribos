@@ -23,7 +23,7 @@ function css() {
 
 
 function js() {
-    return src('src/**/*.js', { sourcemaps: true })
+    return src('src/**/*.js', { sourcemaps: false })
         .pipe(jsImport({ hideConsole: true }))
         .pipe(concat('app.js'))
         .pipe(minify({
@@ -34,7 +34,7 @@ function js() {
             exclude: ['tasks'],
             ignoreFiles: ['.combo.js', '-min.js']
         })) 
-        .pipe(dest('opencode/js', { sourcemaps: true }))
+        .pipe(dest('opencode/js', { sourcemaps: false }))
 }
 
 exports.js          = js;
