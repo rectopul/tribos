@@ -1,5 +1,3 @@
-
- 
 $('.rulers__list').not('.slick-initialized').slick({
     mobileFirst: true,
     slidesToShow: 1,

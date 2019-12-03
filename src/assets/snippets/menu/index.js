@@ -50,13 +50,13 @@ childs.forEach((child) => {
     }, false);
 });
 
-window.addEventListener('resize', debounce(function(e){
-    navigationHiddenResize();
-    navigationAlign();
-}));
+// window.addEventListener('resize', debounce(function(e){
+//     navigationHiddenResize();
+//     navigationAlign();
+// }));
 
-navigationHiddenResize();
-navigationAlign();
+// navigationHiddenResize();
+// navigationAlign();
 
 
 $('.button--menu').on('click',function(){

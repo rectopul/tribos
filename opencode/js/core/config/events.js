@@ -1,2 +1,0 @@
-// export var CART_UPDATE = 'TRAY:CART_UPDATE';
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJjb3JlL2NvbmZpZy9ldmVudHMuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gZXhwb3J0IHZhciBDQVJUX1VQREFURSA9ICdUUkFZOkNBUlRfVVBEQVRFJzsiXSwiZmlsZSI6ImNvcmUvY29uZmlnL2V2ZW50cy5qcyJ9
