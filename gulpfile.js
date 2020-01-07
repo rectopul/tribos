@@ -14,7 +14,8 @@ function css() {
             'include css': true,
             use: [autoprefixer('iOS >= 7', 'last 1 Chrome version')],
             compress: true,
-            linenos: false
+            linenos: false,
+            import: __dirname+ '/src/assets/settings.styl'
         }))
         .pipe(rename( "app.min.css"))
         .pipe(concat('app.min.css'))
