@@ -41,7 +41,8 @@
     "start": "npm-run-all --parallel opencode gulp parcelstart",
     "gulp.deploy": "gulp deploy",
     "opencode.upload": "cd opencode && opencode u",
-    "parcelstart": "parcel watch app/index.js -d opencode/js --out-file appreact --no-source-maps"
+    "parcelstart": "parcel watch app/index.js -d opencode/js --out-file appreact --no-source-maps",
+    "deploy": "parcel build app/index.js -d opencode/js --out-file appreact --no-source-maps && cd opencode && opencode upload js/*"
   },
   "author": "",
   "license": "ISC"
