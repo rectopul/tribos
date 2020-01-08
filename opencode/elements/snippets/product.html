@@ -33,6 +33,10 @@
 
     <div class="product__actions">
         <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" >Comprar</a>
+        <button class="quick__button" data-quickview-button type="button" data-id="{{ product.id }}">
+           quickview
+        </button>
+
     </div>
     
 </article>

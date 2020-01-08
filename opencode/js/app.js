@@ -46,6 +46,7 @@
  }
 
 
+
  
 
 
@@ -78,7 +79,6 @@ $('.banner--javascript .banner__list').not('.slick-initialized').slick({
 });
 }
 
-
 if($('.banner--grid .banner__list')) {
 $('.banner--grid .banner__list').not('.slick-initialized').slick({
     mobileFirst: true,
@@ -104,7 +104,6 @@ $('.banner--grid .banner__list').not('.slick-initialized').slick({
     ]   
 });
 }
-
 
 
 
@@ -383,4 +382,5 @@ if($('.rulers__list')) {
 //         }
 //     }
 // }
+
  
