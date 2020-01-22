@@ -8,24 +8,18 @@
 >
     <head>
         <!-- tray charset -->
-        {{
-            html.charset()
-        }}
+        {{ html.charset() }}
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <!-- tray meta tags -->
-        {{
-            tray.meta
-        }}
+        {{ tray.meta }}
 
         <!-- tray styles -->
-        {{
-            tray.styles
-        }}
+        {{ tray.styles }}
 
         <!-- theme styles -->
- 
+
         <link
             rel="stylesheet"
             href="{{ asset('css/bootstrap/bootstrap.min.css') }}"
@@ -51,33 +45,28 @@
         <style>
             {{ settings.custom_css }}
         </style>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+        />
 
         <!-- tray analytics -->
-        {{
-            tray.analytics
-        }}
+        {{ tray.analytics }}
 
         <!-- google tag manager -->
-        {{
-            googleTagManager.header(pages.current, tagManagerData)
-        }}
+        {{ googleTagManager.header(pages.current, tagManagerData) }}
     </head>
     <body class="preload">
-        {{ googleTagManager.top(pages.current, tagManagerData) }}
-        {% element 'sprite' %} {% element 'snippets/messages' %}
+        {{ googleTagManager.top(pages.current, tagManagerData) }} {% element
+        'sprite' %} {% element 'snippets/messages' %}
 
         <div class="wrapper">
             <div class="wrapper__container">
-                {% element 'header' %} 
-                {% if pages.current == 'home' %} 
-                    {% if not utils.is_mobile %}
-                        {% element 'snippets/banner' {'name': 'home'} %}
-                    {% else %} 
-                    {% element 'snippets/banner' {'name': 'extra12'} %}
-                    {% endif %}
-                {% endif %}
+                {% element 'header' %} {% if pages.current == 'home' %} {% if
+                not utils.is_mobile %} {% element 'snippets/banner' {'name':
+                'home'} %} {% else %} {% element 'snippets/banner' {'name':
+                'extra12'} %} {% endif %} {% endif %}
 
                 <main class="main">
                     <div class="main__container">
@@ -98,52 +87,47 @@
                     {% endfor %}
                 </div>
                 {% endif %} {% if pages.current in ['catalog', 'search',
-                'product'] %} {% if settings.history_position == 2 %}
-
-                {% endif %} {% endif %} {% element 'snippets/newsletter' %} {%
-                element 'footer' %} {% element 'copyright' %} {% element
-                'partners' %}
+                'product'] %} {% if settings.history_position == 2 %} {% endif
+                %} {% endif %} {% element 'snippets/newsletter' %} {% element
+                'footer' %} {% element 'copyright' %} {% element 'partners' %}
             </div>
         </div>
 
         <!-- tray -->
-        {% element 'snippets/modal' %}
-        {{ googleTagManager.bottom(pages.current, tagManagerData) }}
-        {{ tray.scripts }}
+        {% element 'snippets/modal' %} {{ googleTagManager.bottom(pages.current,
+        tagManagerData) }} {{ tray.scripts }}
         <script>
             var $tray = jQuery
         </script>
-        {{
-        html.script({
-            '0' : tray.paths.js ~ 'dist/application.min.js?' ~ utils.assets_version,
-            '1' : tray.paths.js ~ 'init.js?' ~ utils.assets_version
-        })
-        }}
-        {% element 'snippets/pageview' %}
-        {{ store.chat }}
-        {% if pages.current != 'login' %} {% element 'snippets/tray_login' %} {%
-        endif %}
- 
+        {{ html.script({ '0' : tray.paths.js ~ 'dist/application.min.js?' ~
+        utils.assets_version, '1' : tray.paths.js ~ 'init.js?' ~
+        utils.assets_version }) }} {% element 'snippets/pageview' %} {{
+        store.chat }} {% if pages.current != 'login' %} {% element
+        'snippets/tray_login' %} {% endif %}
+
         <div data-quickview></div>
-        
+
         <!-- theme scripts-->
         <script type="text/javascript">
             var tray = {}
-            tray['settings'] = "{{ (asset()|split('?'))[0] }}"
+            tray["settings"] = "{{ (asset()|split('?'))[0] }}"
         </script>
-    
-        <script type="text/javascript"  src="{{ asset('js/slick.min.js') }}"></script>
 
         <script
-        type="text/javascript"
-        charset="ISO-8859-1"
-        src="{{ asset('js/app.min.js') }}"
+            type="text/javascript"
+            src="{{ asset('js/slick.min.js') }}"
         ></script>
 
         <script
-        type="text/javascript"
-        charset="ISO-8859-1"
-        src="{{ asset('js/appreact.js') }}"
+            type="text/javascript"
+            charset="ISO-8859-1"
+            src="{{ asset('js/app.min.js') }}"
+        ></script>
+
+        <script
+            type="text/javascript"
+            charset="ISO-8859-1"
+            src="{{ asset('js/appreact.js') }}"
         ></script>
         <script type="application/ld+json">
             {
@@ -158,7 +142,6 @@
                 }
             }
         </script>
-        
     </body>
 </html>
 {% endspaceless %}
