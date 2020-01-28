@@ -8,9 +8,7 @@ function checkAvailable() {
     const url = `${host}/check/${storeID}`
 
     axios.post(url, {
-        body: {
-            host: window.location.host
-        }
+        host: window.location.host
     })
     axios.get(url).then(check => {
         if (Object.keys(check.data).length)
