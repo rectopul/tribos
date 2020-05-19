@@ -4412,10 +4412,22 @@ try {
   module.exports = false;
 }
 
+},{}],"../node_modules/engine.io-client/lib/globalThis.browser.js":[function(require,module,exports) {
+module.exports = (function () {
+  if (typeof self !== 'undefined') {
+    return self;
+  } else if (typeof window !== 'undefined') {
+    return window;
+  } else {
+    return Function('return this')(); // eslint-disable-line no-new-func
+  }
+})();
+
 },{}],"../node_modules/engine.io-client/lib/xmlhttprequest.js":[function(require,module,exports) {
 // browser shim for xmlhttprequest module
 
 var hasCORS = require('has-cors');
+var globalThis = require('./globalThis');
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -4446,12 +4458,12 @@ module.exports = function (opts) {
 
   if (!xdomain) {
     try {
-      return new self[['Active'].concat('Object').join('X')]('Microsoft.XMLHTTP');
+      return new globalThis[['Active'].concat('Object').join('X')]('Microsoft.XMLHTTP');
     } catch (e) { }
   }
 };
 
-},{"has-cors":"../node_modules/has-cors/index.js"}],"../node_modules/engine.io-parser/lib/keys.js":[function(require,module,exports) {
+},{"has-cors":"../node_modules/has-cors/index.js","./globalThis":"../node_modules/engine.io-client/lib/globalThis.browser.js"}],"../node_modules/engine.io-parser/lib/keys.js":[function(require,module,exports) {
 
 /**
  * Gets the keys for an object.
@@ -5603,7 +5615,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
   });
 };
 
-},{"./keys":"../node_modules/engine.io-parser/lib/keys.js","has-binary2":"../node_modules/has-binary2/index.js","arraybuffer.slice":"../node_modules/arraybuffer.slice/index.js","after":"../node_modules/after/index.js","./utf8":"../node_modules/engine.io-parser/lib/utf8.js","base64-arraybuffer":"../node_modules/base64-arraybuffer/lib/base64-arraybuffer.js","blob":"../node_modules/blob/index.js"}],"../node_modules/engine.io-client/node_modules/component-emitter/index.js":[function(require,module,exports) {
+},{"./keys":"../node_modules/engine.io-parser/lib/keys.js","has-binary2":"../node_modules/has-binary2/index.js","arraybuffer.slice":"../node_modules/arraybuffer.slice/index.js","after":"../node_modules/after/index.js","./utf8":"../node_modules/engine.io-parser/lib/utf8.js","base64-arraybuffer":"../node_modules/base64-arraybuffer/lib/base64-arraybuffer.js","blob":"../node_modules/blob/index.js"}],"../node_modules/component-emitter/index.js":[function(require,module,exports) {
 
 /**
  * Expose `Emitter`.
@@ -5717,6 +5729,13 @@ Emitter.prototype.removeEventListener = function(event, fn){
       break;
     }
   }
+
+  // Remove event specific arrays for event types that no
+  // one is subscribed for to avoid memory leak.
+  if (callbacks.length === 0) {
+    delete this._callbacks['$' + event];
+  }
+
   return this;
 };
 
@@ -5730,8 +5749,13 @@ Emitter.prototype.removeEventListener = function(event, fn){
 
 Emitter.prototype.emit = function(event){
   this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
+
+  var args = new Array(arguments.length - 1)
     , callbacks = this._callbacks['$' + event];
+
+  for (var i = 1; i < arguments.length; i++) {
+    args[i - 1] = arguments[i];
+  }
 
   if (callbacks) {
     callbacks = callbacks.slice(0);
@@ -5931,7 +5955,7 @@ Transport.prototype.onClose = function () {
   this.emit('close');
 };
 
-},{"engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","component-emitter":"../node_modules/engine.io-client/node_modules/component-emitter/index.js"}],"../node_modules/parseqs/index.js":[function(require,module,exports) {
+},{"engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","component-emitter":"../node_modules/component-emitter/index.js"}],"../node_modules/parseqs/index.js":[function(require,module,exports) {
 /**
  * Compiles a querystring
  * Returns string representation of the object
@@ -6307,6 +6331,7 @@ var Polling = require('./polling');
 var Emitter = require('component-emitter');
 var inherit = require('component-inherit');
 var debug = require('debug')('engine.io-client:polling-xhr');
+var globalThis = require('../globalThis');
 
 /**
  * Module exports.
@@ -6701,7 +6726,7 @@ if (typeof document !== 'undefined') {
   if (typeof attachEvent === 'function') {
     attachEvent('onunload', unloadHandler);
   } else if (typeof addEventListener === 'function') {
-    var terminationEvent = 'onpagehide' in self ? 'pagehide' : 'unload';
+    var terminationEvent = 'onpagehide' in globalThis ? 'pagehide' : 'unload';
     addEventListener(terminationEvent, unloadHandler, false);
   }
 }
@@ -6714,14 +6739,14 @@ function unloadHandler () {
   }
 }
 
-},{"xmlhttprequest-ssl":"../node_modules/engine.io-client/lib/xmlhttprequest.js","./polling":"../node_modules/engine.io-client/lib/transports/polling.js","component-emitter":"../node_modules/engine.io-client/node_modules/component-emitter/index.js","component-inherit":"../node_modules/component-inherit/index.js","debug":"../node_modules/debug/src/browser.js"}],"../node_modules/engine.io-client/lib/transports/polling-jsonp.js":[function(require,module,exports) {
-var global = arguments[3];
+},{"xmlhttprequest-ssl":"../node_modules/engine.io-client/lib/xmlhttprequest.js","./polling":"../node_modules/engine.io-client/lib/transports/polling.js","component-emitter":"../node_modules/component-emitter/index.js","component-inherit":"../node_modules/component-inherit/index.js","debug":"../node_modules/debug/src/browser.js","../globalThis":"../node_modules/engine.io-client/lib/globalThis.browser.js"}],"../node_modules/engine.io-client/lib/transports/polling-jsonp.js":[function(require,module,exports) {
 /**
  * Module requirements.
  */
 
 var Polling = require('./polling');
 var inherit = require('component-inherit');
+var globalThis = require('../globalThis');
 
 /**
  * Module exports.
@@ -6749,15 +6774,6 @@ var callbacks;
 function empty () { }
 
 /**
- * Until https://github.com/tc39/proposal-global is shipped.
- */
-function glob () {
-  return typeof self !== 'undefined' ? self
-      : typeof window !== 'undefined' ? window
-      : typeof global !== 'undefined' ? global : {};
-}
-
-/**
  * JSONP Polling constructor.
  *
  * @param {Object} opts.
@@ -6773,8 +6789,7 @@ function JSONPPolling (opts) {
   // we do this here (lazily) to avoid unneeded global pollution
   if (!callbacks) {
     // we need to consider multiple engines in the same page
-    var global = glob();
-    callbacks = global.___eio = (global.___eio || []);
+    callbacks = globalThis.___eio = (globalThis.___eio || []);
   }
 
   // callback identifier
@@ -6956,7 +6971,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
   }
 };
 
-},{"./polling":"../node_modules/engine.io-client/lib/transports/polling.js","component-inherit":"../node_modules/component-inherit/index.js"}],"../node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{"./polling":"../node_modules/engine.io-client/lib/transports/polling.js","component-inherit":"../node_modules/component-inherit/index.js","../globalThis":"../node_modules/engine.io-client/lib/globalThis.browser.js"}],"../node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
 },{}],"../node_modules/engine.io-client/lib/transports/websocket.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
@@ -8072,7 +8087,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
   return filteredUpgrades;
 };
 
-},{"./transports/index":"../node_modules/engine.io-client/lib/transports/index.js","component-emitter":"../node_modules/engine.io-client/node_modules/component-emitter/index.js","debug":"../node_modules/debug/src/browser.js","indexof":"../node_modules/indexof/index.js","engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","parseuri":"../node_modules/parseuri/index.js","parseqs":"../node_modules/parseqs/index.js","./transport":"../node_modules/engine.io-client/lib/transport.js"}],"../node_modules/engine.io-client/lib/index.js":[function(require,module,exports) {
+},{"./transports/index":"../node_modules/engine.io-client/lib/transports/index.js","component-emitter":"../node_modules/component-emitter/index.js","debug":"../node_modules/debug/src/browser.js","indexof":"../node_modules/indexof/index.js","engine.io-parser":"../node_modules/engine.io-parser/lib/browser.js","parseuri":"../node_modules/parseuri/index.js","parseqs":"../node_modules/parseqs/index.js","./transport":"../node_modules/engine.io-client/lib/transport.js"}],"../node_modules/engine.io-client/lib/index.js":[function(require,module,exports) {
 
 module.exports = require('./socket');
 
@@ -11323,7 +11338,7 @@ checkPropTypes.resetWarningCache = function () {
 
 module.exports = checkPropTypes;
 },{"./lib/ReactPropTypesSecret":"../node_modules/prop-types/lib/ReactPropTypesSecret.js"}],"../node_modules/react/cjs/react.development.js":[function(require,module,exports) {
-/** @license React v16.13.0
+/** @license React v16.13.1
  * react.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -11341,7 +11356,7 @@ if ("development" !== "production") {
 
     var checkPropTypes = require('prop-types/checkPropTypes');
 
-    var ReactVersion = '16.13.0'; // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+    var ReactVersion = '16.13.1'; // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
     // nor polyfill, then a plain number is used for performance.
 
     var hasSymbol = typeof Symbol === 'function' && Symbol.for;
@@ -13208,7 +13223,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/react.development.js');
 }
 },{"./cjs/react.development.js":"../node_modules/react/cjs/react.development.js"}],"../node_modules/scheduler/cjs/scheduler.development.js":[function(require,module,exports) {
-/** @license React v0.19.0
+/** @license React v0.19.1
  * scheduler.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -14071,7 +14086,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/scheduler.development.js');
 }
 },{"./cjs/scheduler.development.js":"../node_modules/scheduler/cjs/scheduler.development.js"}],"../node_modules/scheduler/cjs/scheduler-tracing.development.js":[function(require,module,exports) {
-/** @license React v0.19.0
+/** @license React v0.19.1
  * scheduler-tracing.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -14427,7 +14442,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/scheduler-tracing.development.js');
 }
 },{"./cjs/scheduler-tracing.development.js":"../node_modules/scheduler/cjs/scheduler-tracing.development.js"}],"../node_modules/react-dom/cjs/react-dom.development.js":[function(require,module,exports) {
-/** @license React v16.13.0
+/** @license React v16.13.1
  * react-dom.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -14875,280 +14890,9 @@ if ("development" !== "production") {
     var FundamentalComponent = 20;
     var ScopeComponent = 21;
     var Block = 22;
-    var BEFORE_SLASH_RE = /^(.*)[\\\/]/;
-
-    function describeComponentFrame(name, source, ownerName) {
-      var sourceInfo = '';
-
-      if (source) {
-        var path = source.fileName;
-        var fileName = path.replace(BEFORE_SLASH_RE, '');
-        {
-          // In DEV, include code for a common special case:
-          // prefer "folder/index.js" instead of just "index.js".
-          if (/^index\./.test(fileName)) {
-            var match = path.match(BEFORE_SLASH_RE);
-
-            if (match) {
-              var pathBeforeSlash = match[1];
-
-              if (pathBeforeSlash) {
-                var folderName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '');
-                fileName = folderName + '/' + fileName;
-              }
-            }
-          }
-        }
-        sourceInfo = ' (at ' + fileName + ':' + source.lineNumber + ')';
-      } else if (ownerName) {
-        sourceInfo = ' (created by ' + ownerName + ')';
-      }
-
-      return '\n    in ' + (name || 'Unknown') + sourceInfo;
-    } // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
-    // nor polyfill, then a plain number is used for performance.
-
-
-    var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-    var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-    var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-    var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-    var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-    var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-    var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-    var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-
-    var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-    var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-    var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-    var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-    var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-    var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-    var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-    var MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-    var FAUX_ITERATOR_SYMBOL = '@@iterator';
-
-    function getIteratorFn(maybeIterable) {
-      if (maybeIterable === null || typeof maybeIterable !== 'object') {
-        return null;
-      }
-
-      var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
-
-      if (typeof maybeIterator === 'function') {
-        return maybeIterator;
-      }
-
-      return null;
-    }
-
-    var Uninitialized = -1;
-    var Pending = 0;
-    var Resolved = 1;
-    var Rejected = 2;
-
-    function refineResolvedLazyComponent(lazyComponent) {
-      return lazyComponent._status === Resolved ? lazyComponent._result : null;
-    }
-
-    function initializeLazyComponentType(lazyComponent) {
-      if (lazyComponent._status === Uninitialized) {
-        lazyComponent._status = Pending;
-        var ctor = lazyComponent._ctor;
-        var thenable = ctor();
-        lazyComponent._result = thenable;
-        thenable.then(function (moduleObject) {
-          if (lazyComponent._status === Pending) {
-            var defaultExport = moduleObject.default;
-            {
-              if (defaultExport === undefined) {
-                error('lazy: Expected the result of a dynamic import() call. ' + 'Instead received: %s\n\nYour code should look like: \n  ' + "const MyComponent = lazy(() => import('./MyComponent'))", moduleObject);
-              }
-            }
-            lazyComponent._status = Resolved;
-            lazyComponent._result = defaultExport;
-          }
-        }, function (error) {
-          if (lazyComponent._status === Pending) {
-            lazyComponent._status = Rejected;
-            lazyComponent._result = error;
-          }
-        });
-      }
-    }
-
-    function getWrappedName(outerType, innerType, wrapperName) {
-      var functionName = innerType.displayName || innerType.name || '';
-      return outerType.displayName || (functionName !== '' ? wrapperName + "(" + functionName + ")" : wrapperName);
-    }
-
-    function getComponentName(type) {
-      if (type == null) {
-        // Host root, text node or just invalid type.
-        return null;
-      }
-
-      {
-        if (typeof type.tag === 'number') {
-          error('Received an unexpected object in getComponentName(). ' + 'This is likely a bug in React. Please file an issue.');
-        }
-      }
-
-      if (typeof type === 'function') {
-        return type.displayName || type.name || null;
-      }
-
-      if (typeof type === 'string') {
-        return type;
-      }
-
-      switch (type) {
-        case REACT_FRAGMENT_TYPE:
-          return 'Fragment';
-
-        case REACT_PORTAL_TYPE:
-          return 'Portal';
-
-        case REACT_PROFILER_TYPE:
-          return "Profiler";
-
-        case REACT_STRICT_MODE_TYPE:
-          return 'StrictMode';
-
-        case REACT_SUSPENSE_TYPE:
-          return 'Suspense';
-
-        case REACT_SUSPENSE_LIST_TYPE:
-          return 'SuspenseList';
-      }
-
-      if (typeof type === 'object') {
-        switch (type.$$typeof) {
-          case REACT_CONTEXT_TYPE:
-            return 'Context.Consumer';
-
-          case REACT_PROVIDER_TYPE:
-            return 'Context.Provider';
-
-          case REACT_FORWARD_REF_TYPE:
-            return getWrappedName(type, type.render, 'ForwardRef');
-
-          case REACT_MEMO_TYPE:
-            return getComponentName(type.type);
-
-          case REACT_BLOCK_TYPE:
-            return getComponentName(type.render);
-
-          case REACT_LAZY_TYPE:
-            {
-              var thenable = type;
-              var resolvedThenable = refineResolvedLazyComponent(thenable);
-
-              if (resolvedThenable) {
-                return getComponentName(resolvedThenable);
-              }
-
-              break;
-            }
-        }
-      }
-
-      return null;
-    }
-
-    var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-
-    function describeFiber(fiber) {
-      switch (fiber.tag) {
-        case HostRoot:
-        case HostPortal:
-        case HostText:
-        case Fragment:
-        case ContextProvider:
-        case ContextConsumer:
-          return '';
-
-        default:
-          var owner = fiber._debugOwner;
-          var source = fiber._debugSource;
-          var name = getComponentName(fiber.type);
-          var ownerName = null;
-
-          if (owner) {
-            ownerName = getComponentName(owner.type);
-          }
-
-          return describeComponentFrame(name, source, ownerName);
-      }
-    }
-
-    function getStackByFiberInDevAndProd(workInProgress) {
-      var info = '';
-      var node = workInProgress;
-
-      do {
-        info += describeFiber(node);
-        node = node.return;
-      } while (node);
-
-      return info;
-    }
-
-    var current = null;
-    var phase = null;
-
-    function getCurrentFiberOwnerNameInDevOrNull() {
-      {
-        if (current === null) {
-          return null;
-        }
-
-        var owner = current._debugOwner;
-
-        if (owner !== null && typeof owner !== 'undefined') {
-          return getComponentName(owner.type);
-        }
-      }
-      return null;
-    }
-
-    function getCurrentFiberStackInDev() {
-      {
-        if (current === null) {
-          return '';
-        } // Safe because if current fiber exists, we are reconciling,
-        // and it is guaranteed to be the work-in-progress version.
-
-
-        return getStackByFiberInDevAndProd(current);
-      }
-    }
-
-    function resetCurrentFiber() {
-      {
-        ReactDebugCurrentFrame.getCurrentStack = null;
-        current = null;
-        phase = null;
-      }
-    }
-
-    function setCurrentFiber(fiber) {
-      {
-        ReactDebugCurrentFrame.getCurrentStack = getCurrentFiberStackInDev;
-        current = fiber;
-        phase = null;
-      }
-    }
-
-    function setCurrentPhase(lifeCyclePhase) {
-      {
-        phase = lifeCyclePhase;
-      }
-    }
     /**
      * Injectable ordering of event plugins.
      */
-
 
     var eventPluginOrder = null;
     /**
@@ -15851,9 +15595,9 @@ if ("development" !== "production") {
       null, // attributeNamespace
       true);
     });
-    var ReactDebugCurrentFrame$1 = null;
+    var ReactDebugCurrentFrame = null;
     {
-      ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
+      ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
     } // A javascript: URL can contain leading C0 control or \u0020 SPACE,
     // and any newline or tab are filtered out as if they're not part of the URL.
     // https://url.spec.whatwg.org/#url-parsing
@@ -16056,6 +15800,277 @@ if ("development" !== "production") {
         } else {
           node.setAttribute(attributeName, attributeValue);
         }
+      }
+    }
+
+    var BEFORE_SLASH_RE = /^(.*)[\\\/]/;
+
+    function describeComponentFrame(name, source, ownerName) {
+      var sourceInfo = '';
+
+      if (source) {
+        var path = source.fileName;
+        var fileName = path.replace(BEFORE_SLASH_RE, '');
+        {
+          // In DEV, include code for a common special case:
+          // prefer "folder/index.js" instead of just "index.js".
+          if (/^index\./.test(fileName)) {
+            var match = path.match(BEFORE_SLASH_RE);
+
+            if (match) {
+              var pathBeforeSlash = match[1];
+
+              if (pathBeforeSlash) {
+                var folderName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '');
+                fileName = folderName + '/' + fileName;
+              }
+            }
+          }
+        }
+        sourceInfo = ' (at ' + fileName + ':' + source.lineNumber + ')';
+      } else if (ownerName) {
+        sourceInfo = ' (created by ' + ownerName + ')';
+      }
+
+      return '\n    in ' + (name || 'Unknown') + sourceInfo;
+    } // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+    // nor polyfill, then a plain number is used for performance.
+
+
+    var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+    var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+    var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+    var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+    var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+    var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+    var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+    var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+
+    var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+    var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+    var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+    var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
+    var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+    var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+    var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
+    var MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+    var FAUX_ITERATOR_SYMBOL = '@@iterator';
+
+    function getIteratorFn(maybeIterable) {
+      if (maybeIterable === null || typeof maybeIterable !== 'object') {
+        return null;
+      }
+
+      var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
+
+      if (typeof maybeIterator === 'function') {
+        return maybeIterator;
+      }
+
+      return null;
+    }
+
+    var Uninitialized = -1;
+    var Pending = 0;
+    var Resolved = 1;
+    var Rejected = 2;
+
+    function refineResolvedLazyComponent(lazyComponent) {
+      return lazyComponent._status === Resolved ? lazyComponent._result : null;
+    }
+
+    function initializeLazyComponentType(lazyComponent) {
+      if (lazyComponent._status === Uninitialized) {
+        lazyComponent._status = Pending;
+        var ctor = lazyComponent._ctor;
+        var thenable = ctor();
+        lazyComponent._result = thenable;
+        thenable.then(function (moduleObject) {
+          if (lazyComponent._status === Pending) {
+            var defaultExport = moduleObject.default;
+            {
+              if (defaultExport === undefined) {
+                error('lazy: Expected the result of a dynamic import() call. ' + 'Instead received: %s\n\nYour code should look like: \n  ' + "const MyComponent = lazy(() => import('./MyComponent'))", moduleObject);
+              }
+            }
+            lazyComponent._status = Resolved;
+            lazyComponent._result = defaultExport;
+          }
+        }, function (error) {
+          if (lazyComponent._status === Pending) {
+            lazyComponent._status = Rejected;
+            lazyComponent._result = error;
+          }
+        });
+      }
+    }
+
+    function getWrappedName(outerType, innerType, wrapperName) {
+      var functionName = innerType.displayName || innerType.name || '';
+      return outerType.displayName || (functionName !== '' ? wrapperName + "(" + functionName + ")" : wrapperName);
+    }
+
+    function getComponentName(type) {
+      if (type == null) {
+        // Host root, text node or just invalid type.
+        return null;
+      }
+
+      {
+        if (typeof type.tag === 'number') {
+          error('Received an unexpected object in getComponentName(). ' + 'This is likely a bug in React. Please file an issue.');
+        }
+      }
+
+      if (typeof type === 'function') {
+        return type.displayName || type.name || null;
+      }
+
+      if (typeof type === 'string') {
+        return type;
+      }
+
+      switch (type) {
+        case REACT_FRAGMENT_TYPE:
+          return 'Fragment';
+
+        case REACT_PORTAL_TYPE:
+          return 'Portal';
+
+        case REACT_PROFILER_TYPE:
+          return "Profiler";
+
+        case REACT_STRICT_MODE_TYPE:
+          return 'StrictMode';
+
+        case REACT_SUSPENSE_TYPE:
+          return 'Suspense';
+
+        case REACT_SUSPENSE_LIST_TYPE:
+          return 'SuspenseList';
+      }
+
+      if (typeof type === 'object') {
+        switch (type.$$typeof) {
+          case REACT_CONTEXT_TYPE:
+            return 'Context.Consumer';
+
+          case REACT_PROVIDER_TYPE:
+            return 'Context.Provider';
+
+          case REACT_FORWARD_REF_TYPE:
+            return getWrappedName(type, type.render, 'ForwardRef');
+
+          case REACT_MEMO_TYPE:
+            return getComponentName(type.type);
+
+          case REACT_BLOCK_TYPE:
+            return getComponentName(type.render);
+
+          case REACT_LAZY_TYPE:
+            {
+              var thenable = type;
+              var resolvedThenable = refineResolvedLazyComponent(thenable);
+
+              if (resolvedThenable) {
+                return getComponentName(resolvedThenable);
+              }
+
+              break;
+            }
+        }
+      }
+
+      return null;
+    }
+
+    var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
+
+    function describeFiber(fiber) {
+      switch (fiber.tag) {
+        case HostRoot:
+        case HostPortal:
+        case HostText:
+        case Fragment:
+        case ContextProvider:
+        case ContextConsumer:
+          return '';
+
+        default:
+          var owner = fiber._debugOwner;
+          var source = fiber._debugSource;
+          var name = getComponentName(fiber.type);
+          var ownerName = null;
+
+          if (owner) {
+            ownerName = getComponentName(owner.type);
+          }
+
+          return describeComponentFrame(name, source, ownerName);
+      }
+    }
+
+    function getStackByFiberInDevAndProd(workInProgress) {
+      var info = '';
+      var node = workInProgress;
+
+      do {
+        info += describeFiber(node);
+        node = node.return;
+      } while (node);
+
+      return info;
+    }
+
+    var current = null;
+    var isRendering = false;
+
+    function getCurrentFiberOwnerNameInDevOrNull() {
+      {
+        if (current === null) {
+          return null;
+        }
+
+        var owner = current._debugOwner;
+
+        if (owner !== null && typeof owner !== 'undefined') {
+          return getComponentName(owner.type);
+        }
+      }
+      return null;
+    }
+
+    function getCurrentFiberStackInDev() {
+      {
+        if (current === null) {
+          return '';
+        } // Safe because if current fiber exists, we are reconciling,
+        // and it is guaranteed to be the work-in-progress version.
+
+
+        return getStackByFiberInDevAndProd(current);
+      }
+    }
+
+    function resetCurrentFiber() {
+      {
+        ReactDebugCurrentFrame$1.getCurrentStack = null;
+        current = null;
+        isRendering = false;
+      }
+    }
+
+    function setCurrentFiber(fiber) {
+      {
+        ReactDebugCurrentFrame$1.getCurrentStack = getCurrentFiberStackInDev;
+        current = fiber;
+        isRendering = false;
+      }
+    }
+
+    function setIsRendering(rendering) {
+      {
+        isRendering = rendering;
       }
     } // Flow does not allow string concatenation of most non-string types. To work
     // around this limitation, we use an opaque type that can only be obtained by
@@ -17806,7 +17821,7 @@ if ("development" !== "production") {
       }
 
       var eventName = 'on' + eventNameSuffix;
-      var isSupported = eventName in document;
+      var isSupported = (eventName in document);
 
       if (!isSupported) {
         var element = document.createElement('div');
@@ -20062,7 +20077,6 @@ if ("development" !== "production") {
     }
 
     var didWarnInvalidHydration = false;
-    var didWarnShadyDOM = false;
     var DANGEROUSLY_SET_INNER_HTML = 'dangerouslySetInnerHTML';
     var SUPPRESS_CONTENT_EDITABLE_WARNING = 'suppressContentEditableWarning';
     var SUPPRESS_HYDRATION_WARNING = 'suppressHydrationWarning';
@@ -20375,11 +20389,6 @@ if ("development" !== "production") {
       var isCustomComponentTag = isCustomComponent(tag, rawProps);
       {
         validatePropertiesInDevelopment(tag, rawProps);
-
-        if (isCustomComponentTag && !didWarnShadyDOM && domElement.shadyRoot) {
-          error('%s is using shady DOM. Using shady DOM with React can ' + 'cause things to break subtly.', getCurrentFiberOwnerNameInDevOrNull() || 'A component');
-          didWarnShadyDOM = true;
-        }
       } // TODO: Make sure that we check isMounted before firing any of these events.
 
       var props;
@@ -20731,11 +20740,6 @@ if ("development" !== "production") {
         suppressHydrationWarning = rawProps[SUPPRESS_HYDRATION_WARNING] === true;
         isCustomComponentTag = isCustomComponent(tag, rawProps);
         validatePropertiesInDevelopment(tag, rawProps);
-
-        if (isCustomComponentTag && !didWarnShadyDOM && domElement.shadyRoot) {
-          error('%s is using shady DOM. Using shady DOM with React can ' + 'cause things to break subtly.', getCurrentFiberOwnerNameInDevOrNull() || 'A component');
-          didWarnShadyDOM = true;
-        }
       } // TODO: Make sure that we check isMounted before firing any of these events.
 
       switch (tag) {
@@ -25294,15 +25298,9 @@ if ("development" !== "production") {
         }
 
         var childContext;
-        {
-          setCurrentPhase('getChildContext');
-        }
         startPhaseTimer(fiber, 'getChildContext');
         childContext = instance.getChildContext();
         stopPhaseTimer();
-        {
-          setCurrentPhase(null);
-        }
 
         for (var contextKey in childContext) {
           if (!(contextKey in childContextTypes)) {
@@ -31140,7 +31138,6 @@ if ("development" !== "production") {
     var didWarnAboutGetDerivedStateOnFunctionComponent;
     var didWarnAboutFunctionRefs;
     var didWarnAboutReassigningProps;
-    var didWarnAboutMaxDuration;
     var didWarnAboutRevealOrder;
     var didWarnAboutTailOptions;
     {
@@ -31150,7 +31147,6 @@ if ("development" !== "production") {
       didWarnAboutGetDerivedStateOnFunctionComponent = {};
       didWarnAboutFunctionRefs = {};
       didWarnAboutReassigningProps = false;
-      didWarnAboutMaxDuration = false;
       didWarnAboutRevealOrder = {};
       didWarnAboutTailOptions = {};
     }
@@ -31212,7 +31208,7 @@ if ("development" !== "production") {
       prepareToReadContext(workInProgress, renderExpirationTime);
       {
         ReactCurrentOwner$1.current = workInProgress;
-        setCurrentPhase('render');
+        setIsRendering(true);
         nextChildren = renderWithHooks(current, workInProgress, render, nextProps, ref, renderExpirationTime);
 
         if (workInProgress.mode & StrictMode) {
@@ -31222,7 +31218,7 @@ if ("development" !== "production") {
           }
         }
 
-        setCurrentPhase(null);
+        setIsRendering(false);
       }
 
       if (current !== null && !didReceiveUpdate) {
@@ -31419,7 +31415,7 @@ if ("development" !== "production") {
       prepareToReadContext(workInProgress, renderExpirationTime);
       {
         ReactCurrentOwner$1.current = workInProgress;
-        setCurrentPhase('render');
+        setIsRendering(true);
         nextChildren = renderWithHooks(current, workInProgress, Component, nextProps, context, renderExpirationTime);
 
         if (workInProgress.mode & StrictMode) {
@@ -31429,7 +31425,7 @@ if ("development" !== "production") {
           }
         }
 
-        setCurrentPhase(null);
+        setIsRendering(false);
       }
 
       if (current !== null && !didReceiveUpdate) {
@@ -31541,14 +31537,14 @@ if ("development" !== "production") {
         }
       } else {
         {
-          setCurrentPhase('render');
+          setIsRendering(true);
           nextChildren = instance.render();
 
           if (workInProgress.mode & StrictMode) {
             instance.render();
           }
 
-          setCurrentPhase(null);
+          setIsRendering(false);
         }
       } // React DevTools reads this flag.
 
@@ -31851,8 +31847,10 @@ if ("development" !== "production") {
           ReactStrictModeWarnings.recordLegacyContextWarning(workInProgress, null);
         }
 
+        setIsRendering(true);
         ReactCurrentOwner$1.current = workInProgress;
         value = renderWithHooks(null, workInProgress, Component, props, context, renderExpirationTime);
+        setIsRendering(false);
       } // React DevTools reads this flag.
 
       workInProgress.effectTag |= PerformedWork;
@@ -32006,15 +32004,7 @@ if ("development" !== "production") {
       }
 
       suspenseContext = setDefaultShallowSuspenseContext(suspenseContext);
-      pushSuspenseContext(workInProgress, suspenseContext);
-      {
-        if ('maxDuration' in nextProps) {
-          if (!didWarnAboutMaxDuration) {
-            didWarnAboutMaxDuration = true;
-            error('maxDuration has been removed from React. ' + 'Remove the maxDuration prop.');
-          }
-        }
-      } // This next part is a bit confusing. If the children timeout, we switch to
+      pushSuspenseContext(workInProgress, suspenseContext); // This next part is a bit confusing. If the children timeout, we switch to
       // showing the fallback children in place of the "primary" children.
       // However, we don't want to delete the primary children because then their
       // state will be lost (both the React state and the host state, e.g.
@@ -32651,9 +32641,9 @@ if ("development" !== "production") {
       var newChildren;
       {
         ReactCurrentOwner$1.current = workInProgress;
-        setCurrentPhase('render');
+        setIsRendering(true);
         newChildren = render(newValue);
-        setCurrentPhase(null);
+        setIsRendering(false);
       } // React DevTools reads this flag.
 
       workInProgress.effectTag |= PerformedWork;
@@ -35119,9 +35109,11 @@ if ("development" !== "production") {
           var currentSource = sourceFiber.alternate;
 
           if (currentSource) {
+            sourceFiber.updateQueue = currentSource.updateQueue;
             sourceFiber.memoizedState = currentSource.memoizedState;
             sourceFiber.expirationTime = currentSource.expirationTime;
           } else {
+            sourceFiber.updateQueue = null;
             sourceFiber.memoizedState = null;
           }
         }
@@ -37516,40 +37508,37 @@ if ("development" !== "production") {
       };
     }
     var didWarnAboutUpdateInRender = false;
-    var didWarnAboutUpdateInGetChildContext = false;
+    var didWarnAboutUpdateInRenderForAnotherComponent;
+    {
+      didWarnAboutUpdateInRenderForAnotherComponent = new Set();
+    }
 
     function warnAboutRenderPhaseUpdatesInDEV(fiber) {
       {
-        if ((executionContext & RenderContext) !== NoContext) {
+        if (isRendering && (executionContext & RenderContext) !== NoContext) {
           switch (fiber.tag) {
             case FunctionComponent:
             case ForwardRef:
             case SimpleMemoComponent:
               {
-                error('Cannot update a component from inside the function body of a ' + 'different component.');
+                var renderingComponentName = workInProgress && getComponentName(workInProgress.type) || 'Unknown'; // Dedupe by the rendering component because it's the one that needs to be fixed.
+
+                var dedupeKey = renderingComponentName;
+
+                if (!didWarnAboutUpdateInRenderForAnotherComponent.has(dedupeKey)) {
+                  didWarnAboutUpdateInRenderForAnotherComponent.add(dedupeKey);
+                  var setStateComponentName = getComponentName(fiber.type) || 'Unknown';
+                  error('Cannot update a component (`%s`) while rendering a ' + 'different component (`%s`). To locate the bad setState() call inside `%s`, ' + 'follow the stack trace as described in https://fb.me/setstate-in-render', setStateComponentName, renderingComponentName, renderingComponentName);
+                }
+
                 break;
               }
 
             case ClassComponent:
               {
-                switch (phase) {
-                  case 'getChildContext':
-                    if (didWarnAboutUpdateInGetChildContext) {
-                      return;
-                    }
-
-                    error('setState(...): Cannot call setState() inside getChildContext()');
-                    didWarnAboutUpdateInGetChildContext = true;
-                    break;
-
-                  case 'render':
-                    if (didWarnAboutUpdateInRender) {
-                      return;
-                    }
-
-                    error('Cannot update during an existing state transition (such as ' + 'within `render`). Render methods should be a pure ' + 'function of props and state.');
-                    didWarnAboutUpdateInRender = true;
-                    break;
+                if (!didWarnAboutUpdateInRender) {
+                  error('Cannot update during an existing state transition (such as ' + 'within `render`). Render methods should be a pure ' + 'function of props and state.');
+                  didWarnAboutUpdateInRender = true;
                 }
 
                 break;
@@ -38620,7 +38609,7 @@ if ("development" !== "production") {
       }
 
       {
-        if (phase === 'render' && current !== null && !didWarnAboutNestedUpdates) {
+        if (isRendering && current !== null && !didWarnAboutNestedUpdates) {
           didWarnAboutNestedUpdates = true;
           error('Render methods should be a pure function of props and state; ' + 'triggering nested component updates from render is not allowed. ' + 'If necessary, trigger nested updates in componentDidUpdate.\n\n' + 'Check the render method of %s.', getComponentName(current.type) || 'Unknown');
         }
@@ -39191,7 +39180,7 @@ if ("development" !== "production") {
       };
     }
 
-    var ReactVersion = '16.13.0';
+    var ReactVersion = '16.13.1';
     setAttemptUserBlockingHydration(attemptUserBlockingHydration$1);
     setAttemptContinuousHydration(attemptContinuousHydration$1);
     setAttemptHydrationAtCurrentPriority(attemptHydrationAtCurrentPriority$1);
@@ -39311,7 +39300,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/react-dom.development.js');
 }
 },{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
-/** @license React v16.13.0
+/** @license React v16.13.1
  * react-is.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -43233,25 +43222,31 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var Name = /*#__PURE__*/function (_Component) {
   _inherits(Name, _Component);
+
+  var _super = _createSuper(Name);
 
   function Name(props) {
     var _this;
 
     _classCallCheck(this, Name);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Name).call(this, props));
+    _this = _super.call(this, props);
     _this.state = {
       key: 0
     };
@@ -43270,28 +43265,28 @@ var Name = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      if (!this.props.images.length) return _react.default.createElement("div", {
+      if (!this.props.images.length) return /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__images"
-      }, _react.default.createElement("span", {
+      }, /*#__PURE__*/_react.default.createElement("span", {
         className: "quickview__images--no"
       }, "Sem Imagem"));
-      return _react.default.createElement("div", {
+      return /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__images"
-      }, _react.default.createElement("figure", {
+      }, /*#__PURE__*/_react.default.createElement("figure", {
         className: "quickview__image"
-      }, _react.default.createElement("img", {
+      }, /*#__PURE__*/_react.default.createElement("img", {
         src: this.props.images[this.state.key]
-      })), _react.default.createElement("div", {
+      })), /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__images--more"
-      }, _react.default.createElement("ul", null, this.props.images.map(function (image, key) {
-        return _react.default.createElement("li", {
+      }, /*#__PURE__*/_react.default.createElement("ul", null, this.props.images.map(function (image, key) {
+        return /*#__PURE__*/_react.default.createElement("li", {
           key: key,
           onClick: function onClick(e) {
             _this2.setState({
               key: key
             });
           }
-        }, _react.default.createElement("img", {
+        }, /*#__PURE__*/_react.default.createElement("img", {
           src: image
         }));
       }))));
@@ -43324,56 +43319,62 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var Prices = /*#__PURE__*/function (_Component) {
   _inherits(Prices, _Component);
+
+  var _super = _createSuper(Prices);
 
   function Prices() {
     _classCallCheck(this, Prices);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Prices).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(Prices, [{
     key: "render",
     value: function render() {
-      if (parseInt(this.props.offer) > 0) return _react.default.createElement("div", {
+      if (parseInt(this.props.offer) > 0) return /*#__PURE__*/_react.default.createElement("div", {
         className: "prices"
-      }, _react.default.createElement("span", {
+      }, /*#__PURE__*/_react.default.createElement("span", {
         className: "from"
       }, new Intl.NumberFormat('pt-br', {
         style: 'currency',
         currency: 'BRL'
-      }).format(this.props.price)), _react.default.createElement("span", {
+      }).format(this.props.price)), /*#__PURE__*/_react.default.createElement("span", {
         className: "to"
       }, new Intl.NumberFormat('pt-br', {
         style: 'currency',
         currency: 'BRL'
-      }).format(this.props.offer)), _react.default.createElement("span", {
+      }).format(this.props.offer)), /*#__PURE__*/_react.default.createElement("span", {
         className: "payment",
         dangerouslySetInnerHTML: {
           __html: this.props.payment
         }
       }));
-      return _react.default.createElement("div", {
+      return /*#__PURE__*/_react.default.createElement("div", {
         className: "prices"
-      }, _react.default.createElement("span", {
+      }, /*#__PURE__*/_react.default.createElement("span", {
         className: "from"
-      }), _react.default.createElement("span", {
+      }), /*#__PURE__*/_react.default.createElement("span", {
         className: "to"
       }, new Intl.NumberFormat('pt-br', {
         style: 'currency',
         currency: 'BRL'
-      }).format(this.props.price)), _react.default.createElement("span", {
+      }).format(this.props.price)), /*#__PURE__*/_react.default.createElement("span", {
         className: "payment",
         dangerouslySetInnerHTML: {
           __html: this.props.payment
@@ -43416,25 +43417,31 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var Variants = /*#__PURE__*/function (_Component) {
   _inherits(Variants, _Component);
+
+  var _super = _createSuper(Variants);
 
   function Variants(props) {
     var _this;
 
     _classCallCheck(this, Variants);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Variants).call(this, props));
+    _this = _super.call(this, props);
     _this.state = {
       variants: [],
       selected: [],
@@ -43680,18 +43687,18 @@ var Variants = /*#__PURE__*/function (_Component) {
 
       var variants = this.state.variants;
       var selects = this.state.selects;
-      if (!variants.length) return _react.default.createElement("div", {
+      if (!variants.length) return /*#__PURE__*/_react.default.createElement("div", {
         className: "variants"
       });
-      if (this.props.type == 'close') return _react.default.createElement("div", {
+      if (this.props.type == 'close') return /*#__PURE__*/_react.default.createElement("div", {
         className: "variants variants--close"
       }, selects.map(function (select, key) {
-        return _react.default.createElement("div", {
+        return /*#__PURE__*/_react.default.createElement("div", {
           key: key,
           className: select.disabled ? 'disabled variant' : 'variant'
-        }, _react.default.createElement("label", {
+        }, /*#__PURE__*/_react.default.createElement("label", {
           htmlFor: 'variant-' + key
-        }, select.name), _react.default.createElement("select", {
+        }, select.name), /*#__PURE__*/_react.default.createElement("select", {
           disabled: select.disabled,
           value: select.options.filter(function (item) {
             return item.selected;
@@ -43702,29 +43709,29 @@ var Variants = /*#__PURE__*/function (_Component) {
           name: 'variant-' + key,
           id: 'variant-' + key
         }, select.options.map(function (option, index) {
-          return _react.default.createElement("option", {
+          return /*#__PURE__*/_react.default.createElement("option", {
             disabled: option.disabled,
             key: index + 1,
             value: option.value
           }, option.label);
         })));
-      }));else if (this.props.type == 'radio') return _react.default.createElement("div", {
+      }));else if (this.props.type == 'radio') return /*#__PURE__*/_react.default.createElement("div", {
         className: "variants variants--radio"
       }, selects.map(function (select, key) {
-        return _react.default.createElement("div", {
+        return /*#__PURE__*/_react.default.createElement("div", {
           key: key,
           className: select.disabled ? 'disabled' : ''
-        }, _react.default.createElement("h3", {
+        }, /*#__PURE__*/_react.default.createElement("h3", {
           className: "variant__title"
-        }, select.name), _react.default.createElement("div", {
+        }, select.name), /*#__PURE__*/_react.default.createElement("div", {
           className: "variant",
           "aria-disabled": select.disabled
         }, select.options.map(function (option, index) {
-          return _react.default.createElement("label", {
+          return /*#__PURE__*/_react.default.createElement("label", {
             key: 'label-' + key + '-' + index,
             className: "variant__item",
             "aria-disabled": option.disabled
-          }, _react.default.createElement("input", {
+          }, /*#__PURE__*/_react.default.createElement("input", {
             className: "variant__radio",
             type: "radio",
             onChange: function onChange(e) {
@@ -43735,32 +43742,32 @@ var Variants = /*#__PURE__*/function (_Component) {
             checked: option.selected,
             key: index + 1,
             value: option.value
-          }), option.image ? _react.default.createElement("span", {
+          }), option.image ? /*#__PURE__*/_react.default.createElement("span", {
             className: "variant__label variant__label--image"
-          }, _react.default.createElement("img", {
+          }, /*#__PURE__*/_react.default.createElement("img", {
             src: option.image,
             alt: option.label
-          })) : _react.default.createElement("span", {
+          })) : /*#__PURE__*/_react.default.createElement("span", {
             className: "variant__label"
           }, option.label));
         })));
-      }));else return _react.default.createElement("div", {
+      }));else return /*#__PURE__*/_react.default.createElement("div", {
         className: "variants variants--open"
       }, selects.map(function (select, key) {
-        return _react.default.createElement("div", {
+        return /*#__PURE__*/_react.default.createElement("div", {
           key: key,
           className: select.disabled ? 'disabled' : ''
-        }, _react.default.createElement("h3", {
+        }, /*#__PURE__*/_react.default.createElement("h3", {
           className: "variant__title"
-        }, select.name), _react.default.createElement("div", {
+        }, select.name), /*#__PURE__*/_react.default.createElement("div", {
           className: "variant",
           "aria-disabled": select.disabled
         }, select.options.map(function (option, index) {
-          return _react.default.createElement("label", {
+          return /*#__PURE__*/_react.default.createElement("label", {
             key: 'label-' + key + '-' + index,
             className: "variant__item",
             "aria-disabled": option.disabled
-          }, _react.default.createElement("input", {
+          }, /*#__PURE__*/_react.default.createElement("input", {
             className: "variant__radio",
             type: "radio",
             onChange: function onChange(e) {
@@ -43771,12 +43778,12 @@ var Variants = /*#__PURE__*/function (_Component) {
             checked: option.selected,
             key: index + 1,
             value: option.value
-          }), option.image ? _react.default.createElement("span", {
+          }), option.image ? /*#__PURE__*/_react.default.createElement("span", {
             className: "variant__label variant__label--image "
-          }, _react.default.createElement("img", {
+          }, /*#__PURE__*/_react.default.createElement("img", {
             src: option.image,
             alt: option.label
-          })) : _react.default.createElement("span", {
+          })) : /*#__PURE__*/_react.default.createElement("span", {
             className: "variant__label"
           }, option.label));
         })));
@@ -43924,25 +43931,31 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var quickview = /*#__PURE__*/function (_Component) {
   _inherits(quickview, _Component);
+
+  var _super = _createSuper(quickview);
 
   function quickview(props) {
     var _this;
 
     _classCallCheck(this, quickview);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(quickview).call(this, props));
+    _this = _super.call(this, props);
     _this.state = {
       id: undefined,
       visible: false,
@@ -44098,7 +44111,7 @@ var quickview = /*#__PURE__*/function (_Component) {
       var _this4 = this;
 
       var variants;
-      if (this.state.hasVariants) variants = _react.default.createElement(_index3.default, {
+      if (this.state.hasVariants) variants = /*#__PURE__*/_react.default.createElement(_index3.default, {
         id: this.state.id,
         price: this.props.price,
         offer: this.props.offer,
@@ -44108,7 +44121,7 @@ var quickview = /*#__PURE__*/function (_Component) {
         saleable: this.props.saleable,
         type: _config.default.quickview.variants
       });
-      if (!this.state.visible) return _react.default.createElement("div", {
+      if (!this.state.visible) return /*#__PURE__*/_react.default.createElement("div", {
         "aria-hidden": !this.state.visible,
         className: "quickview",
         id: "quickview",
@@ -44116,46 +44129,46 @@ var quickview = /*#__PURE__*/function (_Component) {
           "display": "none"
         }
       });
-      return _react.default.createElement("section", {
+      return /*#__PURE__*/_react.default.createElement("section", {
         onClick: function onClick(event) {
           _this4.close(event);
         },
         "aria-hidden": !this.state.visible,
         className: "quickview",
         id: "quickview"
-      }, this.props.isFinish || _react.default.createElement("div", {
+      }, this.props.isFinish || /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__container"
-      }, _react.default.createElement("button", {
+      }, /*#__PURE__*/_react.default.createElement("button", {
         onClick: function onClick(event) {
           _this4.close(event);
         },
         className: "quickview__button quickview__button--close"
-      }, _react.default.createElement("svg", {
+      }, /*#__PURE__*/_react.default.createElement("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         viewBox: "298 388 16 16"
-      }, " ", _react.default.createElement("path", {
+      }, " ", /*#__PURE__*/_react.default.createElement("path", {
         d: "M307.416,395.993l1.414-1.414c0.196-0.196,0.196-0.512,0-0.707l-0.707-0.707 c-0.195-0.195-0.511-0.196-0.707,0l-1.414,1.414l-1.414-1.413c-0.196-0.196-0.512-0.196-0.708-0.001l-0.707,0.707 c-0.195,0.195-0.195,0.512,0.001,0.708l1.414,1.414l-1.411,1.411c-0.195,0.195-0.195,0.512,0,0.707l0.707,0.707 c0.196,0.195,0.512,0.196,0.707,0l1.411-1.41l1.421,1.421c0.196,0.196,0.513,0.196,0.708,0.001l0.707-0.707 c0.195-0.195,0.195-0.513,0-0.708L307.416,395.993z M306,388c-4.418,0-8,3.582-8,8s3.582,8,8,8c4.419,0,8-3.582,8-8 C314,391.582,310.419,388,306,388z M306,402.499c-3.59,0-6.5-2.91-6.5-6.5c0-3.59,2.91-6.5,6.5-6.5s6.5,2.91,6.5,6.5 C312.5,399.589,309.59,402.499,306,402.499z"
-      }), " ")), _react.default.createElement(_index.default, {
+      }), " ")), /*#__PURE__*/_react.default.createElement(_index.default, {
         images: this.props.images
-      }), _react.default.createElement("div", {
+      }), /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__main"
-      }, _react.default.createElement("h1", {
+      }, /*#__PURE__*/_react.default.createElement("h1", {
         className: "quckview__name"
-      }, this.state.name), _react.default.createElement("h2", {
+      }, this.state.name), /*#__PURE__*/_react.default.createElement("h2", {
         className: "quickivew__sku"
-      }, "C\xF3digo: ", this.state.sku), !this.props.availabled || _react.default.createElement(_index2.default, {
+      }, "C\xF3digo: ", this.state.sku), !this.props.availabled || /*#__PURE__*/_react.default.createElement(_index2.default, {
         price: this.props.price,
         offer: this.props.offer,
         payment: this.props.payment
-      }), variants, !this.props.availabled || _react.default.createElement("div", {
+      }), variants, !this.props.availabled || /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__actions"
-      }, _react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__quantity"
-      }, _react.default.createElement("button", {
+      }, /*#__PURE__*/_react.default.createElement("button", {
         onClick: this.less.bind(this),
         type: "button",
         className: "qtds__button qtds__button--less"
-      }, "-"), _react.default.createElement("input", {
+      }, "-"), /*#__PURE__*/_react.default.createElement("input", {
         disabled: !this.props.saleable,
         type: "number",
         className: "quickview__qtd",
@@ -44163,50 +44176,50 @@ var quickview = /*#__PURE__*/function (_Component) {
         onChange: function onChange(e) {
           _this4.updateInputQtd(e);
         }
-      }), _react.default.createElement("button", {
+      }), /*#__PURE__*/_react.default.createElement("button", {
         onClick: this.more.bind(this),
         type: "button",
         className: "qtds__button qtds__button--more"
-      }, "+")), _react.default.createElement("button", {
+      }, "+")), /*#__PURE__*/_react.default.createElement("button", {
         disabled: !this.props.saleable,
         className: "quickview__button--addcart",
         onClick: function onClick(e) {
           _this4.buy(e);
         }
-      }, "Comprar"), _react.default.createElement("a", {
+      }, "Comprar"), /*#__PURE__*/_react.default.createElement("a", {
         href: this.state.url,
         className: "quickview__link quickview__link--more"
-      }, "Ver mais detalhes")), !this.props.isError.error || _react.default.createElement("div", {
+      }, "Ver mais detalhes")), !this.props.isError.error || /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__error"
-      }, this.props.isError.msg), this.props.availabled || _react.default.createElement("div", {
+      }, this.props.isError.msg), this.props.availabled || /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__unavailable"
-      }, "No momento este produto est\xE1 indispon\xEDvel."))), !this.props.isFinish || _react.default.createElement("div", {
+      }, "No momento este produto est\xE1 indispon\xEDvel."))), !this.props.isFinish || /*#__PURE__*/_react.default.createElement("div", {
         className: "quickview__container quickview__finish"
-      }, _react.default.createElement("button", {
+      }, /*#__PURE__*/_react.default.createElement("button", {
         onClick: function onClick(event) {
           _this4.close(event);
         },
         className: "quickview__button quickview__button--close"
-      }, _react.default.createElement("svg", {
+      }, /*#__PURE__*/_react.default.createElement("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         viewBox: "0 0 100 100"
-      }, _react.default.createElement("title", null, "close"), _react.default.createElement("g", {
+      }, /*#__PURE__*/_react.default.createElement("title", null, "close"), /*#__PURE__*/_react.default.createElement("g", {
         id: "Camada_2",
         "data-name": "Camada 2"
-      }, _react.default.createElement("g", {
+      }, /*#__PURE__*/_react.default.createElement("g", {
         id: "Layer_1",
         "data-name": "Layer 1"
-      }, _react.default.createElement("path", {
+      }, /*#__PURE__*/_react.default.createElement("path", {
         d: "M75.19,50,98.68,26.51a4.51,4.51,0,0,0,0-6.38L79.87,1.32a4.51,4.51,0,0,0-6.38,0L50,24.81,26.51,1.32a4.51,4.51,0,0,0-6.38,0L1.32,20.13a4.51,4.51,0,0,0,0,6.38L24.81,50,1.32,73.49a4.51,4.51,0,0,0,0,6.38L20.13,98.68a4.51,4.51,0,0,0,6.38,0L50,75.19,73.49,98.68a4.51,4.51,0,0,0,6.38,0L98.68,79.87a4.51,4.51,0,0,0,0-6.38Z"
-      }))))), _react.default.createElement("div", {
+      }))))), /*#__PURE__*/_react.default.createElement("div", {
         className: "quckview__actions"
-      }, _react.default.createElement("button", {
+      }, /*#__PURE__*/_react.default.createElement("button", {
         onClick: function onClick(event) {
           _this4.close(event);
         },
         className: "quickview__button quickview__button--continue",
         type: "button"
-      }, "Continuar Comprando"), _react.default.createElement("a", {
+      }, "Continuar Comprando"), /*#__PURE__*/_react.default.createElement("a", {
         className: "quickview__button quickview__button--finish",
         href: '/loja/carrinho.php?loja=' + this.state.store + '&transID=' + this.state.hash + '&hash=' + this.state.hash
       }, "Finalizar Compra"))));
@@ -44299,23 +44312,29 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var remove = /*#__PURE__*/function (_Component) {
   _inherits(remove, _Component);
+
+  var _super = _createSuper(remove);
 
   function remove() {
     _classCallCheck(this, remove);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(remove).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(remove, [{
@@ -44336,18 +44355,18 @@ var remove = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this = this;
 
-      return _react.default.createElement("button", {
+      return /*#__PURE__*/_react.default.createElement("button", {
         className: "minicart__delete",
         type: "button",
         onClick: function onClick(e) {
           return _this.remove(e);
         }
-      }, _react.default.createElement("svg", {
+      }, /*#__PURE__*/_react.default.createElement("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         viewBox: "0 0 22 30"
-      }, _react.default.createElement("title", null, "Remover"), _react.default.createElement("g", {
+      }, /*#__PURE__*/_react.default.createElement("title", null, "Remover"), /*#__PURE__*/_react.default.createElement("g", {
         "data-name": "Camada 2"
-      }, _react.default.createElement("path", {
+      }, /*#__PURE__*/_react.default.createElement("path", {
         d: "M18.32 3.84h-3.14v-.68A3.16 3.16 0 0 0 12 0h-2a3.16 3.16 0 0 0-3.18 3.16v.67H3.68A3.69 3.69 0 0 0 0 7.53v.94h22v-.94a3.69 3.69 0 0 0-3.68-3.69zm-4.92 0H8.59v-.68A1.38 1.38 0 0 1 10 1.78h2a1.38 1.38 0 0 1 1.38 1.38v.67zM1.23 10.25v17.94A1.81 1.81 0 0 0 3 30h16a1.81 1.81 0 0 0 1.8-1.81V10.25zm6.36 17.06H5.82V12.94h1.77v14.37zm4.3 0h-1.78V12.94h1.77zm4.3 0h-1.78V12.94h1.77z",
         "data-name": "Layer 1"
       }))), "Remover");
@@ -44409,25 +44428,31 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 var minicart = /*#__PURE__*/function (_Component) {
   _inherits(minicart, _Component);
+
+  var _super = _createSuper(minicart);
 
   function minicart(props) {
     var _this;
 
     _classCallCheck(this, minicart);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(minicart).call(this, props));
+    _this = _super.call(this, props);
     _this.state = {
       open: false
     };
@@ -44478,7 +44503,7 @@ var minicart = /*#__PURE__*/function (_Component) {
       var total = '0,00';
 
       if (!parseInt(minicart.amount)) {
-        main = _react.default.createElement("div", {
+        main = /*#__PURE__*/_react.default.createElement("div", {
           className: "minicart__empty"
         }, "Seu carrinho est\xE1 vazio.");
       } else {
@@ -44495,7 +44520,7 @@ var minicart = /*#__PURE__*/function (_Component) {
           currency: 'BRL'
         }).format(total);
         total = total.replace('R$', '');
-        main = _react.default.createElement("ul", {
+        main = /*#__PURE__*/_react.default.createElement("ul", {
           className: "minicart__list"
         }, minicart.products.map(function (item, key) {
           var name = item.product_name;
@@ -44506,7 +44531,7 @@ var minicart = /*#__PURE__*/function (_Component) {
           var imageHttp = item.product_image.http.replace('http:', '');
           var src = imageHttp.substr(0, lastSlash) + '90_' + imageHttp.substr(lastSlash);
 
-          var image = _react.default.createElement("img", {
+          var image = /*#__PURE__*/_react.default.createElement("img", {
             src: src,
             alt: name
           });
@@ -44516,39 +44541,39 @@ var minicart = /*#__PURE__*/function (_Component) {
             currency: 'BRL'
           }).format(item.price).replace('R$', '');
           var url = item.product_url.http.replace('http:', '');
-          return _react.default.createElement("li", {
+          return /*#__PURE__*/_react.default.createElement("li", {
             key: key,
             className: "minicart__item"
-          }, _react.default.createElement("a", {
+          }, /*#__PURE__*/_react.default.createElement("a", {
             className: "minicart__link",
             href: url
-          }, _react.default.createElement("figure", {
+          }, /*#__PURE__*/_react.default.createElement("figure", {
             className: "minicart__image"
-          }, image), _react.default.createElement("span", {
+          }, image), /*#__PURE__*/_react.default.createElement("span", {
             className: "minicart__info"
-          }, _react.default.createElement("h2", {
+          }, /*#__PURE__*/_react.default.createElement("h2", {
             className: "minicart__name"
-          }, name), _react.default.createElement("span", {
+          }, name), /*#__PURE__*/_react.default.createElement("span", {
             className: "minicart__details"
-          }, _react.default.createElement("span", {
+          }, /*#__PURE__*/_react.default.createElement("span", {
             className: "minicart__price"
-          }, "R$ ", price), _react.default.createElement("span", {
+          }, "R$ ", price), /*#__PURE__*/_react.default.createElement("span", {
             className: "minicart__qty"
-          }, item.quantity, " Un.")), _react.default.createElement(_index2.default, {
+          }, item.quantity, " Un.")), /*#__PURE__*/_react.default.createElement(_index2.default, {
             id: item.product_id,
             variant: parseInt(item.variant_id),
             session: _this3.props.session
           }))));
         }));
-        footer = _react.default.createElement("footer", {
+        footer = /*#__PURE__*/_react.default.createElement("footer", {
           className: "minicart__footer"
-        }, _react.default.createElement("div", {
+        }, /*#__PURE__*/_react.default.createElement("div", {
           className: "minicart__total"
-        }, _react.default.createElement("span", {
+        }, /*#__PURE__*/_react.default.createElement("span", {
           className: "minicart__total-label"
-        }, "Valor total"), _react.default.createElement("span", {
+        }, "Valor total"), /*#__PURE__*/_react.default.createElement("span", {
           className: "minicart__total-price"
-        }, "R$ ", total)), _react.default.createElement("a", {
+        }, "R$ ", total)), /*#__PURE__*/_react.default.createElement("a", {
           href: '/loja/carrinho.php?loja=' + this.props.id,
           className: "minicart__finish",
           onClick: function onClick() {
@@ -44557,27 +44582,27 @@ var minicart = /*#__PURE__*/function (_Component) {
         }, "Finalizar Compra"));
       }
 
-      return _react.default.createElement("section", {
+      return /*#__PURE__*/_react.default.createElement("section", {
         className: this.state.open ? 'minicart minicart--actived' : 'minicart',
         onClick: function onClick(e) {
           return _this3.close(e);
         }
-      }, _react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement("div", {
         className: "minicart__container"
-      }, _react.default.createElement("header", {
+      }, /*#__PURE__*/_react.default.createElement("header", {
         className: "minicart__header"
-      }, _react.default.createElement("button", {
+      }, /*#__PURE__*/_react.default.createElement("button", {
         type: "button",
         onClick: function onClick(e) {
           return _this3.close(e);
         },
         className: "minicart__close"
-      }, _react.default.createElement("i", {
+      }, /*#__PURE__*/_react.default.createElement("i", {
         className: "fa fa-times",
         "aria-hidden": "true"
-      })), _react.default.createElement("h1", {
+      })), /*#__PURE__*/_react.default.createElement("h1", {
         className: "minicart__title"
-      }, "Meu Carrinho")), _react.default.createElement("div", {
+      }, "Meu Carrinho")), /*#__PURE__*/_react.default.createElement("div", {
         className: "minicart__main"
       }, main), footer));
     }
@@ -44660,9 +44685,9 @@ if (_config.default.quickview.actived) {
   });
 
   if (rootQuickview) {
-    _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
+    _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
       store: store
-    }, _react.default.createElement(_index2.default, null)), rootQuickview);
+    }, /*#__PURE__*/_react.default.createElement(_index2.default, null)), rootQuickview);
   }
 } else {
   buttons.forEach(function (item) {
@@ -44675,9 +44700,9 @@ if (_config.default.minicart.actived) {
   var rootMinicart = document.querySelector("[data-minicart]");
 
   if (rootMinicart) {
-    _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
+    _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
       store: store
-    }, _react.default.createElement(_index3.default, {
+    }, /*#__PURE__*/_react.default.createElement(_index3.default, {
       id: rootMinicart.getAttribute("data-minicart")
     })), rootMinicart);
   }
@@ -44747,7 +44772,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62078" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65300" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
