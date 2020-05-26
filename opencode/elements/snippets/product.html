@@ -4,17 +4,29 @@
         <figure class="product__figure">
         {% if product.images %}
             <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
-                <img class="product__image lazy" data-original="{{ product.images[0].full }}"
-                src="{{ asset('img/ajax-loader.gif') }}" alt="{{ product.name }}" title="{{ product.name }}" width="180"
-                height="180" layout="responsive">
+            
+                <img class="product__image lazy-new" 
+                src="{{ asset('img/ajax-loader.gif') }}" 
+                data-src="{{ product.images[0].full }}" 
+                data-srcset="{{ product.images[0].full }}" 
+                alt="{{ product.name }}"
+                title="{{ product.name }}"
+                width="180"
+                height="180"
+                layout="responsive">
 
             </a>
         {% else %}
             <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
-                <img class="product__image lazy" data-original="{{ product.images[0].full }}"
-                src="{{ asset('img/ajax-loader.gif') }}" alt="{{ product.name }}" title="{{ product.name }}" width="180"
-                height="180" layout="responsive">
-
+                <img class="product__image lazy-new" 
+                src="{{ asset('img/ajax-loader.gif') }}" 
+                data-src="{{ product.images[0].full }}" 
+                data-srcset="{{ product.images[0].full }}" 
+                alt="{{ product.name }}"
+                title="{{ product.name }}"
+                width="180"
+                height="180"
+                layout="responsive">
             </a>
         {% endif %}
         </figure>
