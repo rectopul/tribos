@@ -46,7 +46,7 @@ childs.forEach((child) => {
             var expanded = target.getAttribute('aria-expanded');
             if(expanded !== 'true' && expanded !== 'false') expanded = 'false';
             target.setAttribute('aria-expanded', expanded === 'true' ? false : true);
-            $(target).find('> .menu--sub').slideToggle();
+            jQuery(target).find('> .menu--sub').slideToggle();
         }
     }, false);
 });
@@ -60,10 +60,3 @@ childs.forEach((child) => {
 // navigationAlign();
 
 
-jQuery('.button--menu').click(function() {
-    jQuery('body').addClass('menu__open')
-});
-
-jQuery('.button__close--navigation').click(function() {
-    jQuery('body').removeClass('menu__open')
-});
