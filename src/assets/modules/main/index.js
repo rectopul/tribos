@@ -1,4 +1,4 @@
-jQuery('.button__menu').click(function() {
+jQuery('.button--menu').click(function() {
     jQuery('body').addClass('menu__open')
 });
 
