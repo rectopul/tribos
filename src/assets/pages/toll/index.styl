@@ -34,9 +34,11 @@
             display flex
             margin-left -5px
             margin-right -5px
+            flex-wrap wrap
 
             > li
                 margin 0 5px
+                margin-bottom 5px
 
             span
                 display flex
@@ -70,9 +72,39 @@
             display flex
             min-width 1px
             margin 0 25px
+            height 150px
+            align-items center
 
             .showcase
                 width 100%
+
+                .slick-arrow
+
+                    width 29.6px
+                    height 24.3px
+                    background-color transparent
+                    padding 0
+
+                    &:before
+                        content none
+
+                    span
+                        font-size 29.6px
+
+                    &:hover
+                        span
+                            &:before
+                                color $pinkish-red
+                    
+                    &.slick-prev 
+                        left 150px
+
+                    &.slick-next 
+                        right 150px
+
+                        span
+                            transform rotate(180deg)
+
 
             .product__figure
                 width 130px
@@ -82,6 +114,7 @@
                 
 
             .product__header
+                margin-bottom 0
 
                 &:not(.slick-center)
                     opacity 0.2

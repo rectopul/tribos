@@ -85,6 +85,10 @@ const tool = (() => {
                     centerMode: true,
                     centerPadding: "0px",
                     initialSlide: 1,
+                    nextArrow:
+                        '<button class="slick-next"><span class="icon-arrow"></span></button>',
+                    prevArrow:
+                        '<button class="slick-prev"><span class="icon-arrow"></span></button>',
                 });
             });
         })(jQuery);
