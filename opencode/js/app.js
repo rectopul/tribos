@@ -1,8 +1,4 @@
 
- 
-
-
-
 
 
 
@@ -54,6 +50,34 @@ jQuery('.button__close--navigation').click(function() {
     });
     
  }
+
+
+
+ 
+
+
+const tool = (() => {
+    //private var/functions
+    function getCategories() {
+        if (!document.body.dataset.toolCategories) return null;
+
+        const categories = document.body.dataset.toolCategories.split(",");
+
+        return categories;
+    }
+
+    function init() {
+        if (document.body.classList.contains("tool"))
+            console.log(getCategories());
+    }
+
+    return {
+        //public var/functions
+        init,
+    };
+})();
+
+tool.init();
 
 
 
@@ -130,6 +154,33 @@ if(button) {
  
 
 
+// function FakeSelect() {
+//     $('select').each(function(){
+//         if($(this).closest('.fake-select').length === 0) {
+//             var text = $(this).find('option:selected').text();
+//             var fake = $('<div class="fake-select">');
+//             var label = $('<span class="fake-select__label">').text(text);
+//             var cssClass = $(this).attr('class').split(' ');
+
+//             cssClass.forEach((item) => {
+//                 if(item !== '') {
+//                     fake.addClass(item);
+//                 }
+//             })
+
+//             fake.prepend(label);
+//             $(this).after(fake);
+//             fake.append(this);
+
+//             $(this).change(() => { label.text($(this).find('option:selected').text()) });
+//         }
+//     });
+// }
+
+// FakeSelect();
+
+// document.addEventListener('FAKESELECT', () => { FakeSelect() }, false);
+
 
 
 
@@ -195,34 +246,6 @@ childs.forEach((child) => {
 
 
 
-
-
-// function FakeSelect() {
-//     $('select').each(function(){
-//         if($(this).closest('.fake-select').length === 0) {
-//             var text = $(this).find('option:selected').text();
-//             var fake = $('<div class="fake-select">');
-//             var label = $('<span class="fake-select__label">').text(text);
-//             var cssClass = $(this).attr('class').split(' ');
-
-//             cssClass.forEach((item) => {
-//                 if(item !== '') {
-//                     fake.addClass(item);
-//                 }
-//             })
-
-//             fake.prepend(label);
-//             $(this).after(fake);
-//             fake.append(this);
-
-//             $(this).change(() => { label.text($(this).find('option:selected').text()) });
-//         }
-//     });
-// }
-
-// FakeSelect();
-
-// document.addEventListener('FAKESELECT', () => { FakeSelect() }, false);
 
 
 
@@ -358,8 +381,6 @@ if($('.rulers__list')) {
 
 
 
- 
-
 
 // var $ = $tray;
 // if( typeof $ == 'function') {
@@ -431,3 +452,5 @@ if($('.rulers__list')) {
 //         }
 //     }
 // }
+
+ 

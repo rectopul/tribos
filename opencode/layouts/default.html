@@ -57,7 +57,12 @@
         <!-- google tag manager -->
         {{ googleTagManager.header(pages.current, tagManagerData) }}
     </head>
-    <body class="preload">
+    <body 
+        class="preload {% if pages.current == 'tool' %}tool{% endif %}"
+        {% if pages.current == 'tool' %}
+            data-tool-categories="{{settings.toolCategories}}"
+        {% endif %}
+    >
         {{ googleTagManager.top(pages.current, tagManagerData) }} {% element
         'sprite' %} {% element 'snippets/messages' %}
 
@@ -70,7 +75,8 @@
 
                 <main class="main">
                     <div class="main__container">
-                        {{ content_for_layout }}
+                        {% if pages.current == 'tool' %} {% element 'tool' %} {%
+                        else %} {{ content_for_layout }} {% endif %}
                     </div>
                 </main>
 
@@ -96,8 +102,9 @@
         <!-- tray -->
         {% element 'snippets/modal' %} {{ googleTagManager.bottom(pages.current,
         tagManagerData) }} {{ tray.scripts }}
+
         <script>
-            var $tray = jQuery
+            var $tray = jQuery;
         </script>
         {{ html.script({ '0' : tray.paths.js ~ 'dist/application.min.js?' ~
         utils.assets_version, '1' : tray.paths.js ~ 'init.js?' ~
@@ -109,8 +116,8 @@
 
         <!-- theme scripts-->
         <script type="text/javascript">
-            var tray = {}
-            tray["settings"] = "{{ (asset()|split('?'))[0] }}"
+            var tray = {};
+            tray["settings"] = "{{ (asset()|split('?'))[0] }}";
         </script>
 
         <script

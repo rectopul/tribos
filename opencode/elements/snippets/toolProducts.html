@@ -1,0 +1,63 @@
+{% set toolCategories = settings.toolCategories|split(',') %} 
+
+
+
+{% for theCategory in toolCategories %} 
+    {% set categoryTray = Categories( { "id": theCategory } ) %}
+
+    {% set products = Products({
+       'limit': 12,
+       'order': {'quantity_sold': 'desc'},
+        'categories': [theCategory],
+   }) %}
+
+    <div class="toolCategory">
+        <div class="toolCategory__column variations">
+            <span>{{ categoryTray.name }}</span>
+            {% for product in products %}
+                
+                {% set variants = product.variants %}
+                {% set types = [] %}
+
+                {% for variant in variants %}
+                    {% set skus = variant.Sku %}
+                    
+
+                    {% for sku in skus %}
+                        {% set types = types|merge([sku.type]) %}
+                    {% endfor %}
+                    
+                {% endfor %}
+
+                {# Remove duplicates #}
+                {% set newArray = [] %}
+
+                {% for name in types %}
+                    {% if name not in newArray %}
+                        {% set newArray = newArray|merge([name]) %}
+                    {% endif %}
+                {% endfor %}
+
+                {% set types = newArray %}
+
+                <pre>{{ dump(types) }}</pre>
+            {% endfor %}
+        </div>
+        <!-- Variações // -->
+
+        <div class="toolCategory__column products">
+            {% for product in products %}
+                {% set ranking = product.ranking %}
+                {# <div class="showcase__item" data-tray-tst="vitrine_produto">
+                    {% element 'snippets/product' {"product": product} %}
+                </div> #}
+            {% endfor %}
+        </div>
+
+        <!-- Produtos // -->
+
+        <div class="toolCategory__column summary"></div>
+
+        <!-- Resumo // -->
+    </div>
+{% endfor %}
