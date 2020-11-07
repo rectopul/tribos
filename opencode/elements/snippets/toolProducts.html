@@ -13,45 +13,23 @@
 
     <div class="toolCategory">
         <div class="toolCategory__column variations">
-            <span>{{ categoryTray.name }}</span>
-            {% for product in products %}
-                
-                {% set variants = product.variants %}
-                {% set types = [] %}
+            <h2>{{ categoryTray.name }}</h2>
 
-                {% for variant in variants %}
-                    {% set skus = variant.Sku %}
-                    
-
-                    {% for sku in skus %}
-                        {% set types = types|merge([sku.type]) %}
-                    {% endfor %}
-                    
-                {% endfor %}
-
-                {# Remove duplicates #}
-                {% set newArray = [] %}
-
-                {% for name in types %}
-                    {% if name not in newArray %}
-                        {% set newArray = newArray|merge([name]) %}
-                    {% endif %}
-                {% endfor %}
-
-                {% set types = newArray %}
-
-                <pre>{{ dump(types) }}</pre>
-            {% endfor %}
+            <div class="toolCategory__column--variations">
+                {% element 'snippets/toolVariations' { "products": products } %}
+            </div>
         </div>
         <!-- Variações // -->
 
         <div class="toolCategory__column products">
-            {% for product in products %}
-                {% set ranking = product.ranking %}
-                {# <div class="showcase__item" data-tray-tst="vitrine_produto">
-                    {% element 'snippets/product' {"product": product} %}
-                </div> #}
-            {% endfor %}
+
+            <div class="showcase">
+                {% for product in products %}
+                    {% set ranking = product.ranking %}
+                    {% element 'snippets/toolProduct' {"product": product} %}
+                {% endfor %}
+            </div>
+            
         </div>
 
         <!-- Produtos // -->

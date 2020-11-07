@@ -13,10 +13,34 @@ const tool = (() => {
             console.log(getCategories());
     }
 
+    function productCarousel(selector) {
+        const list = [...document.querySelectorAll(selector)];
+
+        if (!list) return;
+
+        (($) => {
+            list.map((item) => {
+                $(item).slick({
+                    infinite: false,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    centerMode: true,
+                    centerPadding: "0px",
+                    initialSlide: 1,
+                });
+            });
+        })(jQuery);
+    }
+
     return {
         //public var/functions
         init,
+        productCarousel,
     };
 })();
 
 tool.init();
+
+tool.productCarousel(".toolCategory__column.products .showcase");
+
+//

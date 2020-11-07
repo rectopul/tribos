@@ -4,7 +4,13 @@
  *  - Não se deve inserir estruturas css, é permitido somente variaves e funções
  */
 
- 
+$pinkish-red = #e02a31
+$black = #262323
+$reddish-grey = #847e7e
+$light-red = #fd4148
+$beige = #d0c5c5
+$mid-green = #4caf50
+$white = #fafafa
 
 // Placeholder
 $button 
@@ -20,6 +26,16 @@ $button
 
     &:hover 
         text-decoration: none 
+
+font($font-family, $font-size, $font-weight, $color, $line-height, $text-align)
+   font-family $font-family
+   font-size $font-size
+   font-weight $font-weight
+   font-stretch normal
+   font-style normal
+   line-height $line-height
+   color $color
+   text-align $text-align
 
 
 // mixins

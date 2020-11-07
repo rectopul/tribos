@@ -1,0 +1,75 @@
+ 
+ {% if products %}
+    {% for product in products %}
+
+        {% if product.has_variation %}
+                    
+            {% set variants = product.variants %}
+            {% set types = [] %}
+
+            {% for variant in variants %}
+                {% set skus = variant.Sku %}
+                
+
+                {% for sku in skus %}
+                    {% set types = types|merge([sku.type]) %}
+                {% endfor %}
+                
+            {% endfor %}
+
+            {# Remove duplicates #}
+            {% set newArray = [] %}
+
+            {% for name in types %}
+                {% if name not in newArray %}
+                    {% set newArray = newArray|merge([name]) %}
+                {% endif %}
+            {% endfor %}
+
+            {% set types = newArray %}
+
+            {# Display Variants #}
+
+            <div class="tool__variants--wrapper">
+            
+                {% for variantType in types %}
+                    {% set norepeat = [] %}
+
+                    <div class="tool__variants--item">
+                    
+                    <h4>{{variantType}}</h4>
+
+                    <ul class="tool__variants--list" data-product="{{product.id}}">
+                    {% for variant in variants %}
+                        {% set skus = variant.Sku %}
+                        {% set variantValue = '' %}
+
+                        
+                        {% for sku in skus %}
+                            
+                            {% if sku.type == variantType %}
+                                {% set variantValue = sku.value %}
+
+                                {% if variantValue not in norepeat %}
+                                    <li class="tool__variantsType-{{sku.type}}" data-variant="{{variant.id}}" data-product-id="{{variant.product_id}}">
+                                        <span style="background-image: url({{sku.image}})">{{variantValue}}</span>
+                                    </li>
+
+                                {% endif %}
+
+                                {% set norepeat = norepeat|merge([sku.value]) %}
+                            {% endif %}
+
+                        {% endfor %}
+                        
+                    {% endfor %}
+                    </ul>
+                    </div>
+
+                {% endfor %}
+            </div>
+
+        {% endif %}
+        
+    {% endfor %}
+{% endif %}

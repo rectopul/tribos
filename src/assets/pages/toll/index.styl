@@ -1,0 +1,114 @@
+.tool
+    &__container
+        display flex
+        flex-direction column
+
+
+    &__variantsType
+        
+        &-Cor
+            font-size 0 !important
+            width 26px
+            height 26px
+
+    &__variants
+        &--wrapper
+            flex 0 0 100%
+            display flex
+            flex-direction column
+
+
+        &--item
+            display flex
+            margin-bottom 10px
+
+            h4
+                flex 0 0 80px
+                margin-right 8px
+                text-transform uppercase
+
+                font(Montserrat, 14px, normal, $black, 1.29, left)
+
+        &--list
+            flex 1
+            display flex
+            margin-left -5px
+            margin-right -5px
+
+            > li
+                margin 0 5px
+
+            span
+                display flex
+                padding 3px 5px
+                min-width 100%
+                min-height 100%
+                border 1px solid rgba(0,0,0,.3)
+                background-size cover
+                background-position center center
+
+
+.toolCategory
+    display flex
+    margin-top 32px
+    margin-bottom 32px
+        
+    &__column
+
+        h2
+            font(Oswald, 18px, bold, $pinkish-red, 1.44, left)
+            text-transform uppercase
+            margin-bottom 15px
+
+        &.summary
+            flex 0 0 310px
+            min-width 1px
+
+
+        &.products
+            flex 1
+            display flex
+            min-width 1px
+            margin 0 25px
+
+            .showcase
+                width 100%
+
+            .product__figure
+                width 130px
+                margin 0 auto !important
+                padding 0
+                transition all 300ms linear
+                
+
+            .product__header
+
+                &:not(.slick-center)
+                    opacity 0.2
+
+
+                    .product__figure
+                        padding 15px
+                        margin-right auto !important
+                        margin-left 0 !important
+                        img
+                            max-width 80px
+
+                &.slick-current
+
+                    ~ .product__header
+                        .product__figure
+                            margin-right 0 !important
+                            margin-left auto !important
+
+        &.variations
+            flex 0 0 310px
+            min-width 1px
+            width initial
+            display flex
+            flex-direction column
+            border-bottom 1px solid #dcebeb
+
+        &--variations
+            display flex
+            overflow hidden
