@@ -285,6 +285,7 @@ $('.banner--grid .banner__list').not('.slick-initialized').slick({
 
 
 
+
 var button = $('#bt-submit-comments');
 
 if(button) {
@@ -389,7 +390,6 @@ childs.forEach((child) => {
 
 // navigationHiddenResize();
 // navigationAlign();
-
 
 
 
