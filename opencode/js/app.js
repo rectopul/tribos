@@ -52,8 +52,8 @@ jQuery('.button__close--navigation').click(function() {
  }
 
 
- 
 
+ 
 
 
 const tool = (() => {
@@ -80,6 +80,8 @@ const tool = (() => {
             list.map((item) => {
                 $(item).slick({
                     infinite: false,
+                    speed: 150,
+                    draggable: false,
                     fade: true,
                     cssEase: "linear",
                     slidesToShow: 1,
@@ -186,6 +188,7 @@ const tool = (() => {
             list.map((item) => {
                 $(item).slick({
                     infinite: false,
+                    speed: 150,
                     slidesToShow: 3,
                     slidesToScroll: 1,
                     centerMode: true,
@@ -222,6 +225,7 @@ tool.productCarousel(".toolCategory__column.products .showcase");
 tool.variationsCarousel(".toolCategory__column--variations");
 
 //
+
 
 
 if($('.banner--javascript .banner__list')) {
@@ -281,8 +285,6 @@ $('.banner--grid .banner__list').not('.slick-initialized').slick({
 
 
 
-
-
 var button = $('#bt-submit-comments');
 
 if(button) {
@@ -294,6 +296,8 @@ if(button) {
     });
 }
 
+
+ 
 
 
 // function FakeSelect() {
@@ -322,9 +326,6 @@ if(button) {
 // FakeSelect();
 
 // document.addEventListener('FAKESELECT', () => { FakeSelect() }, false);
-
- 
-
 
 
 
@@ -388,6 +389,8 @@ childs.forEach((child) => {
 
 // navigationHiddenResize();
 // navigationAlign();
+
+
 
 
 

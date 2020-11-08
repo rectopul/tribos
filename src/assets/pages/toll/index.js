@@ -22,6 +22,8 @@ const tool = (() => {
             list.map((item) => {
                 $(item).slick({
                     infinite: false,
+                    speed: 150,
+                    draggable: false,
                     fade: true,
                     cssEase: "linear",
                     slidesToShow: 1,
@@ -128,6 +130,7 @@ const tool = (() => {
             list.map((item) => {
                 $(item).slick({
                     infinite: false,
+                    speed: 150,
                     slidesToShow: 3,
                     slidesToScroll: 1,
                     centerMode: true,

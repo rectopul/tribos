@@ -2,14 +2,15 @@
  {% if products %}
     {% for product in products %}
 
+
         {% if product.has_variation %}
                     
             {% set variants = product.variants %}
             {% set types = [] %}
 
+
             {% for variant in variants %}
                 {% set skus = variant.Sku %}
-                
 
                 {% for sku in skus %}
                     {% set types = types|merge([sku.type]) %}
@@ -43,7 +44,6 @@
                     {% for variant in variants %}
                         {% set skus = variant.Sku %}
                         {% set variantValue = '' %}
-
                         
                         {% for sku in skus %}
                             
@@ -51,7 +51,12 @@
                                 {% set variantValue = sku.value %}
 
                                 {% if variantValue not in norepeat %}
-                                    <li class="tool__variantsType-{{sku.type}}" data-variant="{{variant.id}}" data-product-id="{{variant.product_id}}">
+                                    <li class="tool__variantsType-{{sku.type}}" data-name="{{variantValue}}" data-variant="{{variant.id}}" data-product-id="{{variant.product_id}}">
+
+                                        {% if variantType == "Cor" %}
+                                        <input type="hidden" name="variantImage" value="{{variant.images[0].large}}">
+                                        {% endif %}
+                                        
                                         <span style="background-image: url({{sku.image}})">{{variantValue}}</span>
                                     </li>
 

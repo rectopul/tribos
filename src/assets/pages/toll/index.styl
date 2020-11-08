@@ -29,7 +29,7 @@
                 margin-right 8px
                 text-transform uppercase
 
-                font(Montserrat, 14px, normal, $black, 1.29, left)
+                font(Montserrat, 14px, 400, $black, 1.29, left)
 
         &--list
             flex 1
@@ -60,13 +60,14 @@
     &__column
 
         h2
-            font(Oswald, 18px, bold, $pinkish-red, 1.44, left)
+            font(Oswald, 18px, 700, $pinkish-red, 1.44, left)
             text-transform uppercase
             margin-bottom 15px
 
         &--summary
             background-color #ffffff
             padding 15px
+            height 100%
 
             &.removed
                 background-color transparent
@@ -87,6 +88,10 @@
                 &:hover
                     border-color $pinkish-red
 
+            h3
+                font(Montserrat, 13px, 300, $black, 1.23, left)
+                text-transform uppercase
+                
             article
                 display flex
 
@@ -125,7 +130,7 @@
             display flex
             min-width 1px
             margin 0 25px
-            height 150px
+            height 180px
             align-items center
 
             .showcase
