@@ -15,7 +15,7 @@
         'categories': [theCategory],
    }) %}
 
-    <div class="toolCategory">
+    <div class="toolCategory" data-category="{{ categoryTray.id }}">
         <div class="toolCategory__column variations">
             <h2>{{ categoryTray.name }}</h2>
 
@@ -64,3 +64,13 @@
         <!-- Resumo // -->
     </div>
 {% endfor %}
+<div class="toolCategory">
+    <div class="toolCategory__column variations"></div>
+    <div class="toolCategory__column products"></div>
+    <div class="toolCategory__column summary total">
+        <div class="toolCategory__column--summary--total">
+            Total <span class="price__total">R$ 00,00</span>
+            <button class="summary__total--submit">Comprar O KIT</button>
+        </div>
+    </div>
+</div>

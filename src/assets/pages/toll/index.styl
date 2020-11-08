@@ -1,3 +1,18 @@
+.summary
+    
+    &__total
+        
+        &--submit
+            flex 0 0 100%
+            display flex
+            height 50px
+            background-color #90c401
+            align-items center
+            justify-content center
+            font(Oswald, 16px, 700, #ffffff, 1, left)
+            text-transform uppercase
+            margin-top 30px
+
 .tool
     &__container
         display flex
@@ -56,6 +71,14 @@
     display flex
     padding-top 0
     padding-bottom 0
+
+    &:last-child
+        .toolCategory__column
+            &.products
+                height initial
+
+            &.variations
+                border-bottom 0
         
     &__column
 
@@ -68,6 +91,21 @@
             background-color #ffffff
             padding 15px
             height 100%
+
+            &--total
+                display flex
+                justify-content center
+                flex-wrap wrap
+                align-items center
+                font(Montserrat, 14px, 500, $black, 1.29, center)
+                text-transform uppercase
+
+                .price__total
+                    font(Oswald, 22px, 700, $pinkish-red, 1, center)
+                    text-transform uppercase
+                    margin-left 8px
+                    display inline-block
+                    margin-top -5px
 
             &.removed
                 background-color transparent
