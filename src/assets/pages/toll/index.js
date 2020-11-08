@@ -6,11 +6,8 @@ const tool = (() => {
         const pricesArray = Object.keys(prices);
 
         const pricesValue = pricesArray.map((item) => {
-            if (prices[item].disabled) {
-                if (prices[item].disabled == false) prices[item].value;
-            } else {
-                prices[item].value;
-            }
+            if (prices[item].disabled == false) return prices[item].value;
+            else return 0;
         });
 
         let total = 0;
@@ -24,13 +21,13 @@ const tool = (() => {
             currency: "BRL",
         }).format(total);
 
-        console.log(`prices: `, prices);
+        console.log(`prices: `, pricesValue);
 
         const totalElement = document.querySelector(
             ".toolCategory__column--summary--total .price__total"
         );
 
-        if (totalElement) totalElement.innerHTML = total;
+        if (totalElement) totalElement.innerHTML = currencyPrice;
 
         return currencyPrice;
     }
@@ -63,7 +60,10 @@ const tool = (() => {
     function togglePrice(element) {
         const category = element.closest(".toolCategory").dataset.category;
         if (element.checked) {
-            if (prices[category].disabled) {
+            if (
+                prices[category] &&
+                prices[category].hasOwnProperty("disabled")
+            ) {
                 prices[category].disabled = true;
             } else {
                 prices[category] = {
@@ -72,7 +72,10 @@ const tool = (() => {
                 };
             }
         } else {
-            if (prices[category].disabled) {
+            if (
+                prices[category] &&
+                prices[category].hasOwnProperty("disabled")
+            ) {
                 prices[category].disabled = false;
             } else {
                 prices[category] = {
@@ -153,7 +156,7 @@ const tool = (() => {
 
         const name = element.dataset.name;
 
-        const total = changePrice(element);
+        changePrice(element);
 
         const image = element.querySelector("figure img").cloneNode();
 
