@@ -2,6 +2,8 @@
     &__container
         display flex
         flex-direction column
+        margin-top 25px
+        margin-bottom 25px
 
 
     &__variantsType
@@ -52,8 +54,8 @@
 
 .toolCategory
     display flex
-    margin-top 32px
-    margin-bottom 32px
+    padding-top 0
+    padding-bottom 0
         
     &__column
 
@@ -62,9 +64,60 @@
             text-transform uppercase
             margin-bottom 15px
 
+        &--summary
+            background-color #ffffff
+            padding 15px
+
+            &.removed
+                background-color transparent
+
+                article
+                    opacity .4
+
+            label
+                margin-right 8px
+                width 15px
+                height 15px
+                border-radius 2px
+                border solid 1px #707070
+                background-color #ffffff
+                position relative
+                cursor pointer
+
+                &:hover
+                    border-color $pinkish-red
+
+            article
+                display flex
+
+            figure
+                margin-right 13px
+
+            header
+                display flex
+                align-items center
+                margin-bottom 15px
+                
+                input
+                    display none
+                    &:checked + label
+                        &:before
+                            content ''
+                            width 9px
+                            height 9px
+                            border-radius 1px
+                            background-color $pinkish-red
+                            position absolute
+                            left 50%
+                            top 50%
+                            margin-left -4.5px
+                            margin-top -4.5px
+
         &.summary
             flex 0 0 310px
             min-width 1px
+            padding 10px 15px
+            background-color #f7fafa
 
 
         &.products
@@ -141,6 +194,10 @@
             display flex
             flex-direction column
             border-bottom 1px solid #dcebeb
+            margin-bottom 25px
+
+            &.disabled
+                opacity .2
 
         &--variations
             display flex

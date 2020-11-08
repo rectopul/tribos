@@ -1,8 +1,12 @@
 {% set toolCategories = settings.toolCategories|split(',') %} 
 
+{% set count = 0 %} 
+
 
 
 {% for theCategory in toolCategories %} 
+    {% set count = count + 1 %} 
+
     {% set categoryTray = Categories( { "id": theCategory } ) %}
 
     {% set products = Products({
@@ -34,7 +38,28 @@
 
         <!-- Produtos // -->
 
-        <div class="toolCategory__column summary"></div>
+        <div class="toolCategory__column summary">
+            <div class="toolCategory__column--summary">
+                <header>
+                    <input type="checkbox" name="remove" id="remove-{{count}}">
+                    <label for="remove-{{count}}"></label>
+                    <span>Remover</span>
+                </header>
+
+                <article>
+
+                    <figure>
+                        <img src="{{products[1].images[0].full}}" width="70px" alt="">
+                    </figure>
+
+                    <aside>
+                        <h3>{{products[1].name}}</h3>
+
+                        <h2>R$ {{products[1].price|number_format(2, ',', '.')}}</h2>
+                    </aside>
+                </article>
+            </div>
+        </div>
 
         <!-- Resumo // -->
     </div>
