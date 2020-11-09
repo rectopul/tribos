@@ -1,5 +1,93 @@
 const tool = (() => {
     //private var/functions
+    const prices = {};
+
+    function getPrice() {
+        const pricesArray = Object.keys(prices);
+
+        const pricesValue = pricesArray.map((item) => {
+            if (prices[item].disabled == false) return prices[item].value;
+            else return 0;
+        });
+
+        let total = 0;
+
+        pricesValue.forEach((item) => (total = total + item));
+
+        console.log(`Total`, total);
+
+        const currencyPrice = new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+        }).format(total);
+
+        console.log(`prices: `, pricesValue);
+
+        const totalElement = document.querySelector(
+            ".toolCategory__column--summary--total .price__total"
+        );
+
+        if (totalElement) totalElement.innerHTML = currencyPrice;
+
+        return currencyPrice;
+    }
+
+    function changePrice(element) {
+        const productPrice = element.dataset.price;
+
+        const category = element.closest(".toolCategory").dataset.category;
+
+        const variant = element.dataset.variant;
+
+        const product = element.dataset.productId;
+
+        if (prices[category]) {
+            prices[category].product = product;
+            prices[category].value = parseFloat(productPrice);
+        } else {
+            prices[category] = {
+                product,
+                value: parseFloat(productPrice),
+                disabled: false,
+            };
+        }
+
+        if (variant) prices[category]["variant"] = variant;
+
+        return getPrice();
+    }
+
+    function togglePrice(element) {
+        const category = element.closest(".toolCategory").dataset.category;
+        if (element.checked) {
+            if (
+                prices[category] &&
+                prices[category].hasOwnProperty("disabled")
+            ) {
+                prices[category].disabled = true;
+            } else {
+                prices[category] = {
+                    disabled: true,
+                    value: 0,
+                };
+            }
+        } else {
+            if (
+                prices[category] &&
+                prices[category].hasOwnProperty("disabled")
+            ) {
+                prices[category].disabled = false;
+            } else {
+                prices[category] = {
+                    disabled: false,
+                    value: 0,
+                };
+            }
+        }
+
+        return getPrice();
+    }
+
     function getCategories() {
         if (!document.body.dataset.toolCategories) return null;
 
@@ -53,18 +141,22 @@ const tool = (() => {
                 if (input.checked) {
                     span.innerHTML = `Removido`;
                     container.classList.add("removed");
+                    togglePrice(input);
                 } else {
                     span.innerHTML = `Remover`;
                     container.classList.remove("removed");
+                    togglePrice(input);
                 }
             });
         });
     }
 
     function handleChangePrice(element) {
-        const price = element.dataset.price;
+        const theprice = element.dataset.price;
 
         const name = element.dataset.name;
+
+        changePrice(element);
 
         const image = element.querySelector("figure img").cloneNode();
 
@@ -83,7 +175,7 @@ const tool = (() => {
         summary.querySelector("h2").innerHTML = new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",
-        }).format(price);
+        }).format(theprice);
     }
 
     function handleSlickProductChange(event, slick, currentSlide, nextSlide) {
