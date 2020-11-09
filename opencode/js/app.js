@@ -77,10 +77,26 @@ const tool = (() => {
 
                 const product = variation.closest('.toolCategory').querySelector('.product__header.slick-center')
 
-                if (input && product) {
-                    const image = product.querySelector('figure')
+                const price = variation.dataset.price
 
+                const variant = variation.dataset.variant
+
+                const type = variation.dataset.type
+
+                const category = variation.closest('.toolCategory').dataset.category
+
+                if (input) {
+                    const image = product.querySelector('figure')
                     if (image) image.innerHTML = `<img src="${input.value}">`
+                }
+
+                if (product) {
+                    product.dataset.price = price
+                    product.dataset.variantType = type
+
+                    product.dataset.variant = variant
+
+                    handleChangePrice(product)
                 }
             })
         })
@@ -119,6 +135,8 @@ const tool = (() => {
 
         const product = element.dataset.productId
 
+        const variantType = element.dataset.variantType
+
         if (prices[category]) {
             prices[category].product = product
             prices[category].value = parseFloat(productPrice)
@@ -130,7 +148,25 @@ const tool = (() => {
             }
         }
 
-        if (variant) prices[category]['variant'] = variant
+        if (variant && variantType) {
+            if (prices[category].product == product) {
+                if (prices[category].hasOwnProperty('variant')) {
+                    if (prices[category].variant.hasOwnProperty(variantType)) {
+                        prices[category]['variant'][variantType] = variant
+                    } else {
+                        prices[category]['variant'][variantType] = variant
+                    }
+                } else {
+                    prices[category].variant = {
+                        [variantType]: variant,
+                    }
+                }
+            } else {
+                prices[category].variant = {
+                    [variantType]: variant,
+                }
+            }
+        }
 
         return getPrice()
     }

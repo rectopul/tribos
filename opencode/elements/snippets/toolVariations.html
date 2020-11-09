@@ -51,7 +51,7 @@
                                 {% set variantValue = sku.value %}
 
                                 {% if variantValue not in norepeat %}
-                                    <li class="tool__variantsType-{{sku.type}}" data-name="{{variantValue}}" data-variant="{{variant.id}}" data-product-id="{{variant.product_id}}">
+                                    <li class="tool__variantsType-{{sku.type}}" data-type="{{variantType}}" data-price="{{variant.price}}" data-name="{{variantValue}}" data-variant="{{variant.id}}" data-product-id="{{variant.product_id}}">
 
                                         {% if variantType == "Cor" %}
                                         <input type="hidden" name="variantImage" value="{{variant.images[0].large}}">
