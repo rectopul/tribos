@@ -77,8 +77,20 @@ icon(args...)
     50%, 100%
         opacity: 0
 
+
+transition = all .2s ease-out
+
 desktop = unquote("screen and (min-width: 992px)")
 mobile = unquote("screen and (max-width: 991px)")
 
-color = #47c4c0
-transition = all .2s ease-out
+viewport = 1300px
+gutter = 30px
+
+color = #262323 #847E7E #E02A31
+
+$container
+    width: viewport
+    max-width: "calc(100% - %s)" % gutter
+    margin-left: auto 
+    margin-right: auto
+

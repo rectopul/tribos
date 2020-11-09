@@ -1,35 +1,116 @@
 <article class="product">
     
     <div class="product__header">
+        {% if pages.current == 'home' %} 
         <figure class="product__figure">
-        {% if product.images %}
-            <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
-            
-                <img class="product__image lazy-new" 
-                src="{{ product.images[0].full }}" 
-                data-src="{{ product.images[0].full }}" 
-                data-srcset="{{ product.images[0].full }}" 
-                alt="{{ product.name }}"
-                title="{{ product.name }}"
-                width="180"
-                height="180"
-                layout="responsive">
-
-            </a>
+            {% if product.images %}
+                <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
+                
+                 {% if product.images[0] and product.images[1] %}
+                    <img class="product__image product__image--on lazy-new" 
+                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    data-src="{{ product.images[0].full }}" 
+                    data-srcset="{{ product.images[0].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                    
+                    <img class="product__image product__image--hover lazy-new" 
+                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    data-src="{{ product.images[1].full }}" 
+                    data-srcset="{{ product.images[1].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                    
+                 {% else %}
+                    <img class="product__image lazy-new" 
+                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    data-src="{{ product.images[0].full }}" 
+                    data-srcset="{{ product.images[0].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                 
+                 {% endif %}
+    
+                </a>
+            {% else %}
+                <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
+                    <img class="product__image lazy-new" 
+                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    data-src="{{ product.images[0].full }}" 
+                    data-srcset="{{ product.images[0].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                </a>
+            {% endif %}
+            </figure>
         {% else %}
-            <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
-                <img class="product__image lazy-new" 
-                src="{{ product.images[0].full }}" 
-                data-src="{{ product.images[0].full }}" 
-                data-srcset="{{ product.images[0].full }}" 
-                alt="{{ product.name }}"
-                title="{{ product.name }}"
-                width="180"
-                height="180"
-                layout="responsive">
-            </a>
+        <figure class="product__figure">
+            {% if product.images %}
+                <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
+                
+                 {% if product.images[0] and product.images[1] %}
+                    <img class="product__image product__image--on" 
+                    src="{{ product.images[0].full }}" 
+                    data-src="{{ product.images[0].full }}" 
+                    data-srcset="{{ product.images[0].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                    
+                    <img class="product__image product__image--hover" 
+                    src="{{ product.images[1].full }}" 
+                    data-src="{{ product.images[1].full }}" 
+                    data-srcset="{{ product.images[1].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                    
+                 {% else %}
+                    <img class="product__image" 
+                    src="{{ product.images[0].full }}" 
+                    data-src="{{ product.images[0].full }}" 
+                    data-srcset="{{ product.images[0].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                 
+                 {% endif %}
+    
+                </a>
+            {% else %}
+                <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">
+                    <img class="product__image" 
+                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    data-src="{{ product.images[0].full }}" 
+                    data-srcset="{{ product.images[0].full }}" 
+                    alt="{{ product.name }}"
+                    title="{{ product.name }}"
+                    width="180"
+                    height="180"
+                    layout="responsive">
+                </a>
+            {% endif %}
+            </figure>
         {% endif %}
-        </figure>
+
         
         {% if settings.discount %}
             {% set porcentagemDesconto = 100 - ( product.price_offer / product.price ) * 100 %}
@@ -42,6 +123,25 @@
     <div class="product__main">
         <h1 class="product__name"><a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">{{ product.name }}</a></h1>
 
+        
+        {% set categoryID = '' %}
+        {% for category in categories %}
+            {% for children in category.children %}
+                {% if children.id ==  product.category_id %}
+                    {% set categoryID =  children.parent_id %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        {% for category in categories %}
+            {% if category.id == categoryID %}
+            <span class="text">
+                Ideal para: 
+                <strong class="text__{{ category.name }}">{{ category.name }}</strong>
+            </span>
+            {% endif %}
+        {% endfor %}
+
         <div data-module="pricing" data-snippet="snippets/product-payment" data-product-id="{{ product.id }}">
             <div class="pricing">
                 Carregando...
@@ -50,11 +150,9 @@
     </div>
 
     <div class="product__actions">
-        <a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" >Comprar</a>
-        <button class="quick__button" data-quickview-button type="button" data-id="{{ product.id }}">
-           quickview
-        </button>
+        <button class="product__quickview quick__button" data-quickview-button type="button" data-id="{{ product.id }}">DETALHES</button>
 
+        <a class="product__buy" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" >ADICIONAR AO CARRINHO</a>
     </div>
     
 </article>

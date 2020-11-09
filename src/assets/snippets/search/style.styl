@@ -1,6 +1,12 @@
 .search 
+    max-width 700px
+
     &__form 
         display: flex 
+        border: 1px solid #E5E5E5
+
+        input
+            border: none
 
     &__input 
         flex: 1 
@@ -10,15 +16,27 @@
         flex: 0 0 auto
         min-width: 45px
         font-size: 0
+        background: #fff
 
         svg
             width 20px
             height 20px
-            fill: #fff
+            fill: color[2]
 
         &-icon 
             font-size: 20px
-            color #fff
+            color color[2]
 
         &-label 
             display: none 
+
+
+    @media desktop
+        &__form 
+     
+            input
+                border: none
+                height 40px
+
+        &__button
+            height 40px

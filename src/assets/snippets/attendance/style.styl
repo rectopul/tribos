@@ -1,31 +1,105 @@
 .attendance 
-    margin-right: 30px
-    font-size: 12px 
 
     &__header 
         display: flex
 
-    &__icon 
-        display: flex 
-        justify-content: center 
-        align-items: center 
-        width: 45px 
-        height: 45px 
-        font-size: 22px
-
         svg
-            color color
+            width 20px
+            height 26px
+            fill: #797979
+            margin-right 6px
 
-    &__title 
-        font-size: 13px 
-        font-weight: bold 
-        text-transform: uppercase 
+    &__title
+        margin-right 5px
 
-    &__content 
-        display: flex 
-        justify-content: center 
-        align-items: flex-start 
-        flex-flow: column nowrap
+    &__title , &__link, &__link--support
+        display: inline-block        
+        font-size 15px
+        font-weight normal
+        font-stretch condensed
+        line-height 1.53 
+        color: color[0]
 
-    &__phone 
-        letter-spacing: 1px
+
+    &__link
+        color color[0]
+        
+        &:hover
+            color: color[0]
+
+        &--support
+            color color[0]
+
+    &__span
+        display: block
+        font-size 14px
+        font-weight normal
+        font-stretch condensed
+        line-height normal
+        color color[0]
+
+
+    &--header
+        position relative
+        
+        .attendance 
+
+            &__header
+                display flex
+                align-items: center
+                min-height: 40px
+                
+                &--title, &--span
+                    display: flex
+                    align-items: center
+                    font-size 13px
+                    font-weight normal
+                    line-height 15px
+                    color #455454
+
+                &--span
+                    color: color
+
+                &--title
+                    svg
+                        width  10px
+                        height 10px 
+                        margin-left: 3px
+            
+            &__content
+                margin-top 24px
+
+            &__link
+                
+                &--support , &
+                    color #000000
+
+            &__main
+                position relative
+
+                opacity 0
+                visibility hidden
+
+                position: absolute
+                top: 100%
+                left 50%
+                transform: translateX(-50%)
+
+                box-shadow: 0px 1px 8px #0000001A;
+                background: #fff
+                border-radius: 4px
+                padding: 25px
+
+                div
+                    display: flex
+                    align-items: center
+                    
+
+
+    &--footer
+        .attendance 
+            &__header
+                display: none
+
+            &__content
+                display: none

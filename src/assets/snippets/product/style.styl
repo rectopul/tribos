@@ -1,20 +1,141 @@
 .product
+    padding: 0 (30px / 2)
+    transition: ease-out .2s
+
     &__header 
         margin-bottom: 20px 
         
     &__link 
         display: block 
 
-    &__image 
-        display: block 
-        width: auto
-        object-fit: contain
-        margin: 0 auto
+    &__figure
+        position relative
+        min-height: 300px
+        display: flex
+        align-items: center
+        justify-content: center
+
+    &__image
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%,-50%,0);
+        transition: ease-out .2s;
+
+        &--hover
+            opacity 0        
+
+    &__name
+        min-height: 38px
+
+        a
+            font-size 14px
+            font-weight normal
+            line-height 1.29
+            letter-spacing normal
+            color #0a0b09
+
+    &__actions
+        display: flex
+        align-items: center
+        justify-content: flex
+        margin-top 3px
+
+        @media mobile 
+            flex-wrap: wrap
+    &__quickview,
+    &__buy
+        font-size 12px
+        font-weight bold
+        font-style italic
+        line-height normal
+        color #ffffff
+        border-radius 2px
+        height auto
+        padding: 6px 14px
+
+    &__quickview
+        background-color #0a0b09
+        margin-right: 15px
+
+        @media mobile 
+            margin-right: 0px
+            margin-bottom: 10px 
+            width 100%
+
+        @media desktop 
+            &:hover
+                background: #d02431
+
+    &__buy
+        background-color #91be64
+        
+        @media mobile 
+            width 100%
+            text-align: center
+            
+        @media desktop 
+            &:hover
+                color: #0a0b09
+            
 
     &__payment
-        br
+        font-size 13px
+        font-weight 400
+        line-height 1.62
+        color #0a0b09
+        
+        strong
+            font-weight 400
+
+        > br
             display: none
 
+        .precoAvista
+            font-size 13px
+            font-weight bold
+            line-height 1.62
+            color #91be64
+        
+        .txt-forma-pagamento,
+        .operadora
+            display: none
+
+        .txt-com-desconto
+            &:after
+                content: ''
+                display: block
+                width 100%
+.prices
+    &__regular
+        font-size 16px
+        font-weight bold
+        line-height 1.31
+        color #0a0b09
+
+.text
+    font-size 12px
+    font-weight normal
+    line-height 1.75
+    letter-spacing normal
+    color #747474
+
+    &__CITY, &__STRADA, &__RACING, &__OFF-ROAD
+        font-size 13px
+        font-weight bold
+        line-height normal
+
+    &__CITY
+        color #276cc2
+
+    &__STRADA
+        color #0a0b09
+
+    &__RACING
+        color #d02431
+
+    &__OFF-ROAD
+        color #d28d52
 
 .lazy-new
     -webkit-filter: blur(5px)
