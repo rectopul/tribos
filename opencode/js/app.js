@@ -1,5 +1,19 @@
 
 
+const filterTitles = [...document.querySelectorAll('.filter__title')]
+
+if (filterTitles) {
+    filterTitles.forEach((item) => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault()
+
+            const container = item.closest('.filter__block')
+
+            container.classList.toggle('show')
+        })
+    })
+}
+
 
 
 
@@ -10,7 +24,6 @@ jQuery('.button--menu').click(function() {
 jQuery('.button__close--navigation').click(function() {
     jQuery('body').removeClass('menu__open')
 });
-
 
  
 
@@ -52,9 +65,63 @@ jQuery('.button__close--navigation').click(function() {
  }
 
 
-
  
 
+
+//quantity
+
+function changeQuantity() {
+    const quantityContainer = document.querySelector('#quantidade label.color')
+
+    function handleQuantity(btn) {
+        if (!btn) return
+
+        const input = btn.closest('label').querySelector('input')
+
+        const value = parseInt(input.value)
+        if (btn.classList.contains('minus')) {
+            if (value > 1) return (input.value = value - 1)
+
+            return
+        }
+
+        if (btn.classList.contains('plus')) {
+            return (input.value = value + 1)
+        }
+    }
+
+    console.log(`exec`)
+
+    if (quantityContainer) {
+        const btnMinus = document.createElement('div')
+        const btnPlus = document.createElement('div')
+
+        btnMinus.classList.add('minus')
+        btnPlus.classList.add('plus')
+
+        btnMinus.innerHTML = '-'
+        btnPlus.innerHTML = '+'
+
+        btnMinus.addEventListener('click', function (e) {
+            e.preventDefault()
+
+            handleQuantity(btnMinus)
+        })
+
+        btnPlus.addEventListener('click', function (e) {
+            e.preventDefault()
+
+            handleQuantity(btnPlus)
+        })
+
+        quantityContainer.append(btnMinus)
+        quantityContainer.append(btnPlus)
+    }
+}
+
+;(($) => {
+    setTimeout(changeQuantity, 2000)
+})(jQuery)
 
 const tool = (() => {
     //private var/functions
@@ -366,6 +433,59 @@ tool.selectVariation(`.tool__variants--list > li`)
 
 
 
+if($('.banner--javascript .banner__list')) {
+$('.banner--javascript .banner__list').not('.slick-initialized').slick({
+    mobileFirst: false,
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: `<button aria-label="prev" type="button" class="slick-prev"><</button>`,
+    nextArrow: `<button aria-label="next" type="button" class="slick-next">></button>`,
+    responsive: [
+        {
+            breakpoint: 424,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }
+    ]   
+});
+}
+
+if($('.banner--grid .banner__list')) {
+$('.banner--grid .banner__list').not('.slick-initialized').slick({
+    mobileFirst: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: `<button type="button" aria-label="prev" class="slick-prev"><</button>`,
+    nextArrow: `<button type="button" aria-label="next" class="slick-next">></button>`,
+    responsive: [
+        {
+            breakpoint: 424,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4   
+            }
+        }
+    ]   
+});
+}
+
 
 
 
@@ -384,6 +504,7 @@ if(button) {
 
 
  
+
 
 
 // function FakeSelect() {
@@ -412,8 +533,6 @@ if(button) {
 // FakeSelect();
 
 // document.addEventListener('FAKESELECT', () => { FakeSelect() }, false);
-
-
 
 
 
@@ -481,58 +600,6 @@ childs.forEach((child) => {
 
 
 
-if($('.banner--javascript .banner__list')) {
-$('.banner--javascript .banner__list').not('.slick-initialized').slick({
-    mobileFirst: false,
-    infinite: false,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    prevArrow: `<button aria-label="prev" type="button" class="slick-prev"><</button>`,
-    nextArrow: `<button aria-label="next" type="button" class="slick-next">></button>`,
-    responsive: [
-        {
-            breakpoint: 424,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        },
-        {
-            breakpoint: 767,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
-    ]   
-});
-}
-
-if($('.banner--grid .banner__list')) {
-$('.banner--grid .banner__list').not('.slick-initialized').slick({
-    mobileFirst: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    prevArrow: `<button type="button" aria-label="prev" class="slick-prev"><</button>`,
-    nextArrow: `<button type="button" aria-label="next" class="slick-next">></button>`,
-    responsive: [
-        {
-            breakpoint: 424,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3
-            }
-        },
-        {
-            breakpoint: 767,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 4   
-            }
-        }
-    ]   
-});
-}
 
 /* Lazy Load  */
 

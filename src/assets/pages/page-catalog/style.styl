@@ -1,4 +1,54 @@
 .page-catalog 
+
+    &__summary
+        display flex
+        border-bottom 1px solid  #dcebeb
+        justify-content space-between
+        position relative
+
+        &--name
+            display flex
+            align-items center
+            h1
+                font(Oswald, 26px, 500, $black, 1.5, left)
+                text-transform uppercase
+
+        &--filters
+            flex 1
+            min-width 1px
+
+        .toolbar__filter
+            margin-left auto
+
+            label.filtros
+                font(Oswald, 14px, 400, $black, 1.5, left)
+                text-transform capitalize
+
+            select
+                height 36px
+                border solid 1px #e5e5e5
+                padding-left 10px
+                padding-right 10px
+
+        .toolbar__paginate
+            position absolute
+            width 280px
+            left 50%
+            top 50px
+            height 40px
+            margin-left -140px
+            margin-top -20px
+
+            font(Oswald, 14px, 700, $black, 1.5, center)
+
+        .paginate__pages
+            display none
+
+        .page-catalog__toolbar
+            border-bottom 0
+            margin-bottom 0
+
+
     &__container 
         display: flex 
         margin: '0 %s' % -(30px / 2)
@@ -17,9 +67,18 @@
         min-width: 0
         padding: 0 (30px / 2)
 
+        .showcase
+            margin-top 0
+
+        .showcase__item
+            &:nth-child(-n+4)
+                margin-top 0
+
     &__left 
+        @media screen and (min-width 1024px)
+            flex 0 0 310px
         .preload & 
-            visibility: hidden
+            visibility: visible
     .main__container
         padding: 0 15px
 

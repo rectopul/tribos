@@ -16,6 +16,7 @@
             {% element 'snippets/rating-short' { 'product': product } %}
         </div>
         
+        {#
         <div class="page-product__head">
             {% if product.brand %}
             <div class="page-product__brand">
@@ -28,6 +29,7 @@
             </div>
             {% endif %}
         </div>
+        #}
     
     </div>
 
@@ -52,19 +54,19 @@
     <div class="page-product__details">
         {% if productHelper.banner() %}{{ productHelper.banner() }}{% endif %}
 
-        {{ productHelper.bonus() }}
+        {# {{ productHelper.bonus() }} #}
 
         <form id="form_comprar" method="post" data-app="product.buy-form" action="{{ links.cart_add ~ product.id }}">
             
-            {% if product.available != 0 %}
-            {{ productHelper.variants() }}
-            {% endif %}
-
             <div data-module="pricing" data-snippet="snippets/pricing" data-product-id="{{ product.id }}">
                 <div class="pricing">
                     Carregando...
                 </div>
             </div>
+
+            {% if product.available != 0 %}
+            {{ productHelper.variants() }}
+            {% endif %}
 
             {{ productHelper.gifts() }}
             {{ product.additional_information }}
