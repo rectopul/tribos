@@ -4,34 +4,44 @@
     align-items: center
     justify-content: center
 
+    ul
+        display: flex
+        align-items: center
+        justify-content: center
 
     &__box
-        display: inline-flex 
-        justify-content: flex-start 
+        display: flex 
+        justify-content: center
         align-items: center 
-        padding: 10px 
-        text-align: left
-
-    &__item
-        text-align: center 
-
-    
-    &__title
-        font-size: 12px
-        line-height: normal
+        padding: 4px 30px 
         text-align: center
 
-    .slick
-        &-arrow 
-            position: static
-            transform: none 
-            margin: 0 10px
+    &__item
+        display: flex
+        align-items: center
+        text-align: center 
 
-        &-slider
-            display: flex 
-            justify-content: space-between
-            align-items: center
+        &:after
+            content: ''
+            background: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAVAAgDAREAAhEBAxEB/8QAFgAAAwAAAAAAAAAAAAAAAAAABgkK/8QAIRAAAgIDAQABBQAAAAAAAAAABAUDBgIHCAEUAAkREyH/xAAYAQACAwAAAAAAAAAAAAAAAAAECAUGB//EACQRAAIDAAICAgIDAQAAAAAAAAIDAQQFBgcREggTADEVIUFC/9oADAMBAAIRAxEAPwCmPuDd9osHf3A/IFPfuVio28q96bTCr7SVfK/W1c1wyqqFzMHONNMkGgpNsbO0JM0gjQchQUQDPmIvyyznk+m93K+KcfrtYCytBqXgSchLQQTDQpkiQzKhitYYxReRZErKRmRCSej4/wDAMjM+N3yO7t3M2jbuI4/b694hY06gWQzrWuilV2NGgt6mgGg1m/jUqGioBdUYq6lVgBdaj8B+ZayHvX7xHau92EXpS7m6vVLUVNwm/PviuzOq9FVGpw0mOfuOUmMFT2MPnD/fMIbRl7LhjLjF79DYiR1Ow+S6hx7BjpRn1/P/AA9iorsKJ/XmIr248f5D/wC4ifBfk/2xrP68+EHQ3XdY4Ta7S09nmu4Qfu3k0dI9mnXaExEwMs2eLthn7I8iIApAjH8ZPzVyvWObm/QNjVPj7TYuht6XbddncMl4i+cDy0sSD1VPFjEllwIWVj5rH4xsv6pjC2h5PxgoJBwhbnjYSMZms5bSe7X1LOk9hgISH3mRLrj6zPkEex+pT6yRGc+IiRAFX7V7g1u06XWuXczq+Rl9Z9e4HAsmlVsusrs/w9Vde5tuJwASret9Fb7UB7ghNSsr7XsBlh//2Q==");
+            background-repeat: no-repeat
+            background-position: center
+            display: inline-block
+            width 4px
+            height 20px
+            margin-right: 5px
+
+        &:last-child
+            &:after
+                display: none 
+    
+    &__title
+        font-size: 14px
+        line-height: normal
+        text-align: center
+        white-space nowrap
+
+
+    @media mobile 
+        display: none
         
-        &-list 
-            flex: 1 
-            min-width: 0

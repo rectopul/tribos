@@ -7,3 +7,54 @@
 
         &-item 
             padding: (30px / 2)
+
+
+.rede_social
+
+    &__desc
+        display: block
+        font-size: 16px
+        line-height: normal
+        font-family: 'Montserrat', sans-serif;
+        color: #847E7E
+        text-align: center
+
+
+    &__title
+        display: block
+        font-size: 45px
+        line-height: normal
+        color: color[0]
+        text-align: center
+
+    ul
+        display: flex
+        align-items: center
+        justify-content: space-between
+        max-width 900px
+        margin: 30px auto
+
+        @media mobile 
+            flex-wrap: wrap
+
+            li
+                flex: 0 0 100%
+                margin: 15px 0
+                
+                a
+                    justify-content: center
+
+        li
+            border: 1px solid #D1D1D1
+            padding: 20px
+
+            a   
+                display flex
+                align-items: center
+                color: #847E7E
+                font-family: 'Montserrat', sans-serif;
+                font-size: 14px
+                
+                svg
+                    height 22px
+                    margin-right: 5px

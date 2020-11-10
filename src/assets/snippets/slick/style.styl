@@ -7,11 +7,22 @@
         transform: translateY(-50%)
         transition: all .2s ease-in-out
 
+        background: transparent
+
+        svg
+            fill: #D0C5C5
+
+        &:hover
+            svg
+                fill: color[2]
     &-next
         right: 20px 
 
     &-prev 
         left: 20px
-    
+        
+        svg
+            transform: rotateY(180deg);
+
     &-list, &-track
         min-width: 100%

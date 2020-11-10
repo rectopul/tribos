@@ -1,10 +1,22 @@
 .copyright 
-    background: #eaeaea 
-    margin-bottom: (30px / 2)
+    background: #262323
+    margin-top: 30px
 
     &__container 
+        display: flex
+        align-items: center
+        justify-content: space-between
         max-width: 1300px
         margin: 0 auto 
-        padding: 30px 0
+        padding: 0 15px
+        font-family: 'Montserrat', sans-serif;
         font-size: 12px 
         text-align: center 
+        color: #fff
+
+        span
+            max-width 600px
+            text-align: right 
+
+        @media mobile 
+            flex-wrap: wrap

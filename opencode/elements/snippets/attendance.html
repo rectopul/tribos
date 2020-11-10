@@ -15,21 +15,18 @@
 
             {% if settings.whatsapp %}
                 <div>
-                    <span class="attendance__title">Whatsapp</span>
                     <a href="https://api.whatsapp.com/send?phone=55{{ settings.whatsapp | replace({' ':'', '-':'', '(':'', ')':''}) }}" class="attendance__link"  rel="noopener" target="_blank">{{ settings.whatsapp }}</a>
                 </div>
             {% endif %}
             
             {% if settings.whatsapp %}
                 <div>
-                    <span class="attendance__title">Telefone</span>
                     <a href="https://api.whatsapp.com/send?phone=55{{ settings.whatsapp | replace({' ':'', '-':'', '(':'', ')':''}) }}" class="attendance__link"  rel="noopener" target="_blank">{{ settings.whatsapp }}</a>
                 </div>
             {% endif %}
 
             {% if settings.email %}
                 <div>
-                    <span class="attendance__title">Email</span>
                     <a href="mailto:{{ settings.email }}" class="attendance__link attendance__link--email">{{ settings.email }}</a>
                 </div>
             {% endif %}

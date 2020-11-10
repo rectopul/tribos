@@ -17,7 +17,12 @@
                 &__link
                     display: block 
                     padding: (30px/2) 30px
-                    line-height: 1.2 
+                    
+                    color:  color[0]
+                    font-size: 16px
+                    text-transform: uppercase
+                    font-weight: 600
+                    white-space: nowrap
 
                 &__item
                     &--nv1 
@@ -35,7 +40,12 @@
                         flex-flow: row wrap 
 
                         &:after 
-                            icon: "\f105"
+                            content: ''
+                            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAZCAMAAAAR624oAAAAVFBMVEUAAADfIDDfKDDfKzDjKDHfKDDiKjDfKTDhKDDfKDDfKTDhKjDfKjDhKTDfKTDhKjDfKTDgKTDfKjDgKTDfKTDgKjDfKjHgKTDfKTHgKjDfKTHgKjGkgDKsAAAAG3RSTlMAECAwP0BPUF9gcH+Aj5CfoK+wv8DP0N/g7/B2lF5RAAAArklEQVR42oXQRYLDMAwFUJnDzP/+55xpaygp6VvaYgqqsbZ0rgKwt/bq+2avJXEKRGMmmH/hBkQ9GyGr7UdEPiHaW24M1R0poCSSw+jV5Y3WWopiQVAQierAh3mFV/mOC75s9yma2LH5LDG5PWR7rtnwqXifuuje2hyS2czkHbycOMXuh1PEkKNPbQQxKp+6GGKYNd6DM/jPRRFHplQebiYu1Tuw5XRuqgRd+Pr8B6UCGu/W3DfMAAAAAElFTkSuQmCC");
+                            background-repeat: no-repeat
+                            background-position: center
+                            background-size: 17px
+
                             order: 2
                             flex: 0 0 auto
                             

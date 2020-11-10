@@ -1,5 +1,6 @@
 .product
-    padding: 0 (30px / 2)
+    max-width 245px
+    margin: 0 auto
     transition: ease-out .2s
 
     &__header 
@@ -10,7 +11,7 @@
 
     &__figure
         position relative
-        min-height: 300px
+        min-height: 245px
         display: flex
         align-items: center
         justify-content: center
@@ -25,15 +26,25 @@
         &--hover
             opacity 0        
 
+    &__category
+        display: block
+        font-size: 13px
+        line-height: normal
+        text-align: center
+        color: #847E7E
+        min-height: 20px
+
     &__name
-        min-height: 38px
+        min-height: 30px
 
         a
+            font-family: 'Montserrat', sans-serif;
             font-size 14px
-            font-weight normal
+            font-weight 200
             line-height 1.29
             letter-spacing normal
             color #0a0b09
+            text-align: center
 
     &__actions
         display: flex
@@ -55,6 +66,7 @@
         padding: 6px 14px
 
     &__quickview
+        display: none
         background-color #0a0b09
         margin-right: 15px
 
@@ -68,34 +80,31 @@
                 background: #d02431
 
     &__buy
-        background-color #91be64
-        
-        @media mobile 
-            width 100%
-            text-align: center
-            
-        @media desktop 
-            &:hover
-                color: #0a0b09
-            
+        display: block
+        margin-top: 15px
+        background-color #90C401
+        width 100%
+        text-align: center    
+        opacity 0
+        visibility hidden
 
     &__payment
-        font-size 13px
-        font-weight 400
+        font-size 14px
+        font-weight 200
         line-height 1.62
         color #0a0b09
-        
+        text-align: center
+
         strong
-            font-weight 400
+            font-weight 200
 
         > br
             display: none
 
         .precoAvista
-            font-size 13px
-            font-weight bold
-            line-height 1.62
-            color #91be64
+            font-size 14px
+            font-weight 200
+            color #0a0b09
         
         .txt-forma-pagamento,
         .operadora
@@ -108,34 +117,13 @@
                 width 100%
 .prices
     &__regular
-        font-size 16px
-        font-weight bold
+        display: block
+        text-align: center
+        font-size 18px
+        font-weight 500
         line-height 1.31
-        color #0a0b09
+        color   #E02A31
 
-.text
-    font-size 12px
-    font-weight normal
-    line-height 1.75
-    letter-spacing normal
-    color #747474
-
-    &__CITY, &__STRADA, &__RACING, &__OFF-ROAD
-        font-size 13px
-        font-weight bold
-        line-height normal
-
-    &__CITY
-        color #276cc2
-
-    &__STRADA
-        color #0a0b09
-
-    &__RACING
-        color #d02431
-
-    &__OFF-ROAD
-        color #d28d52
 
 .lazy-new
     -webkit-filter: blur(5px)

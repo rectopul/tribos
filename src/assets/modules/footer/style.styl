@@ -2,7 +2,7 @@
     &__container 
         max-width: 1300px 
         margin: 0 auto
-        padding: 50px (30px / 2)
+        padding: 0 (30px / 2)
 
     &__row 
         display: flex 
@@ -14,8 +14,32 @@
         flex: 0 1 240px
         padding: (30px / 2)
 
+
+    &__link
+        font-size: 14px
+        font-weight: 200
+        color: #262323
+        line-height: normal
+        font-family: 'Montserrat', sans-serif;
+
     &__title 
-        padding-bottom: 16px
+        display: flex
+        align-items: center
+        font-size: 15px
+        color: #262323
+        line-height: normal
+        padding-bottom: 12px
+        text-transform: uppercase
+
+        &:before
+            content: ''
+            background: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAVAAgDAREAAhEBAxEB/8QAFgAAAwAAAAAAAAAAAAAAAAAABgkK/8QAIRAAAgIDAQABBQAAAAAAAAAABAUDBgIHCAEUAAkREyH/xAAYAQACAwAAAAAAAAAAAAAAAAAECAUGB//EACQRAAIDAAICAgIDAQAAAAAAAAIDAQQFBgcREggTADEVIUFC/9oADAMBAAIRAxEAPwCmPuDd9osHf3A/IFPfuVio28q96bTCr7SVfK/W1c1wyqqFzMHONNMkGgpNsbO0JM0gjQchQUQDPmIvyyznk+m93K+KcfrtYCytBqXgSchLQQTDQpkiQzKhitYYxReRZErKRmRCSej4/wDAMjM+N3yO7t3M2jbuI4/b694hY06gWQzrWuilV2NGgt6mgGg1m/jUqGioBdUYq6lVgBdaj8B+ZayHvX7xHau92EXpS7m6vVLUVNwm/PviuzOq9FVGpw0mOfuOUmMFT2MPnD/fMIbRl7LhjLjF79DYiR1Ow+S6hx7BjpRn1/P/AA9iorsKJ/XmIr248f5D/wC4ifBfk/2xrP68+EHQ3XdY4Ta7S09nmu4Qfu3k0dI9mnXaExEwMs2eLthn7I8iIApAjH8ZPzVyvWObm/QNjVPj7TYuht6XbddncMl4i+cDy0sSD1VPFjEllwIWVj5rH4xsv6pjC2h5PxgoJBwhbnjYSMZms5bSe7X1LOk9hgISH3mRLrj6zPkEex+pT6yRGc+IiRAFX7V7g1u06XWuXczq+Rl9Z9e4HAsmlVsusrs/w9Vde5tuJwASret9Fb7UB7ghNSsr7XsBlh//2Q==");
+            background-repeat: no-repeat
+            background-position: center
+            display: inline-block
+            width 4px
+            height 20px
+            margin-right: 5px
 
     &__contact 
         &-icon 
@@ -33,4 +57,7 @@
         flex-wrap: wrap
 
     &__item
-        margin: 5px
+        margin-right: 4px
+
+        img
+            height 20px

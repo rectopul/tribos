@@ -121,9 +121,6 @@
     </div>
 
     <div class="product__main">
-        <h1 class="product__name"><a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">{{ product.name }}</a></h1>
-
-        
         {% set categoryID = '' %}
         {% for category in categories %}
             {% for children in category.children %}
@@ -133,14 +130,15 @@
             {% endfor %}
         {% endfor %}
 
+        <span class="product__category">
         {% for category in categories %}
             {% if category.id == categoryID %}
-            <span class="text">
-                Ideal para: 
-                <strong class="text__{{ category.name }}">{{ category.name }}</strong>
-            </span>
+                {{ category.name }}
             {% endif %}
         {% endfor %}
+        </span>
+
+        <h1 class="product__name"><a class="product__link" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" data-tray-tst="vitrine_produto_link_imagem">{{ product.name }}</a></h1>
 
         <div data-module="pricing" data-snippet="snippets/product-payment" data-product-id="{{ product.id }}">
             <div class="pricing">
@@ -150,9 +148,7 @@
     </div>
 
     <div class="product__actions">
-        <button class="product__quickview quick__button" data-quickview-button type="button" data-id="{{ product.id }}">DETALHES</button>
-
-        <a class="product__buy" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" >ADICIONAR AO CARRINHO</a>
+        <a class="product__buy" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}" >ADD AO CARRINHO</a>
     </div>
     
 </article>

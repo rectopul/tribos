@@ -76,10 +76,16 @@
 
         <div class="wrapper">
             <div class="wrapper__container">
-                {% element 'header' %} {% if pages.current == 'home' %} {% if
-                not utils.is_mobile %} {% element 'snippets/banner' {'name':
-                'home'} %} {% else %} {% element 'snippets/banner' {'name':
-                'extra12'} %} {% endif %} {% endif %}
+                {% element 'header' %} 
+
+                {% if not utils.is_mobile %} 
+                    {% element 'snippets/banner' {'name': 'home'} %} 
+                {% elseif banner.extra12 %} 
+                    {% element 'snippets/banner' {'name': 'extra12'} %} 
+                {% else %} 
+                    {% element 'snippets/banner' {'name': 'home'} %} 
+                {% endif %} 
+                
 
                 <main class="main">
                     <div class="main__container">
@@ -101,9 +107,13 @@
                     {% endfor %}
                 </div>
                 {% endif %} {% if pages.current in ['catalog', 'search',
-                'product'] %} {% if settings.history_position == 2 %} {% endif
-                %} {% endif %} {% element 'snippets/newsletter' %} {% element
-                'footer' %} {% element 'copyright' %} {% element 'partners' %}
+                'product'] %} {% if settings.history_position == 2 %}
+                {% endif %} 
+                {% endif %} 
+                
+                {% element 'snippets/newsletter' %} 
+                {% element 'footer' %} 
+                {% element 'copyright' %}
             </div>
         </div>
 
