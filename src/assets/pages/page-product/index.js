@@ -1,3 +1,10 @@
+var arrowPrev = `<button aria-label="prev" type="button" class="slick-prev">
+<span class="icon-arrow"></span>
+</button>`
+var arrowNext = `<button aria-label="prev" type="button" class="slick-next">
+<span class="icon-arrow"></span>
+</button>`
+
 //quantity
 
 function changeQuantity() {
@@ -50,5 +57,53 @@ function changeQuantity() {
 }
 
 ;(($) => {
+    const productTabs = document.querySelector('.product-tabs.product-tabs--line')
+
+    console.log(productTabs)
+
+    if (productTabs) {
+        const customDesc = productTabs.querySelector('.product-description__description')
+        if (!customDesc) productTabs.classList.add('small')
+    }
+
     setTimeout(changeQuantity, 2000)
+
+    // thumbs
+    jQuery(document).on('thumbs:start', function () {
+        var thumbs = jQuery('.thumbs__list')
+        if (thumbs) {
+            jQuery('.thumbs__list').slick({
+                slidesToShow: 4,
+                vertical: true,
+                prevArrow: arrowPrev,
+                nextArrow: arrowNext,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 3,
+                            dots: false,
+                        },
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 3,
+                            vertical: false,
+                            dots: false,
+                        },
+                    },
+                    {
+                        breakpoint: 321,
+                        settings: {
+                            slidesToShow: 2,
+                            vertical: false,
+                            dots: false,
+                        },
+                    },
+                ],
+            })
+        }
+    })
+    // end thumbs
 })(jQuery)

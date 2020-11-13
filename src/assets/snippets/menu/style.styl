@@ -2,6 +2,14 @@
     .menu 
         width: 100%
         overflow: hidden
+
+        &__item
+
+            &.link-tool
+                background-color $pinkish-red
+                color #ffffff
+                max-height 50px
+                overflow hidden
         
         &--sub 
             display: none 
@@ -72,6 +80,20 @@
 
 @media (min-width: 992px) 
     .menu
+        &__item
+
+            &.link-tool
+                background-color $pinkish-red
+                color #ffffff
+                max-height 50px
+                overflow hidden
+
+                &:hover
+                    background-color #fff
+                    a
+                        color $pinkish-red
+
+
         &--navigation
             .menu
                 &__icon 

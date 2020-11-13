@@ -16,7 +16,6 @@ if (filterTitles) {
 
 
 
-
 jQuery('.button--menu').click(function() {
     jQuery('body').addClass('menu__open')
 });
@@ -24,6 +23,7 @@ jQuery('.button--menu').click(function() {
 jQuery('.button__close--navigation').click(function() {
     jQuery('body').removeClass('menu__open')
 });
+
 
  
 
@@ -65,8 +65,15 @@ jQuery('.button__close--navigation').click(function() {
  }
 
 
+
  
 
+var arrowPrev = `<button aria-label="prev" type="button" class="slick-prev">
+<span class="icon-arrow"></span>
+</button>`
+var arrowNext = `<button aria-label="prev" type="button" class="slick-next">
+<span class="icon-arrow"></span>
+</button>`
 
 //quantity
 
@@ -120,7 +127,55 @@ function changeQuantity() {
 }
 
 ;(($) => {
+    const productTabs = document.querySelector('.product-tabs.product-tabs--line')
+
+    console.log(productTabs)
+
+    if (productTabs) {
+        const customDesc = productTabs.querySelector('.product-description__description')
+        if (!customDesc) productTabs.classList.add('small')
+    }
+
     setTimeout(changeQuantity, 2000)
+
+    // thumbs
+    jQuery(document).on('thumbs:start', function () {
+        var thumbs = jQuery('.thumbs__list')
+        if (thumbs) {
+            jQuery('.thumbs__list').slick({
+                slidesToShow: 4,
+                vertical: true,
+                prevArrow: arrowPrev,
+                nextArrow: arrowNext,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 3,
+                            dots: false,
+                        },
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 3,
+                            vertical: false,
+                            dots: false,
+                        },
+                    },
+                    {
+                        breakpoint: 321,
+                        settings: {
+                            slidesToShow: 2,
+                            vertical: false,
+                            dots: false,
+                        },
+                    },
+                ],
+            })
+        }
+    })
+    // end thumbs
 })(jQuery)
 
 const tool = (() => {
@@ -506,7 +561,6 @@ if(button) {
  
 
 
-
 // function FakeSelect() {
 //     $('select').each(function(){
 //         if($(this).closest('.fake-select').length === 0) {
@@ -533,6 +587,8 @@ if(button) {
 // FakeSelect();
 
 // document.addEventListener('FAKESELECT', () => { FakeSelect() }, false);
+
+
 
 
 
@@ -594,7 +650,6 @@ childs.forEach((child) => {
 
 // navigationHiddenResize();
 // navigationAlign();
-
 
 
 
@@ -700,77 +755,76 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+var $ = $tray
+if (typeof $ == 'function') {
+    $(document).ready(function () {
+        $(window).ajaxComplete(function (event, xhr, settings) {
+            if (settings) {
+                if (settings.url.indexOf('variant_gallery') !== -1) {
+                    loadThumb()
+                }
+            }
+        })
+        loadThumb()
+    })
 
+    function loadThumb() {
+        var thumbs = $('.produto-imagem-miniaturas')
 
-// var $ = $tray;
-// if( typeof $ == 'function') {
-//     $(document).ready(function(){
-//         $(window).ajaxComplete(function( event, xhr, settings ){
-//             if(settings) {
-//                 if(settings.url.indexOf('variant_gallery') !==  -1) {
-//                     loadThumb();
-//                 }
-//             }
-//         });
-//         loadThumb();
-//     });
+        if (thumbs.length) {
+            thumbs.hide()
 
-//     function  loadThumb() {
-//         var  thumbs  =  $('.produto-imagem-miniaturas');
+            var images = thumbs.find('img, .icon-video')
+            let html
 
-//         if(thumbs.length) {
-//             thumbs.hide();
+            if ($('.thumbs').length) $('.thumbs').remove()
 
-//             var   images  =  thumbs.find('img, .icon-video');
-//             let     html;
-            
-//             if($('.thumbs').length) $('.thumbs').remove();
+            if (images.length) {
+                html = `<div class="thumbs">`
+                html += `<ul class="thumbs__list">`
 
-//             if(images.length) {
-//                 html  =  `<div class="thumbs">`;
-//                 html  +=  `<ul class="thumbs__list">`;
-                
-//                 images.each((index, item) => {
-//                     html  +=  createThumb($(item).attr('src'), index);
-//                 });
-            
-//                 html  +=  `</ul>`;
-//                 html  +=  `</div>`;
-//                 thumbs.after(html);
+                images.each((index, item) => {
+                    html += createThumb($(item).attr('src'), index)
+                })
 
-//                 $(document).trigger("thumbs:start");
-                
-//                 $('.thumbs a').click((evt) => {
-//                     let index = $(evt.currentTarget).attr('data-index');
+                html += `</ul>`
+                html += `</div>`
+                thumbs.after(html)
 
-//                     selectThumb(index);
-                    
-//                     if ($(evt.currentTarget).find('.thumb__video').length) { 
-//                         $('#colVideo').show();
-//                     } else {
-//                         $($('a', thumbs).eq(index)).mouseover().click();
-//                         $('#colVideo').hide();
-//                     }
-//                     evt.preventDefault();
-//                 });			
-                
-//                 selectThumb('0');
-//             }
-//         }
-//     }
-    
-//     function selectThumb(index) {
-//         $(`.thumbs li`).removeClass('thumbs__item--actived');
-//         $(`.thumbs [data-index=${index}]`).closest('li').addClass('thumbs__item--actived');
-//     }
+                $(document).trigger('thumbs:start')
 
-//     function  createThumb(src,index) {
-//         if (src) {
-//             return  `<li class="thumbs__item"><a class="thumbs__link" data-index="${index}" href="#${index}"><img class="thumbs__image" src="${src}" /></a></li>`;
-//         }else{
-//             return `<li class="thumbs__item"><a class="thumbs__link" data-index="${index}" href="#${index}"><span class="thumb__video"></span></a></li>`;
-//         }
-//     }
-// }
+                $('.thumbs a').click((evt) => {
+                    let index = $(evt.currentTarget).attr('data-index')
+
+                    selectThumb(index)
+
+                    if ($(evt.currentTarget).find('.thumb__video').length) {
+                        $('#colVideo').show()
+                    } else {
+                        $($('a', thumbs).eq(index)).mouseover().click()
+                        $('#colVideo').hide()
+                    }
+                    evt.preventDefault()
+                })
+
+                selectThumb('0')
+            }
+        }
+    }
+
+    function selectThumb(index) {
+        $(`.thumbs li`).removeClass('thumbs__item--actived')
+        $(`.thumbs [data-index=${index}]`).closest('li').addClass('thumbs__item--actived')
+    }
+
+    function createThumb(src, index) {
+        if (src) {
+            return `<li class="thumbs__item"><a class="thumbs__link" data-index="${index}" href="#${index}"><img class="thumbs__image" src="${src}" /></a></li>`
+        } else {
+            return `<li class="thumbs__item"><a class="thumbs__link" data-index="${index}" href="#${index}"><span class="thumb__video"></span></a></li>`
+        }
+    }
+}
+
 
  

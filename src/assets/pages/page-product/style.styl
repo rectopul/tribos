@@ -232,6 +232,31 @@
 
         // Ajuste Zoom
 
+        #colFotos
+            display flex
+            flex-wrap wrap
+
+            #foto_p
+                @media screen and (min-width 993px)
+                    a.container_thumb
+                        
+                        min-height 550px
+
+                        &, img
+                            max-width 550px !important
+                            max-height 550px !important
+
+            > .produto-zoom-detalhe
+                flex 0 0 100%
+
+            > .thumbs
+                flex 0 0 95px
+
+            > .produto-imagem 
+                flex 1
+                min-width 1px
+
+
         #wrap
             display: inline-block 
             position: relative
@@ -403,3 +428,154 @@
             
         &__details 
             grid-area: details
+
+.related-title
+    font(Oswald, 45px, 300, $black, 1.49, center)
+    display flex
+    justify-content center
+    align-items center
+    flex-direction column
+
+    &:before
+        content 'Você vai gostar'
+        font(Montserrat, 15px, 400, $reddish-grey, 1.27, center)
+
+.product-tabs
+
+    &.product-tabs--line.small
+        width 100%
+        max-width 1300px
+        padding 0 15px
+        margin 70px auto
+
+        p, span
+            font(Montserrat, 16px, 400, $black, 1.38, left)
+    
+    &, &__title
+
+        h3
+            font(Oswald, 45px, 300, $black, 1.49, center)
+
+    .board
+        .comments
+            width 100%
+            max-width: 1300px
+            margin 0 auto
+            padding 0 15px
+            margin-bottom 100px
+
+            a[data-logged-user]
+                width 264px
+                height 46px
+                margin 0 auto
+                padding 14px 35px
+                border solid 1px #d1d1d1
+                background-color #ffffff
+                display block
+
+                font(Montserrat, 14px, 300, $reddish-grey, 1.29, center)
+
+                &:hover
+                    background-color $reddish-grey
+                    color #fff
+
+
+            > h2
+                font-size 0
+                position relative
+                display flex
+                justify-content center
+                align-items center
+                flex-direction column
+                border-bottom 0
+                &:after
+                    content 'Avaliações de Clientes'
+                    font(Oswald, 45px, 300, $black, 1.49, center)
+                    text-transform capitalize
+                &:before
+                    content 'Veja o que dizem sobre nós'
+                    font(Montserrat, 15px, 400, $reddish-grey, 1.27, center)
+
+
+    &__tab
+
+        &[aria-controls="tab-description"],
+        &[aria-controls="tab-comments"]
+
+            display none
+
+.product-description
+
+    &__description
+        width 100%
+        max-width: 1300px
+        margin 0 auto
+        padding 0 15px
+
+        p
+
+            font(Montserrat, 16px, 400, $black, 1.38, left)
+
+        h1
+
+            font(Oswald, 25px, 700, $black, 1.48, left)
+            margin-bottom 30px
+            border-bottom 0
+
+
+    &__variation
+        h1
+            font(Oswald, 25px, 700, $black, 1.48, left)
+            width 100%
+            max-width 1300px
+            margin 0 auto
+            padding 0 15px
+            border-bottom 0
+
+        img
+            margin-top 35px
+
+
+    &__characteristic
+        display flex
+        margin-top 40px
+
+        &--image
+            flex 0 0 530px
+            order 2
+
+        &--text
+            flex 1
+            order 0
+
+            h1
+
+                font(Oswald, 25px, 700, $black, 1.48, left)
+                margin-bottom 30px
+                border-bottom 0
+
+            ul
+                font(Montserrat, 14px, 400, $black, 2.14, left)
+                list-style-type: circle
+                padding-left 20px
+
+        
+
+    &__header
+        height 350px
+        display flex
+        position relative
+        justify-content center
+        align-items center
+
+        h1
+            font(Oswald, 45px, 700, #ffffff, 1.48, left)
+            z-index 2
+
+        img
+            position absolute
+            width 100%
+            height 350px
+            top 0
+            left 0
+            z-index 0

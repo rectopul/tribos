@@ -100,8 +100,11 @@
 
                 <main class="main">
                     <div class="main__container">
-                        {% if pages.current == 'tool' %} {% element 'tool' %} {%
-                        else %} {{ content_for_layout }} {% endif %}
+                        {% if pages.current == 'tool' %} 
+                        {% element 'tool' %} 
+                        {% else %} 
+                        {{ content_for_layout }} 
+                        {% endif %}
                     </div>
                 </main>
 

@@ -116,7 +116,9 @@
     </div>
 </section>
 
+</div>
 {% element 'snippets/product-tabs' { 'product': product, 'productTabs': productTabs } %}
+<div class="main__container">
 
 {% element 'buy-together' %}
 
@@ -124,7 +126,7 @@
 {% if product.related_products %}
 <div id="prognoos_lsi"></div>
 <section class="products-related"> 
-    <h3 class="related-title">{{ Translation('produtos_relacionados') }}</h3>
+    <h3 class="related-title">Nossas Indicações</h3>
     <div class="row">
         {% for related in product.related_products %}
             <div class="col-sm-3">
