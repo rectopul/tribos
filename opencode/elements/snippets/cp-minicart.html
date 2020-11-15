@@ -1,22 +1,20 @@
-<div id="cart" class="cart" data-minicart-open>
-    <div class="dropdown">
-        <a href="{{ links.cart }}" class="cart__link">
-           <div class="cart__info">
-                <svg width="19.999" height="18" viewBox="0 0 19.999 18">
-                    <g id="noun_cart_3370475" transform="translate(-3 -3)">
-                        <g id="Layer_2" data-name="Layer 2" transform="translate(1 3)">
-                            <path id="Caminho_326" data-name="Caminho 326" d="M20.333,5H5.3L5,3.527A.667.667,0,0,0,4.333,3H1.667a.667.667,0,0,0,0,1.333H3.793l1.873,8.58-1.26,2.453A.667.667,0,0,0,5,16.333H18.333a.667.667,0,0,0,0-1.333H6.08l.667-1.333h10.92a.667.667,0,0,0,.627-.44L20.96,5.893A.668.668,0,0,0,20.333,5ZM17.2,12.333H6.873l-1.287-6H19.38Z" transform="translate(1 -3)" fill="#262323"/>
-                            <path id="Caminho_327" data-name="Caminho 327" d="M23,24a2,2,0,1,0,2,2A2,2,0,0,0,23,24Zm0,2.667A.667.667,0,1,1,23.667,26,.667.667,0,0,1,23,26.667Z" transform="translate(-7.667 -10)" fill="#262323"/>
-                            <path id="Caminho_328" data-name="Caminho 328" d="M11,24a2,2,0,1,0,2,2A2,2,0,0,0,11,24Zm0,2.667A.667.667,0,1,1,11.667,26,.667.667,0,0,1,11,26.667Z" transform="translate(-3.667 -10)" fill="#262323"/>
-                        </g>
+<div id="cart" class="cart" >
+    
+    <a href="{{ links.cart }}" class="cart__link">
+        <div class="cart__info">
+            <svg width="19.999" height="18" viewBox="0 0 19.999 18">
+                <g id="noun_cart_3370475" transform="translate(-3 -3)">
+                    <g id="Layer_2" data-name="Layer 2" transform="translate(1 3)">
+                        <path id="Caminho_326" data-name="Caminho 326" d="M20.333,5H5.3L5,3.527A.667.667,0,0,0,4.333,3H1.667a.667.667,0,0,0,0,1.333H3.793l1.873,8.58-1.26,2.453A.667.667,0,0,0,5,16.333H18.333a.667.667,0,0,0,0-1.333H6.08l.667-1.333h10.92a.667.667,0,0,0,.627-.44L20.96,5.893A.668.668,0,0,0,20.333,5ZM17.2,12.333H6.873l-1.287-6H19.38Z" transform="translate(1 -3)" fill="#262323"/>
+                        <path id="Caminho_327" data-name="Caminho 327" d="M23,24a2,2,0,1,0,2,2A2,2,0,0,0,23,24Zm0,2.667A.667.667,0,1,1,23.667,26,.667.667,0,0,1,23,26.667Z" transform="translate(-7.667 -10)" fill="#262323"/>
+                        <path id="Caminho_328" data-name="Caminho 328" d="M11,24a2,2,0,1,0,2,2A2,2,0,0,0,11,24Zm0,2.667A.667.667,0,1,1,11.667,26,.667.667,0,0,1,11,26.667Z" transform="translate(-3.667 -10)" fill="#262323"/>
                     </g>
-                </svg>
-              
-                <span class="cart__env-amount">
-                    <span class="cart__amount" data-cart="amount-auaha">{{ cart.amount }}</span>
-                </span>
-           </div>
-        </a>
-        <div class="cart__dropdown" data-minicart={{ store.id }}></div>
-    </div>
+                </g>
+            </svg>
+            
+            <span class="cart__env-amount">
+                <span class="cart__amount" data-cart="amount-auaha">{{ cart.amount }}</span>
+            </span>
+        </div>
+    </a>
 </div>

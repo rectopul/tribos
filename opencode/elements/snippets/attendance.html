@@ -10,20 +10,36 @@
                 </g>
             </svg>
             <span class="attendance__span">Atendimento</span>
+
+            <svg class="arrow" width="7.981" height="5.346" viewBox="0 0 7.981 5.346">
+                <path id="Caminho_329" data-name="Caminho 329" d="M7.062,23.281,10.3,19.443A.757.757,0,0,0,9.716,18.2H3.249a.758.758,0,0,0-.579,1.243L5.9,23.281A.767.767,0,0,0,7.062,23.281Z" transform="translate(-2.493 -18.2)" fill="#262323"/>
+            </svg>
+            
         </div>
         <div class="attendance__main">
 
-            {% if settings.whatsapp %}
+           
                 <div>
-                    <a href="https://api.whatsapp.com/send?phone=55{{ settings.whatsapp | replace({' ':'', '-':'', '(':'', ')':''}) }}" class="attendance__link"  rel="noopener" target="_blank">{{ settings.whatsapp }}</a>
+                    {% if settings.whatsapp %}
+                    <a href="https://api.whatsapp.com/send?phone=55{{ settings.whatsapp | replace({' ':'', '-':'', '(':'', ')':''}) }}" class="attendance__link attendance__whatsapp"  rel="noopener" target="_blank">
+                        <svg width="12" height="12" viewBox="0 0 12 12">
+                            <path id="Caminho_349" data-name="Caminho 349" d="M6,0H6A6,6,0,0,0,1.142,9.517L.395,11.746,2.7,11.009A6,6,0,1,0,6,0Z" fill="#4caf50"/>
+                            <path id="Caminho_350" data-name="Caminho 350" d="M114.243,122.816a1.693,1.693,0,0,1-1.178.847c-.313.067-.723.12-2.1-.451a7.516,7.516,0,0,1-2.987-2.639,3.427,3.427,0,0,1-.713-1.81,1.915,1.915,0,0,1,.614-1.46.872.872,0,0,1,.613-.215c.074,0,.141,0,.2.007.176.007.265.018.381.3.145.349.5,1.21.539,1.3a.357.357,0,0,1,.025.325,1.037,1.037,0,0,1-.194.275c-.088.1-.173.18-.261.289s-.173.2-.071.373a5.326,5.326,0,0,0,.974,1.21,4.411,4.411,0,0,0,1.407.868.379.379,0,0,0,.423-.067,7.258,7.258,0,0,0,.469-.621.335.335,0,0,1,.431-.131c.162.056,1.019.48,1.2.568s.292.131.335.2A1.494,1.494,0,0,1,114.243,122.816Z" transform="translate(-104.75 -114.344)" fill="#fafafa"/>
+                        </svg>
+                        {{ settings.whatsapp }}
+                    </a>
+                    {% endif %}    
+                    {% if settings.whatsapp %}
+                        <a href="https://api.whatsapp.com/send?phone=55{{ settings.whatsapp | replace({' ':'', '-':'', '(':'', ')':''}) }}" class="attendance__link"  rel="noopener" target="_blank">{{ settings.whatsapp }}</a>
+                    {% endif %}
                 </div>
-            {% endif %}
-            
-            {% if settings.whatsapp %}
-                <div>
-                    <a href="https://api.whatsapp.com/send?phone=55{{ settings.whatsapp | replace({' ':'', '-':'', '(':'', ')':''}) }}" class="attendance__link"  rel="noopener" target="_blank">{{ settings.whatsapp }}</a>
-                </div>
-            {% endif %}
+                
+                {% if settings.support %}
+                    <div>
+                        <span>Horários de Funcionamento</span>
+                        <span class="attendance__link--support">{{ settings.support }}</span>
+                    </div>
+                {% endif %}
 
             {% if settings.email %}
                 <div>
@@ -31,10 +47,6 @@
                 </div>
             {% endif %}
 
-            {% if settings.support %}
-                <span class="attendance__link--support">{{ settings.support }}</span>
-            {% endif %}
-            
         </div>
     </div>
 </div>

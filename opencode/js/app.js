@@ -1,5 +1,4 @@
 
-
 const filterTitles = [...document.querySelectorAll('.filter__title')]
 
 if (filterTitles) {
@@ -25,7 +24,7 @@ jQuery('.button__close--navigation').click(function() {
 });
 
 
- 
+
 
  if($('.showcase__list[data-carousel=true]')) {
     $('.showcase__list[data-carousel=true]').each(function(){
@@ -541,6 +540,68 @@ $('.banner--grid .banner__list').not('.slick-initialized').slick({
 });
 }
 
+ if(jQuery('.brands__ul')) {
+    jQuery('.brands__ul').each(function(){
+
+        jQuery(this).not('.slick-initialized').slick({
+            mobileFirst: false,
+            slidesToShow: 8,
+            slidesToScroll: 8,
+            prevArrow: `<button aria-label="prev" type="button" class="slick-prev"><svg width="45px" height="45px" viewBox="0 0 45 45" ><circle id="Oval" stroke="#E8E8E8" stroke-width="2" fill="#FFFFFF" cx="22.5" cy="22.5" r="21.5"></circle><g id="seta" transform="translate(24.000000, 22.500000) rotate(-180.000000) translate(-24.000000, -22.500000) translate(19.000000, 15.000000)" fill="#FF7922" fill-rule="nonzero"><polygon id="Path" transform="translate(5.000000, 7.500000) rotate(-270.000000) translate(-5.000000, -7.500000) " points="10.7312305 2.5 5 8.68341699 -0.731230469 2.5 -2.5 4.4082599 5 12.5 12.5 4.4082599"></polygon></g></svg></button>`,
+            nextArrow: `<button aria-label="prev" type="button" class="slick-next"><svg width="45px" height="45px" viewBox="0 0 45 45" ><circle id="Oval" stroke="#E8E8E8" stroke-width="2" fill="#FFFFFF" cx="22.5" cy="22.5" r="21.5"></circle><g id="seta" transform="translate(24.000000, 22.500000) rotate(-180.000000) translate(-24.000000, -22.500000) translate(19.000000, 15.000000)" fill="#FF7922" fill-rule="nonzero"><polygon id="Path" transform="translate(5.000000, 7.500000) rotate(-270.000000) translate(-5.000000, -7.500000) " points="10.7312305 2.5 5 8.68341699 -0.731230469 2.5 -2.5 4.4082599 5 12.5 12.5 4.4082599"></polygon></g></svg></button>`,
+            responsive: [
+                {
+                    breakpoint: 425,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4   
+                    }
+                }
+            ]   
+        });
+    });
+    
+ }
+
+
+var controls = Array.from(document.querySelectorAll("[aria-controls]"));
+var body = document.querySelector("body");
+
+controls.forEach(control => {
+    control.addEventListener("click", evt => {
+        var currentTarget = evt.currentTarget;
+        var id = `#${currentTarget.getAttribute("aria-controls")}`;
+
+        if (id.indexOf("slick") === -1) {
+                var el = document.querySelector(id);
+                var currentHidden = el.getAttribute("aria-hidden");
+                var hasFixed = el.getAttribute("data-fixed") == "false" ? false : true;
+
+            if (currentHidden != "false" && currentHidden != "true")
+                currentHidden = "true";
+            if (hasFixed) {
+                if (currentHidden === "true") body.classList.add("fixed");
+                else body.classList.remove("fixed");
+            }
+
+            el.setAttribute("aria-hidden", currentHidden === "true" ? false : true);
+            }
+    });
+});
 
 
 
@@ -588,6 +649,7 @@ if(button) {
 
 // document.addEventListener('FAKESELECT', () => { FakeSelect() }, false);
 
+ 
 
 
 
@@ -655,7 +717,6 @@ childs.forEach((child) => {
 
 
 
-
 /* Lazy Load  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -704,6 +765,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 
+
 // import axios from 'axios';
 
 // document.addEventListener("DOMContentLoaded", function(){
@@ -747,7 +809,6 @@ document.addEventListener('DOMContentLoaded', function() {
 //         }
 //     }
 // });
-
 
 
 
@@ -826,5 +887,5 @@ if (typeof $ == 'function') {
     }
 }
 
-
  
+

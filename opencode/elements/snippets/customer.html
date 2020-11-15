@@ -14,11 +14,16 @@
                   
                   
                 Conta/Pedidos
+
+                <svg class="arrow" width="7.981" height="5.346" viewBox="0 0 7.981 5.346">
+                    <path id="Caminho_329" data-name="Caminho 329" d="M7.062,23.281,10.3,19.443A.757.757,0,0,0,9.716,18.2H3.249a.758.758,0,0,0-.579,1.243L5.9,23.281A.767.767,0,0,0,7.062,23.281Z" transform="translate(-2.493 -18.2)" fill="#262323"/>
+                </svg>
+                  
             </a>
         </div>
         <div class="customer__main">
             <div class="tray-hide" data-logged-user="true">
-                <div class="customer__label">
+                <div class="customer__login">
                     Bem vindo!
                     <span data-customer="name"></span>
                 </div>
@@ -28,6 +33,10 @@
                 </div>
             </div>
             <div class="tray-hide" data-logged-user="false">
+                <div class="customer__login">
+                    Bem vindo!
+                    <span data-customer="name"></span>
+                </div>
                 <div class="customer__links">
                     <a href="{{ links.login }}" data-tray-tst="login" class="{{ utils.is_https ? 'modal-login' }}">
                         Acessar conta
