@@ -1,0 +1,191 @@
+{% set categoriaTamanho =  settings.tabelaMedidas__categoria|split(',') %}
+
+{% if settings.TabelaMedidasAtivo %}
+
+<div class="tabela-medidas hide">
+    <div class="tabela-medidas__fixed" style="background-image: url({{asset('img/tabela-bg.jpg')}});">
+        <div class="tabela-medidas__content">
+
+            <span class="tabela-medidas__close">
+                <svg width="20px" height="20px" viewBox="0 0 20 20">
+                    <path
+                        d="M12.8767123,10.3196347 C12.6940639,10.1369863 12.6940639,9.8630137 12.8767123,9.6803653 L19.7260274,2.83105023 C19.9086758,2.64840183 20,2.37442922 20,2.19178082 C20,2.00913242 19.9086758,1.73515982 19.7260274,1.55251142 L18.4474886,0.273972603 C18.2648402,0.0913242009 17.9908676,0 17.8082192,0 C17.5342466,0 17.3515982,0.0913242009 17.1689498,0.273972603 L10.3196347,7.12328767 C10.1369863,7.30593607 9.8630137,7.30593607 9.6803653,7.12328767 L2.83105023,0.273972603 C2.64840183,0.0913242009 2.37442922,0 2.19178082,0 C2.00913242,0 1.73515982,0.0913242009 1.55251142,0.273972603 L0.273972603,1.55251142 C0.0913242009,1.73515982 0,2.00913242 0,2.19178082 C0,2.37442922 0.0913242009,2.64840183 0.273972603,2.83105023 L7.12328767,9.6803653 C7.30593607,9.8630137 7.30593607,10.1369863 7.12328767,10.3196347 L0.273972603,17.1689498 C0.0913242009,17.3515982 0,17.6255708 0,17.8082192 C0,17.9908676 0.0913242009,18.2648402 0.273972603,18.4474886 L1.55251142,19.7260274 C1.73515982,19.9086758 2.00913242,20 2.19178082,20 C2.37442922,20 2.64840183,19.9086758 2.83105023,19.7260274 L9.6803653,12.8767123 C9.8630137,12.6940639 10.1369863,12.6940639 10.3196347,12.8767123 L17.1689498,19.7260274 C17.3515982,19.9086758 17.6255708,20 17.8082192,20 C17.9908676,20 18.2648402,19.9086758 18.4474886,19.7260274 L19.7260274,18.4474886 C19.9086758,18.2648402 20,17.9908676 20,17.8082192 C20,17.6255708 19.9086758,17.3515982 19.7260274,17.1689498 L12.8767123,10.3196347 Z"
+                        id="Path"></path>
+                </svg>
+            </span>
+
+            <div>
+                <div class="tabela">
+                    <div class="tabela-medidas__linha">
+                        {% if settings.tamanho1 %}
+                        <span class="tabela-medidas__coluna tabela-medidas__coluna--title">
+                            {{ settings.tamanho1 }}
+                        </span>
+                        {% endif %}
+                        {% if settings.tamanho2 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho2 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho3 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho3 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho4 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho4 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho5 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho5 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho6 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho6 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho7 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho7 }} </span>
+                        {% endif %}
+                        {% if settings.tamanho8 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho8 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho9 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho9 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho10 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho10 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="tabela-medidas__linha">
+                        {% if settings.tamanho11 %}
+                        <span class="tabela-medidas__coluna tabela-medidas__coluna--title">
+                            {{ settings.tamanho11 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho12 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho12 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho13 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho13 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho14 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho14 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho15 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho15 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho16 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho16 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho17 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho17 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho18 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho18 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho19 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho19 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho20 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho20 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="tabela-medidas__linha">
+                        {% if settings.tamanho21 %}
+                        <span class="tabela-medidas__coluna tabela-medidas__coluna--title">
+                            {{ settings.tamanho21 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho22 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho22 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho23 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho23 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho24 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho24 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho25 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho25 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho26 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho26 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho27 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho27 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho28 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho28 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho29 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho29 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho30 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho30 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="tabela-medidas__linha">
+                        {% if settings.tamanho31 %}
+                        <span class="tabela-medidas__coluna tabela-medidas__coluna--title">
+                            {{ settings.tamanho31 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho32 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho32 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho33 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho33 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho34 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho34 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho35 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho35 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho36 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho36 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho37 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho37 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho38 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho38 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho39 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho39 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho40 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho40 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="tabela-medidas__linha">
+                        {% if settings.tamanho41 %}
+                        <span class="tabela-medidas__coluna tabela-medidas__coluna--title">
+                            {{ settings.tamanho41 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho42 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho42 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho43 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho43 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho44 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho44 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho45 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho45 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho46 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho46 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho47 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho47 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho48 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho48 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho49 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho49 }}</span>
+                        {% endif %}
+                        {% if settings.tamanho50 %}
+                        <span class="tabela-medidas__coluna">{{ settings.tamanho50 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}

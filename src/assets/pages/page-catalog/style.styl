@@ -5,6 +5,10 @@
         border-bottom 1px solid  #dcebeb
         justify-content space-between
         position relative
+        flex-direction column
+
+        @media screen and (min-width 993px)
+            flex-direction row
 
         &--name
             display flex
@@ -21,8 +25,16 @@
             margin-left auto
 
             label.filtros
-                font(Oswald, 14px, 400, $black, 1.5, left)
-                text-transform capitalize
+                font-size 0
+
+                &:before
+                    content 'Ordenar por: '
+                    font(Oswald, 14px, 400, $black, 1.5, left)
+                    text-transform capitalize
+                    margin-right 8px
+
+                &:not(.filtro-ordem)
+                    display none
 
             select
                 height 36px
@@ -31,13 +43,22 @@
                 padding-right 10px
 
         .toolbar__paginate
-            position absolute
-            width 280px
-            left 50%
-            top 50px
-            height 40px
-            margin-left -140px
-            margin-top -20px
+            position relative
+
+            .paginate__count
+                text-align left
+
+                @media screen and (min-width 993px)
+                    text-align center
+
+            @media screen and (min-width 993px)
+                position absolute
+                width 280px
+                left 50%
+                top 50px
+                height 40px
+                margin-left -140px
+                margin-top -20px
 
             font(Oswald, 14px, 700, $black, 1.5, center)
 

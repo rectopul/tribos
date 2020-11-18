@@ -70,6 +70,12 @@ function changeQuantity() {
 
     // thumbs
     jQuery(document).on('thumbs:start', function () {
+        const paymentsLink = document.querySelector('.produto-formas-pagamento a')
+
+        if (paymentsLink) {
+            paymentsLink.href = '#tab-payments'
+        }
+
         var thumbs = jQuery('.thumbs__list')
         if (thumbs) {
             jQuery('.thumbs__list').slick({

@@ -1,7 +1,7 @@
 <div class="paginate">
     <div class="paginate__container">
         <div class="paginate__count">
-            {{ paginate.counter('Encontramos {:count} produto(s) em {:pages} p&aacute;gina(s)') }}
+            {{ paginate.counter('Mostrando <span>{:count} produto(s)</span> em <span>{:pages} p&aacute;gina(s)</span>') }}
         </div>
         
         {% if paginate.params.pageCount > 1 %}
@@ -9,7 +9,7 @@
             {{ paginate.first('primeiro', {'class': 'paginate__link paginate__link--first'}) }}
         
             {% if paginate.hasPrev %}
-                {{ paginate.prev('anterior', {'class': 'paginate__link paginate__link--prev'}) }}
+                {{ paginate.prev('', {'class': 'paginate__link paginate__link--prev'}) }}
             {% endif %}
         
             {{ paginate.numbers({
@@ -20,10 +20,10 @@
             }) }}
         
             {% if paginate.hasNext %}
-                {{ paginate.next('proximo', {'class': 'paginate__link paginate__link--next'}) }}
+                {{ paginate.next('', {'class': 'paginate__link paginate__link--next'}) }}
             {% endif %}
 
-            {{ paginate.last('ultimo', {'class': 'paginate__link paginate__link--last'}) }}
+            {{ paginate.last('', {'class': 'paginate__link paginate__link--last'}) }}
         </div>
         {% endif %}
     </div>

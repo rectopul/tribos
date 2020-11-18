@@ -1,4 +1,5 @@
 
+
 const filterTitles = [...document.querySelectorAll('.filter__title')]
 
 if (filterTitles) {
@@ -24,7 +25,7 @@ jQuery('.button__close--navigation').click(function() {
 });
 
 
-
+ 
 
  if($('.showcase__list[data-carousel=true]')) {
     $('.showcase__list[data-carousel=true]').each(function(){
@@ -139,6 +140,12 @@ function changeQuantity() {
 
     // thumbs
     jQuery(document).on('thumbs:start', function () {
+        const paymentsLink = document.querySelector('.produto-formas-pagamento a')
+
+        if (paymentsLink) {
+            paymentsLink.href = '#tab-payments'
+        }
+
         var thumbs = jQuery('.thumbs__list')
         if (thumbs) {
             jQuery('.thumbs__list').slick({
@@ -649,7 +656,7 @@ if(button) {
 
 // document.addEventListener('FAKESELECT', () => { FakeSelect() }, false);
 
- 
+
 
 
 
@@ -765,7 +772,6 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 
-
 // import axios from 'axios';
 
 // document.addEventListener("DOMContentLoaded", function(){
@@ -815,6 +821,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+
+const tableClose = document.querySelector('.tabela-medidas__close')
+
+//Close tabela de medidas
+
+if (tableClose) {
+    tableClose.addEventListener('click', function (e) {
+        e.preventDefault()
+
+        const modal = tableClose.closest('.tabela-medidas')
+
+        if (modal) modal.classList.add('hide')
+    })
+}
+
+//Open tabela
+
+jQuery(document).on('thumbs:start', function () {
+    const OpenTable = document.querySelector('.tabela-medidas__title')
+
+    const sizeVariation = document.querySelector('.cor_variacao.passo2')
+
+    if (sizeVariation && OpenTable) {
+        if (!sizeVariation.querySelector('.tabela-medidas__title')) {
+            const openClone = OpenTable.cloneNode(true)
+
+            openClone.addEventListener('click', function (e) {
+                e.preventDefault()
+
+                const modal = document.querySelector('.tabela-medidas')
+
+                if (modal) modal.classList.remove('hide')
+            })
+
+            sizeVariation.append(openClone)
+
+            console.log(`Table title: `, sizeVariation)
+        }
+
+        //OpenTable.remove()
+    }
+})
 
 var $ = $tray
 if (typeof $ == 'function') {
@@ -887,5 +936,5 @@ if (typeof $ == 'function') {
     }
 }
 
- 
 
+ 

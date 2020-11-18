@@ -1,10 +1,31 @@
 .paginate 
     text-align: center 
 
+    &__count 
+        span
+            color $pinkish-red
+
     &__pages
         display: inline-flex 
         flex-flow: row wrap 
         margin: 5px -5px
+
+    &__link a,
+    &__link--current 
+        display flex
+        width 45px
+        height 45px
+        padding 12px 18px 12px 19px
+        border solid 1px $reddish-grey
+        background-color #ffffff
+        justify-content center
+        align-items center
+        font(Oswald, 14px, 700, $black, 1.5, left)
+
+    &__link--current 
+        color #fff
+        background-color $pinkish-red
+
 
     &__link a, &__link--current 
         flex: 0 0 auto
@@ -13,7 +34,6 @@
         align-items: center 
         padding: 5px 15px
         margin: 5px 
-        background: rgba(0,0,0,.2)
 
         &:hover 
             text-decoration: none 
@@ -22,8 +42,12 @@
 
 
     &__link 
-        &--number:not(.paginate__link--current)
-            display: none 
+
+        &--next,
+        &--last
+            a
+                &:before
+                    font-size 25px !important
 
         &--first, &--prev, &--next, &--last 
             a 
