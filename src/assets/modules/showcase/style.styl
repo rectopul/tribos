@@ -1,5 +1,12 @@
 .showcase 
     margin: 60px 0
+
+    @media screen and (max-width 992px)
+        .slick-prev
+            left 0
+
+        .slick-next
+            right 0
     
     &__carousel
         @extend $container
@@ -16,6 +23,7 @@
         font-weight 400
         line-height normal
         color color[0]
+        font(Oswald, 45px, 300, #262323, 1.49, center)
 
         strong
             display: block

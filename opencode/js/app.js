@@ -188,6 +188,69 @@ const tool = (() => {
     //private var/functions
     const prices = {}
 
+    const productsSelected = []
+
+    function handleInsertProducts(e) {
+        e.preventDefault()
+
+        return new Promise(async (resolve, reject) => {
+            const dataSession = $('html').attr('data-session')
+
+            const array = Object.keys(prices)
+
+            for (let index = 0; index < array.length; index++) {
+                const element = prices[array[index]]
+
+                const params = {
+                    Cart: {
+                        session_id: dataSession,
+                        product_id: element.product,
+                        quantity: 1,
+                        variant_id: '0',
+                    },
+                }
+
+                if (element.variant) {
+                    const variants = Object.keys(element.variant)
+
+                    const variations = variants.map((variant) => {
+                        return element.variant[variant]
+                    })
+
+                    params.Cart.variant_id = variations.join(',')
+                }
+
+                await fetch(`/web_api/cart/`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify(params),
+                })
+                    .then((r) => r.json())
+                    .then(resolve)
+                    .catch(reject)
+            }
+        })
+    }
+
+    function insertProductsTopCart(selector) {
+        const button = document.querySelector(selector)
+
+        if (!button) return
+
+        button.addEventListener('click', handleInsertProducts)
+    }
+
+    function getProduct(id) {
+        const index = productsSelected.map((product, i) => {
+            if (product.id == id) return i
+        })
+
+        if (index[0]) return index[0]
+        else false
+    }
+
     function selectVariation(selector) {
         const selectors = [...document.querySelectorAll(selector)]
 
@@ -211,6 +274,8 @@ const tool = (() => {
 
                 const type = variation.dataset.type
 
+                const productID = product.dataset.productId
+
                 const category = variation.closest('.toolCategory').dataset.category
 
                 if (input) {
@@ -226,6 +291,14 @@ const tool = (() => {
 
                     handleChangePrice(product)
                 }
+
+                if (!getProduct(productID)) {
+                    productsSelected.push({ id: productID, variant: variant })
+                } else {
+                    productsSelected[getProduct(productID)].variant = variant
+                }
+
+                console.log(`prices`, prices)
             })
         })
     }
@@ -427,7 +500,9 @@ const tool = (() => {
 
         handleChangePrice(slick.$slides[currentSlide])
 
-        const variationsFromProduct = document.querySelector(`.tool__variants--wrapper[data-product="${activeSlick}"]`)
+        const variationsFromProduct = document.querySelector(
+            `.slick-slide.tool__variants--wrapper[data-product="${activeSlick}"]`
+        )
 
         if (!variationsFromProduct) {
             if (variationsContainer) variationsContainer.classList.add('disabled')
@@ -435,13 +510,13 @@ const tool = (() => {
             return
         } else {
             if (variationsContainer) variationsContainer.classList.remove('disabled')
+
+            const indexVariation = variationsFromProduct.dataset.slickIndex
+
+            const slickVariation = variationsFromProduct.closest('.slick-initialized.slick-slider')
+
+            if (indexVariation && slickVariation) $(slickVariation)[0].slick.slickGoTo(indexVariation)
         }
-
-        const indexVariation = variationsFromProduct.dataset.slickIndex
-
-        const slickVariation = variationsFromProduct.closest('.toolCategory__column--variations')
-
-        $(slickVariation).slick.slickGoTo(indexVariation)
     }
 
     function productCarousel(selector) {
@@ -477,8 +552,11 @@ const tool = (() => {
         variationsCarousel,
         removeProduct,
         selectVariation,
+        insertProductsTopCart,
     }
 })()
+
+tool.insertProductsTopCart(`.summary__total--submit`)
 
 tool.removeProduct(`.toolCategory__column--summary header input`)
 
@@ -661,7 +739,6 @@ if(button) {
 
 
 
-
 function debounce(func){
     var timer;
     return function(event){
@@ -719,6 +796,7 @@ childs.forEach((child) => {
 
 // navigationHiddenResize();
 // navigationAlign();
+
 
 
 

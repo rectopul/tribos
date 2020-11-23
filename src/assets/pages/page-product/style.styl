@@ -257,6 +257,7 @@
 
     &__details 
         #info 
+            display none
 
             a
                 font-family Oswald
@@ -306,7 +307,10 @@
                 flex 0 0 100%
 
             > .thumbs
-                flex 0 0 95px
+                flex 0 0 100%
+
+                @media screen and (min-width 993px)
+                    flex 0 0 95px
 
             > .produto-imagem 
                 flex 1

@@ -36,11 +36,25 @@
                 display: none 
     
     &__title
-        font-size: 14px
-        line-height: normal
-        text-align: center
         white-space nowrap
 
+        &, strong
+            font(Oswald, 14px, 700, #262323, normal, center)
+
+        strong
+            display flex
+            justify-content center
+            align-items center
+
+        small
+           font(Oswald, 14px, 400, #262323, normal, center) 
+           margin-left 3px
+
+        i
+
+            font(Oswald, 11px, 300, #847e7e, normal, center) 
+            font-style normal
+            margin-left 3px
 
     @media mobile 
         display: none
