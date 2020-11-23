@@ -1,5 +1,4 @@
-<div id="cart" class="cart" >
-    
+<div id="cart" class="cart" data-minicart-open>
     <a href="{{ links.cart }}" class="cart__link">
         <div class="cart__info">
             <svg width="19.999" height="18" viewBox="0 0 19.999 18">
@@ -17,4 +16,5 @@
             </span>
         </div>
     </a>
+    <div class="cart__dropdown" data-minicart={{ store.id }}></div>
 </div>
