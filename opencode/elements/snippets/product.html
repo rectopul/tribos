@@ -120,6 +120,10 @@
         {% endif %}             
     </div>
 
+    <a class="product__link product__link--button" href="{{ settings.buy_to_cart ? links.cart_add ~ product.id : product.link }}">
+        Ver mais detalhes
+    </a>
+
     <div class="product__main">
         {% set categoryID = '' %}
         {% for category in categories %}

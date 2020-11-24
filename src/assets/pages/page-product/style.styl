@@ -216,11 +216,13 @@
             display: flex 
             min-width 1px
             justify-content center
+            width 100%
 
             @media screen and (min-width 1024px)
                 flex-direction column
                 justify-content flex-start
                 margin initial
+                width initial
 
             > span
                 flex 0 0 33.32%
@@ -254,6 +256,9 @@
                     color $pinkish-red
 
                     //$pinkish-red
+
+                &[data-app="product.additional-label"]
+                    display none
 
     &__details 
         #info 

@@ -45,6 +45,11 @@ const tool = (() => {
                     .then(resolve)
                     .catch(reject)
             }
+
+            var event = new Event('UPDATECART')
+
+            //UPDATECART
+            window.dispatchEvent(event)
         })
     }
 

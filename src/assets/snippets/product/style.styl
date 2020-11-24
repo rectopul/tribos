@@ -18,16 +18,41 @@
     &__label
         display none
 
+.showcase__item
+    &:hover
+        .product__link--button
+            display flex
+
 .product
     max-width 245px
     margin: 0 auto
     transition: ease-out .2s
+
+    
 
     &__header 
         margin-bottom: 20px 
         
     &__link 
         display: block 
+
+        &--button
+            font(Oswald, 13px, 300, #262323, normal, center)
+            display none
+            justify-content center
+            align-items center
+            border solid 1px #262323
+            max-width 156px
+            margin 0 auto
+            height 32px
+            text-transform uppercase
+            text-decoration none
+
+            &:hover
+                background-color #262323
+                color #fff
+                text-decoration none
+
 
     &__figure
         position relative

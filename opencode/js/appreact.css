@@ -703,11 +703,13 @@
     flex: 1 1 auto;
   }
   .minicart__name {
-    color: #767767;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    color: #262323;
     display: block;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 12px;
     margin: 0 0 5px;
     text-transform: uppercase;
   }
@@ -719,10 +721,15 @@
   }
   .minicart__price,
   .minicart__qty {
-    color: #e2b22b;
     font-size: 13px;
-    font-weight: 600;
     line-height: 13px;
+    font-family: Oswald;
+    font-size: 18px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 1.44px;
+    color: #e02a31;
   }
   .minicart__total-label {
     color: #403232;
@@ -772,7 +779,7 @@
   background: #fff;
   z-index: 99999999;
   width: 340px;
-  padding: 30px;
+  padding: 30px 15px;
   border: 1px solid #000;
   top: 100%;
   display: none;
@@ -782,4 +789,19 @@
 }
 .cart:hover .cart__dropdown {
   display: block;
+}
+.minicart__delete {
+  background-color: transparent;
+  padding: 15px 0;
+}
+.minicart__total-price {
+  font-family: Oswald;
+  font-size: 18px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: 1.44px;
+  text-align: center;
+  color: #e02a31;
 }
