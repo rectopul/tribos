@@ -675,6 +675,16 @@
     max-height: 250px;
     overflow: auto;
   }
+  .minicart__list::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+  }
+  .minicart__list::-webkit-scrollbar {
+    width: 6px;
+    background: #f4f4f4;
+  }
+  .minicart__list::-webkit-scrollbar-thumb {
+    background: #f00;
+  }
   .minicart__item {
     border-bottom: 1px solid #ededed;
     padding: 25px 0;
@@ -718,6 +728,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    padding-right: 15px;
   }
   .minicart__price,
   .minicart__qty {
