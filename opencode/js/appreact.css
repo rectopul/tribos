@@ -634,172 +634,32 @@
   .minicart__finish:hover {
     background: #339021;
   }
-  .minicart__delete {
-    background: #fff;
-    border: 1px solid #e74949;
-    border-radius: 3px;
-    font-size: 10px;
-    font-weight: 600;
-    height: 25px;
-    line-height: 25px;
-    margin: 0;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0 10px;
-    transition: all 150ms ease-in-out;
-    visibility: hidden;
-  }
-  .minicart__delete svg {
-    fill: #e74949;
-  }
-  .minicart__delete:hover {
-    background: #e74949;
-    color: #fff;
-  }
-  .minicart__delete:hover svg {
-    fill: #fff;
-  }
-  .minicart__qty:before {
-    content: ' / ';
-  }
 }
-@media (min-width: 1200px) {
-  #cart .dropdown:hover .cart__dropdown {
-    opacity: 1;
-    visibility: visible;
-  }
-  .minicart__list {
-    border-bottom: 1px solid #ededed;
-    margin-bottom: 30px;
-    max-height: 250px;
-    overflow: auto;
-  }
-  .minicart__list::-webkit-scrollbar-track {
-    background-color: #f4f4f4;
-  }
-  .minicart__list::-webkit-scrollbar {
-    width: 6px;
-    background: #f4f4f4;
-  }
-  .minicart__list::-webkit-scrollbar-thumb {
-    background: #f00;
-  }
-  .minicart__item {
-    border-bottom: 1px solid #ededed;
-    padding: 25px 0;
-  }
-  .minicart__item:last-child {
-    border-bottom: 0 none;
-  }
-  .minicart__link {
-    align-items: center;
-    display: flex;
-  }
-  .minicart__image {
-    align-items: center;
-    display: flex;
-    flex: 0 0 auto;
-    justify-content: center;
-    margin-right: 15px;
-    position: relative;
-    width: 70px;
-  }
-  .minicart__image img {
-    max-height: 60px;
-    max-width: 60px;
-  }
-  .minicart__info {
-    flex: 1 1 auto;
-  }
-  .minicart__name {
-    font-family: Montserrat;
-    font-size: 12px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
-    color: #262323;
-    display: block;
-    margin: 0 0 5px;
-    text-transform: uppercase;
-  }
-  .minicart__details {
-    align-items: baseline;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding-right: 15px;
-  }
-  .minicart__price,
-  .minicart__qty {
-    font-size: 13px;
-    line-height: 13px;
-    font-family: Oswald;
-    font-size: 18px;
-    font-weight: 400;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: 1.44px;
-    color: #e02a31;
-  }
-  .minicart__total-label {
-    color: #403232;
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 13px;
-    margin-bottom: 2px;
-    text-align: center;
-    text-transform: uppercase;
-  }
-  .minicart__total-price {
-    color: #e2b22b;
-    display: block;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 16px;
-    text-align: center;
-  }
-  .minicart__finish {
-    background: #75da5b;
-    border: 1px solid #75da5b;
-    border-radius: 3px;
-    box-shadow: 2px 2px 10px 0 rgba(92,19,30,0.15);
-    color: #fff;
-    display: block;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 16px;
-    margin-top: 25px;
-    padding: 16px 20px;
-    text-align: center;
-    text-transform: uppercase;
-    width: auto;
-  }
-  .minicart__finish:hover {
-    background: #fff;
-    color: #75da5b;
-  }
-}
-.minicart__header {
-  display: none;
-}
-.cart__dropdown {
-  position: absolute;
-  right: 0;
+.minicart__qty::before content '/' .minicart__delete {
   background: #fff;
-  z-index: 99999999;
-  width: 340px;
-  padding: 30px 15px;
-  border: 1px solid #000;
-  top: 100%;
-  display: none;
+  border: 1px solid #e74949;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  height: 25px;
+  line-height: 25px;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  transition: all 150ms ease-in-out;
+  visibility: hidden;
 }
-.cart {
-  position: relative;
+.minicart__qty::before content '/' .minicart__delete svg {
+  fill: #e74949;
 }
-.cart:hover .cart__dropdown {
-  display: block;
+.minicart__qty::before content '/' .minicart__delete:hover {
+  background: #e74949;
+  color: #fff;
+}
+.minicart__qty::before content '/' .minicart__delete:hover svg {
+  fill: #fff;
 }
 .minicart__delete {
   background-color: transparent;
@@ -815,4 +675,7 @@
   letter-spacing: 1.44px;
   text-align: center;
   color: #e02a31;
+}
+#kviNaVn-1606232661751 {
+  z-index: 2 !important;
 }
