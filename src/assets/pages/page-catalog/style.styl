@@ -53,25 +53,26 @@
                 background-position-y: 5px;
                 border-radius: 2px;
 
+                font-size 12px
+                color #847E7E
+                line-height normal
+                font-family : 'Oswald', sans-serif  
+
 
         .toolbar__paginate
             position relative
 
             .paginate__count
+                display block
                 text-align left
+                font-size 14px
+                line-height normal
+                font-weight 400
 
-                @media screen and (min-width 993px)
-                    text-align center
-                    margin-left -40px
+                span
+                    font-weight bold
 
-            @media screen and (min-width 993px)
-                position absolute
-                width 280px
-                left 50%
-                top 50px
-                height 40px
-                margin-left -300px
-                margin-top -20px
+
 
             font(Oswald, 14px, 700, $black, 1.5, center)
 
@@ -93,8 +94,11 @@
             border-bottom: solid 1px rgba(0,0,0,.1)
 
         &--bottom 
-            border-top: solid 1px rgba(0,0,0,.1)
-            text-align: right
+            text-align: center
+
+            .paginate__count
+                display none
+
 
     &__content 
         flex: 1 
@@ -188,13 +192,9 @@
         &__toolbar
             &--top 
                 position: relative 
-                margin-bottom: 60px 
+                margin-bottom: 60px
+                 
                 .paginate__pages
                     position: absolute 
                     right: 0 
-                    top: 100% 
-            &--bottom 
-                .paginate__container 
-                    display: flex 
-                    justify-content: space-between
-                    align-items: center 
+                    top: 100%  

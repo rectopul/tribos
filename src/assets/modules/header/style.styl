@@ -20,7 +20,7 @@
         justify-content: space-between
         align-items: center
         margin: 0 auto
-        padding: 5px 15px
+        padding: 10px 15px
 
         &:before 
             content: ''
@@ -127,6 +127,7 @@
 
         &__logo
             flex: 0 0 auto
+            margin-right 30px
 
         &__attendance 
             display: block
@@ -136,12 +137,18 @@
                     opacity 1
                     visibility: visible
 
+                .attendance__header 
+                    svg     
+                        fill    #E02A31
+
+                .attendance__span
+                    color #E02A31
+                    
         &__search 
             flex: 1
             min-width: 0
             position: static
-            padding: 0 25px
-            max-width 700px
+            max-width 706px
 
             [data-scrolling-mode=down] &
                 transform: none 

@@ -32,6 +32,7 @@
                     font-weight: 600
                     white-space: nowrap
 
+
                 &__item
                     &--nv1 
                         color: #000
@@ -106,14 +107,35 @@
                         object-fit: contain 
                 &__ul
                     &--nv1
+                        position relative
                         display: flex 
                         justify-content: space-between
                         flex-flow: row nowrap
                         height: 50px
 
+                    &--nv2
+                        display grid
+                        grid-template-columns repeat(auto-fill, minmax(23%, 1fr))
+                        grid-gap 15px
+
                 &__item 
                     &--hidden 
                         display: none 
+
+                    &:hover
+                        .menu__link--nv1
+                            color #E02A31
+
+                            &:before
+                                content: ''
+                                position: absolute
+                                bottom: 0px
+                                display: block
+                                width: 100%
+                                height: 2px
+                                background: #E02A31
+                                left: 0
+
 
                     &--has-child
                         &:hover 
@@ -121,29 +143,51 @@
                                 opacity: 1 
                                 visibility: visible
 
-                    &--nv1
-                        position: relative
-
                 &__link
                     &--nv1
+                        position relative
                         display: inline-block
-                        padding: (30px / 2)
+                        padding: 14px (30px / 2)
                         color: #fff
                         font-size: 16px
                         text-transform: uppercase
                         font-weight: 600
                         white-space: nowrap
+                        font-family : 'Oswald', sans-serif
+
+
+                        &:before
+                            content: ''
+                            position: absolute
+                            bottom: 0px
+                            left 0
+                            width: 0%
+
+                            display: block
+                            height: 2px
+                            background: #E02A31
+                            transition: all 0.2s ease-in-out
 
                         &:hover
                             color color
                             text-decoration: none
 
+                            &:before
+                                content: ''
+                                position: absolute
+                                bottom: 0px
+                                display: block
+                                width: 100%
+                                height: 2px
+                                background: #E02A31
+                                left: 0
+
                     &--nv2 
                         display: block
                         padding: 5px (30px / 2)
                         text-transform: uppercase
-                        color: #000
-                        font-weight: 700
+                        color: #262323
+                        font-weight: 500
 
                         &:hover
                             color color
@@ -154,14 +198,15 @@
 
                 &--nv2
                     position: absolute 
+                    top 100%
                     left: 0
-
-                    min-width: 250px;
+                    right 0
                     opacity: 0 
                     visibility: hidden
 
                     background: #fff 
                     box-shadow: 0 0 10px rgba(0,0,0,.1)
+                    padding 30px 60px
 
                 &--rtl 
                     left: auto
