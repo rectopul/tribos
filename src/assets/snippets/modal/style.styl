@@ -1,6 +1,10 @@
 .modal-body
     width: 100%
 
+.modal.fade 
+    .modal-dialog
+        max-width calc(100% - 15px)
+
 .modal-header 
     position: relative 
 
@@ -12,6 +16,16 @@
         justify-content: center 
         align-items: center 
         height: 100% 
+        width 48px
+        opacity .6
+        text-shadow: unset
+        color: #222
+        font-size 35px
+        transition: color 222ms ease
+
+        @media desktop 
+            &:hover
+                color: #ff0000
 
 .modal-body
     padding: 15px
@@ -42,8 +56,53 @@
     font-weight: bold
     text-transform: uppercase 
     margin: -15px
-    padding: 15px
+    height 48px
 
 
 .modal-footer:empty 
     display: none 
+
+
+// modal gift
+#modal-form-content
+    .detalhesBrinde
+        width auto
+
+        h3
+            text-align center
+
+        .detalhes
+            padding: 20px
+
+            @media mobile 
+                display block
+
+        .botao
+            position relative
+            transition: opacity 222ms ease
+            line-height 0
+
+            > img
+                opacity 0
+                height 45px
+
+            &:after
+                content: 'Selecionar'
+                font-size 16px
+                line-height 45px
+                height 45px
+                width 100%
+                text-align center
+                color: #ffffff
+                background #222222
+                position: absolute
+                top 0
+                left: 0
+                right 0
+                bottom: 0
+                margin: auto
+                pointer-events: none
+
+            @media desktop 
+                &:hover
+                    opacity: .5

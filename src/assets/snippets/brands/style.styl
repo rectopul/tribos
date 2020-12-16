@@ -2,18 +2,40 @@
     text-align: center
     margin: 60px 0
 
+    &__title
+        display: block
+        font-size: 15px
+        line-height: normal
+        color: #847E7E    
+        font-family: 'Oswald',sans-serif
+        text-align: center
+        
     &__ul
         display: flex
-        padding: 0 15px/2
+        padding: 0 15px
         margin-top 15px
 
+        @media desktop
+            padding 0 50px
     &__item
         position relative
+
+        &--1
+            a
+                align-items: flex-start
+
+        &--3
+            a
+                align-items: flex-end
+
 
     &__image
         margin: 0 auto
         width auto
-        max-width 100%
+        max-width 100px
+        filter: grayscale(0.5);
+        opacity: 0.5;
+        transition: all .2s ease-in-out
 
     &__span
         position: absolute
@@ -22,24 +44,11 @@
         
 
     &__link
-        min-height: 50px
+        min-height: 55px
         display: flex
         align-items: center
 
         &:hover
             img
                 opacity 1
-
-    &__title
-        font-size: 22px;
-        font-weight: normal;
-        line-height: normal;
-        letter-spacing: -0.01px;
-        color: #3c3c3c;
-
-    @media desktop 
-        .slick-next
-            right -50px
-        
-        .slick-prev
-            left: -50px
+                transform scale(1.1)

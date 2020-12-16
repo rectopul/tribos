@@ -4,6 +4,7 @@
         display flex
         justify-content center
         flex-direction column
+
         .prices__price
             font(Oswald, 14px, 400, #262323, 1.44, center)
             text-decoration line-through
@@ -12,6 +13,7 @@
         display flex
         justify-content center
         flex-direction column
+
         .prices__price
             font(Oswald, 18px, 400, #e02a31, 1.44, center)
     
@@ -21,7 +23,8 @@
 .showcase__item
     &:hover
         .product__link--button
-            display flex
+            opacity 1
+            visibility visible
 
 .product
     max-width 245px
@@ -30,21 +33,28 @@
 
     &__header 
         margin-bottom: 20px 
-        
+        position relative
+
     &__link 
         display: block 
 
         &--button
+            position absolute
+            bottom 0px
+            left 50%
+            transform translateX(-50%)
             font(Oswald, 13px, 300, #262323, normal, center)
-            display none
+            opacity 0
+            visibility hidden
             justify-content center
             align-items center
             border solid 1px #262323
             max-width 156px
+            width 100%
             margin 0 auto
-            height 32px
             text-transform uppercase
             text-decoration none
+            padding 5px 0
 
             &:hover
                 background-color #262323
@@ -78,7 +88,9 @@
         min-height: 20px
 
     &__name
+        display block
         min-height: 36px
+        margin-bottom 5px
 
         a
             font-family: 'Montserrat', sans-serif;
@@ -159,9 +171,10 @@
         display: block
         text-align: center
         font-size 18px
-        font-weight 500
+        font-weight 400
         line-height 1.31
         color   #E02A31
+        font-family 'Oswald', sans-serif
 
 
 .lazy-new

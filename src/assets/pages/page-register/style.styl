@@ -1,105 +1,104 @@
 .page-register 
-  main 
-    > .container 
-      > .container 
-        padding: 0
+    main 
+        > .container 
+            > .container 
+                padding: 0
 
-  .carrinho-heading 
-    display: none
-  
-  #CadastroAbas 
-    ul 
-      li 
-        display: inline-block
-        a 
-          background: none
-          border: 0
-          font-size: 12px
-          line-height: 40px
-          text-transform: uppercase
-          width: 100%
-          padding: 0 15px
-          display: inline-block
-          border-top-left-radius: 3px
-          border-top-right-radius: 3px
+    .carrinho-heading 
+        display: none
+    
+    #CadastroAbas 
+        ul 
+            li 
+                display: inline-block
+                a 
+                    background: none
+                    border: 0
+                    font-size: 12px
+                    line-height: 40px
+                    text-transform: uppercase
+                    width: 100%
+                    padding: 0 15px
+                    display: inline-block
+                    border-top-left-radius: 3px
+                    border-top-right-radius: 3px
 
-  .aberta
-    background: color !important
-    border-radius: 3px
-    a
+    .aberta
         background: color !important
+        border-radius: 3px
+        a
+            background: color !important
 
-  form#frm2 
-    background: #f4f4f4
-    padding: 29px
+    form#frm2 
+        background: #f4f4f4
+        padding: 29px
 
-    #tit_cadastro_pf,
-    #tit_cadastro_pj 
-      h2 
-        margin-top: 0
-        line-height: normal
-        font-size: inherit
+        #tit_cadastro_pf,
+        #tit_cadastro_pj 
+            h2 
+                margin-top: 0
+                line-height: normal
+                font-size: inherit
 
-        span 
-          font-weight: 700
-          font-size: 12px
-          text-transform: uppercase
-          color: #333
+                span 
+                font-weight: 700
+                font-size: 12px
+                text-transform: uppercase
+                color: #333
 
     .obriga.red 
-      display: inline-block
-      color: #f55
-
-      &:before 
-        content: ''
         display: inline-block
-        vertical-align: middle
-        width: 2px
-        height: 10px
-        background: #f55
+        color: #f55
+
+        &:before 
+            content: ''
+            display: inline-block
+            vertical-align: middle
+            width: 2px
+            height: 10px
+            background: #f55
 
     strong 
-      font-size: 10px
-      text-transform: uppercase
-      color: #333
-    
-    label 
-      margin: 10px 0
-      width: 400px;
-      font-weight: 400
-      font-size: 11px
-      text-transform: uppercase
-      color: #6e6e6e
-      @media mobile 
-          width: auto
+        font-size: 10px
+        text-transform: uppercase
+        color: #333
+    fieldset
+        label 
+            margin: 10px 0
+            width: 400px;
+            font-weight: 400
+            font-size: 11px
+            text-transform: uppercase
+            color: #6e6e6e
+            @media mobile 
+                width: auto
 
-      &:first-of-type 
-        margin-top: 25px
+            &:first-of-type 
+                margin-top: 25px
+    fieldset
+        input 
+            color: #444
+            margin-top: 5px
+            margin-bottom: 3px
+            padding-left: 15px
+            width: 100% !important
 
-    input 
-      color: #444
-      margin-top: 5px
-      margin-bottom: 3px
-      padding-left: 15px
-      width: 100% !important
-
-      &[type=checkbox] 
-        display: inline-block
-        vertical-align: text-bottom
-        margin: 0 6px 0 0
-        width: 15px !important
-        height: 15px
+            &[type=checkbox] 
+                display: inline-block
+                vertical-align: text-bottom
+                margin: 0 6px 0 0
+                width: 15px !important
+                height: 15px
 
     select 
-      margin-top: 5px
-      padding-left: 15px
-      width: 100%
-      height: 40px
-      border: 1px solid rgba(0, 0, 0, 2/10)
+        margin-top: 5px
+        padding-left: 15px
+        width: 100%
+        height: 40px
+        border: 1px solid rgba(0, 0, 0, 2/10)
 
-
-      &:focus 
-        border-color: $cor01
+        &:focus 
+            border-color: $cor01
 
     #span_cep_nacional,
     #cep_nacional_span 
@@ -134,7 +133,7 @@
         color: #333
 
 
-    button 
+    .botao-prosseguir-cadastro
       display: block
       margin-top: 50px
       padding: 0 16px
@@ -156,35 +155,36 @@
       img 
         display: none;
     
-.text.inputErro,
-.text.obriga 
-  border-left: 3px solid #f00;
+    .text.inputErro,
+    .text.obriga 
+        border-left: 3px solid #f00;
 
-span.cadastro_nacional
-    display: flex !important;
-    align-items:center;
+    span.cadastro_nacional
+        display: flex !important;
+        align-items:center;
+        
+    fieldset
+        form input,
+        form input.form-control,
+        form textarea 
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            box-shadow: none;
+            color: white;
+            font-size: 12px;
+            height: 40px;
+            width: 100%;
+            color: #333;
 
-form input,
-form input.form-control,
-form textarea 
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  box-shadow: none;
-  color: white;
-  font-size: 12px;
-  height: 40px;
-  width: 100%;
-  color: #333;
-
-.Seguro
-    display: none
+    .Seguro
+        display: none
 
 
 

@@ -59,10 +59,16 @@
         text-decoration: line-through
 
 #info_preco
+    br
+        display none
 
     .precoAvista
-        font(Oswald, 30px, 700, $pinkish-red, 1.5, left)
-        
+        font(Oswald, 30px, 700, $pinkish-red, 30px, left)
+
+        &:after
+            content ''
+            display block
+            width 100%
 
     .txt-avista,
     .txt-com-desconto,
@@ -74,15 +80,15 @@
         font-size 0
 
         strong
-            font(Oswald, 20px, 300, $black, 1.5, left)
+            font(Oswald, 20px, 300, $black, 30px, left)
 
     .preco-de
-        font(Oswald, 20px, 300, $black, 1.5, left)  
+        font(Oswald, 20px, 300, $black, 30px, left)  
         margin 0 5px
 
     .txt-cadaparcelas
         .preco-parc2
-            font(Oswald, 20px, 300, $black, 1.5, left)
+            font(Oswald, 20px, 300, $black, 30px, left)
 
 
 
@@ -484,7 +490,7 @@
         &__essential 
             display: grid
             grid-template-areas: "image header" "image details"
-            grid-template-columns: 1fr 50%
+            grid-template-columns: 1fr 530px
             grid-template-rows: auto 1fr
 
         &__image 
