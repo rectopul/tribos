@@ -99,13 +99,17 @@
                 {% endif %}
 
                 <main class="main">
+                    {% if pages.current == 'page-product' %} 
                     <div class="main__container">
                         {% if pages.current == 'tool' %} 
-                        {% element 'tool' %} 
+                            {% element 'tool' %} 
                         {% else %} 
-                        {{ content_for_layout }} 
+                            {{ content_for_layout }} 
                         {% endif %}
                     </div>
+                    {% else %} 
+                        {{ content_for_layout }} 
+                    {% endif %} 
                 </main>
 
                 {% if settings.hottags_position == 2 %}

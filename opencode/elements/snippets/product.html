@@ -8,7 +8,7 @@
                 
                  {% if product.images[0] and product.images[1] %}
                     <img class="product__image product__image--on lazy-new" 
-                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    src="{{ product.images[0].full }}" 
                     data-src="{{ product.images[0].full }}" 
                     data-srcset="{{ product.images[0].full }}" 
                     alt="{{ product.name }}"
@@ -16,9 +16,10 @@
                     width="180"
                     height="180"
                     layout="responsive">
+    
                     
                     <img class="product__image product__image--hover lazy-new" 
-                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    src="{{ product.images[1].full }}" 
                     data-src="{{ product.images[1].full }}" 
                     data-srcset="{{ product.images[1].full }}" 
                     alt="{{ product.name }}"
@@ -26,10 +27,11 @@
                     width="180"
                     height="180"
                     layout="responsive">
+
                     
                  {% else %}
                     <img class="product__image lazy-new" 
-                    src="{{ asset('img/ajax-loader.gif') }}" 
+                    src="{{ product.images[0].full }}" 
                     data-src="{{ product.images[0].full }}" 
                     data-srcset="{{ product.images[0].full }}" 
                     alt="{{ product.name }}"

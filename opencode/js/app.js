@@ -743,6 +743,7 @@ if(button) {
 
 
 
+
 function debounce(func){
     var timer;
     return function(event){
@@ -800,7 +801,6 @@ childs.forEach((child) => {
 
 // navigationHiddenResize();
 // navigationAlign();
-
 
 
 
