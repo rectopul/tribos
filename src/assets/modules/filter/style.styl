@@ -16,6 +16,8 @@
 
     &__block 
         min-height: 50px
+        border-bottom: 1px solid #DCEBEB
+
         &.show
 
             .filter
@@ -24,8 +26,7 @@
                     &:after 
                         content '-'
                 &__list
-                    max-height initial
-                    
+                    max-height initial                
 
     &__title 
         text-transform: capitalize 
@@ -34,15 +35,11 @@
         justify-content space-between
         font(Oswald, 16px, 400, $black, 1.56, left)
 
-        
-
         &:after
             content '+'
             font(Oswald, 22px, 500, $black, 1.14, right)
             display inline-block
             cursor pointer
-
-        
 
     &__name 
         margin-right: 3px
@@ -83,3 +80,5 @@
     &__button 
         width: 100%
         background #E02A31
+        opacity 0   
+        visibility hidden   

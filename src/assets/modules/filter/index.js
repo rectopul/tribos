@@ -11,3 +11,7 @@ if (filterTitles) {
         })
     })
 }
+
+jQuery('.filter__item').on('click', function () {
+    jQuery('.filter__form').submit()
+});

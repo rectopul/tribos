@@ -40,7 +40,7 @@
 
     {# Payment Methods #}
     {% if payments %}
-        <div aria-controls="tab-payments" class="product-tabs__tab">
+        <div aria-controls="tab-payments" class="product-tabs__tab tab-payments">
             <h3 class="product-tabs__title title title--medium">{{ payments['description'] }}</h3>
         </div>
         <div data-fixed="false" aria-hidden="true" id="tab-payments" class="product-tabs__content" data-url="{{ payments['url'] }}" ></div>
